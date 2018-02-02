@@ -1,0 +1,228 @@
+%==============================================================================
+% Masters Thesis Document
+% This document template is adapted by Lester James V. Miranda
+% for his Masters thesis in Waseda University.
+%
+% Using LaTeX Template Version 2.5 (27/8/17)
+% The template was downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% Version 2.x major modifications by:
+% Vel (vel@latextemplates.com)
+%
+% This template is based on a template by:
+% Steve Gunn (http://users.ecs.soton.ac.uk/srg/softwaretools/document/templates/)
+% Sunil Patel (http://www.sunilpatel.co.uk/thesis-template/)
+%
+% Template license:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%==============================================================================
+
+%------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%------------------------------------------------------------------------------
+
+\documentclass[11pt,english,oneside,liststotoc,singlespacing,headsepline,chapterinoneline, consistentlayout]{style}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{mathptmx}
+\usepackage[backend=bibtex,style=authoryear,natbib=true]{biblatex}
+\usepackage[autostyle=true]{csquotes}
+
+\addbibresource{bibliography.bib}
+
+%------------------------------------------------------------------------------
+%	MARGIN SETTINGS
+%------------------------------------------------------------------------------
+
+\geometry{
+    paper=letterpaper, % Change to letterpaper for US letter
+    %inner=2.5cm, % Inner margin
+    %outer=3.8cm, % Outer margin
+    %bindingoffset=.5cm, % Binding offset
+    top=1.5cm, % Top margin
+    bottom=1.5cm, % Bottom margin
+    %showframe, % Uncomment to show how the type block is set on the page
+}
+
+%------------------------------------------------------------------------------
+%	THESIS INFORMATION
+%------------------------------------------------------------------------------
+
+\thesistitle{
+    Working title
+    %Feature Extraction using an Autoencoder with Mutual Competition
+    %for Protein Function Prediction
+}
+\supervisor{Dr. Jinglu Hu}
+\degree{Master of Engineering}
+\author{Lester James V. Miranda}
+\addresses{}
+
+\subject{Masters Thesis of Lester James V. Miranda}
+\keywords{
+    machine learning,
+    bioinformatics,
+    feature extraction,
+    multi-label classification
+}
+\university{Waseda University}
+\department{Graduate School of Information, Production, and Systems}
+\group{Furuzuki Neurocomputing Systems Laboratory}
+\faculty{Information Architecture}
+
+\AtBeginDocument{
+\hypersetup{pdftitle=\ttitle}
+\hypersetup{pdfauthor=\authorname}
+\hypersetup{pdfcreator=\authorname}
+\hypersetup{pdfproducer=\authorname}
+\hypersetup{pdfkeywords=\keywordnames}
+\hypersetup{pdfsubject=\subject}
+}
+
+\begin{document}
+
+\frontmatter
+
+\pagestyle{plain}
+
+%------------------------------------------------------------------------------
+%	TITLE PAGE
+%------------------------------------------------------------------------------
+
+\begin{titlepage}
+\begin{center}
+\vspace*{.02\textheight}
+{\LARGE \bfseries \ttitle}\vspace{2.5cm} % Thesis title
+
+{\Large 44161652-3: \authorname} % Author name
+\vfill 
+
+{\normalsize \degreename} \\[2.5cm] % Degree
+
+{\normalsize Supervisor: \supname} \\[2.5cm] % Supervisor's name
+
+{\normalsize \groupname} \\        % Laboratory affilation
+{\normalsize \facname}   \\        % Faculty affiliation
+{\normalsize \deptname}  \\[0.5cm] % Departmental affiliation
+
+{\normalsize \univname} \\[0.5cm] % University affiliation
+
+{\normalsize \today} % Current date
+\end{center}
+\end{titlepage}
+
+%------------------------------------------------------------------------------
+%	SECOND TITLE PAGE
+%------------------------------------------------------------------------------
+\begin{titlepage}
+\begin{center}
+\thispagestyle{empty}
+\vspace*{.02\textheight}
+{\ttitle} \\[2.5cm] % Thesis title
+{44161652-3: \authorname} \\[2.5cm] % Author name
+{
+    A thesis submitted to the Graduate School of \\
+    Information, Production, and Systems\\
+    Waseda University\\
+    in partial fulfillment of the requirements for the degree of
+} \\[1.2cm]
+
+{\degreename} \\[2.5cm]
+{Supervisor: \supname} \vfill
+
+{\deptname}\\[1.0cm]
+{\univname}\\[1.0cm]
+{\today} \vfill
+
+{Copyright \textcopyright 2018 44161652-3: \authorname} \\[0.2cm]
+All Rights Reserved
+
+
+\end{center}
+\end{titlepage}
+%------------------------------------------------------------------------------
+%	ABSTRACT PAGE
+%------------------------------------------------------------------------------
+
+\begin{abstract}
+\addchaptertocentry{\abstractname} % Add the abstract to the table of contents
+
+
+\vfill
+\noindent \textbf{Keywords}\textemdash\keywordnames
+\end{abstract}
+
+%------------------------------------------------------------------------------
+%	ACKNOWLEDGEMENTS
+%------------------------------------------------------------------------------
+
+\begin{acknowledgements}
+\addchaptertocentry{\acknowledgementname} % Add the acknowledgements to the table of contents
+
+\end{acknowledgements}
+
+%------------------------------------------------------------------------------
+%	LIST OF CONTENTS/FIGURES/TABLES PAGES
+%------------------------------------------------------------------------------
+
+\tableofcontents % Prints the main table of contents
+
+\listoffigures % Prints the list of figures
+
+\listoftables % Prints the list of tables
+
+%----------------------------------------------------------------------------------------
+%	SYMBOLS
+%----------------------------------------------------------------------------------------
+
+\begin{symbols}{lll} % Include a list of Symbols (a three column table)
+
+$a$ & distance & \si{\meter} \\
+$P$ & power & \si{\watt} (\si{\joule\per\second}) \\
+%Symbol & Name & Unit \\
+
+\addlinespace % Gap to separate the Roman symbols from the Greek
+
+$\omega$ & angular frequency & \si{\radian} \\
+
+\end{symbols}
+
+
+%----------------------------------------------------------------------------------------
+%	THESIS CONTENT - CHAPTERS
+%----------------------------------------------------------------------------------------
+
+\mainmatter % Begin numeric (1,2,3...) page numbering
+
+\pagestyle{thesis} % Return the page headers back to the "thesis" style
+
+%\include{chapters/Chapter1}
+%\include{Chapters/Chapter2} 
+%\include{Chapters/Chapter3}
+%\include{Chapters/Chapter4} 
+%\include{Chapters/Chapter5} 
+
+%----------------------------------------------------------------------------------------
+%	THESIS CONTENT - APPENDICES
+%----------------------------------------------------------------------------------------
+
+\appendix % Cue to tell LaTeX that the following "chapters" are Appendices
+
+% Include the appendices of the thesis as separate files from the Appendices folder
+% Uncomment the lines as you write the Appendices
+
+% \include{Appendices/AppendixA}
+%\include{Appendices/AppendixB}
+%\include{Appendices/AppendixC}
+
+%----------------------------------------------------------------------------------------
+%	BIBLIOGRAPHY
+%----------------------------------------------------------------------------------------
+
+\printbibliography[heading=bibintoc]
+
+%----------------------------------------------------------------------------------------
+
+\end{document}  
