@@ -6,6 +6,7 @@
 BUILDDIR = _build
 COMPILER = pdflatex
 PROJECT = main
+BIBLIOGRAPHY = bibliography
 
 latex:
 	@echo "Building $(PROJECT) in $(BUILDDIR) directory using $(COMPILER)..."
@@ -15,7 +16,8 @@ latex:
 	@mkdir $(BUILDDIR)/chapters
 	@$(COMPILER) -interaction=nonstopmode -halt-on-error -output-directory=$(BUILDDIR) $(PROJECT).tex
 	@echo "First pass (via $(COMPILER)) done!"
-	@bibtex $(BUILDDIR)/$(PROJECT)
+	@cp $(BIBLIOGRAPHY).bib $(BUILDDIR)
+	@biber --output-directory=$(BUILDDIR) $(PROJECT)
 	@echo "Second pass (via bibtex) done!"
 	@$(COMPILER) -interaction=nonstopmode -halt-on-error -output-directory=$(BUILDDIR) $(PROJECT).tex
 	@echo "Third pass (via $(COMPILER)) done!"
