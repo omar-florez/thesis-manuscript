@@ -23,11 +23,11 @@
 %	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
 %------------------------------------------------------------------------------
 
-\documentclass[11pt,english,oneside,liststotoc,singlespacing,headsepline,chapterinoneline, consistentlayout]{style}
+\documentclass[11pt,english,oneside,liststotoc,singlespacing,headsepline,consistentlayout]{style}
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage{mathptmx}
-\usepackage[backend=bibtex,style=authoryear,natbib=true]{biblatex}
+\usepackage[backend=biber,style=authoryear,natbib=true]{biblatex}
 \usepackage[autostyle=true]{csquotes}
 
 \addbibresource{bibliography.bib}
@@ -53,8 +53,6 @@
 \thesistitle{
     Predicting Protein Functions via Selective Feature Extraction
     using a Mutually-Competitive Autoencoder
-    %Feature Extraction using an Autoencoder with Mutual Competition
-    %for Protein Function Prediction
 }
 \supervisor{Dr. Jinglu Hu}
 \degree{Master of Engineering}
@@ -139,10 +137,10 @@
 
 {Copyright \textcopyright 2018 44161652-3: \authorname} \\[0.2cm]
 All Rights Reserved
-
-
 \end{center}
 \end{titlepage}
+
+
 %------------------------------------------------------------------------------
 %	ABSTRACT PAGE
 %------------------------------------------------------------------------------
@@ -174,9 +172,9 @@ All Rights Reserved
 
 \listoftables % Prints the list of tables
 
-%----------------------------------------------------------------------------------------
+%------------------------------------------------------------------------------
 %	SYMBOLS
-%----------------------------------------------------------------------------------------
+%------------------------------------------------------------------------------
 
 \begin{symbols}{lll} % Include a list of Symbols (a three column table)
 
@@ -191,23 +189,21 @@ $\omega$ & angular frequency & \si{\radian} \\
 \end{symbols}
 
 
-%----------------------------------------------------------------------------------------
+%------------------------------------------------------------------------------
 %	THESIS CONTENT - CHAPTERS
-%----------------------------------------------------------------------------------------
+%------------------------------------------------------------------------------
 
 \mainmatter % Begin numeric (1,2,3...) page numbering
 
 \pagestyle{thesis} % Return the page headers back to the "thesis" style
 
-%\include{chapters/Chapter1}
-%\include{Chapters/Chapter2} 
-%\include{Chapters/Chapter3}
-%\include{Chapters/Chapter4} 
-%\include{Chapters/Chapter5} 
+\include{chapters/01-introduction}
+\include{chapters/02-literature-review}
 
-%----------------------------------------------------------------------------------------
+
+%------------------------------------------------------------------------------
 %	THESIS CONTENT - APPENDICES
-%----------------------------------------------------------------------------------------
+%------------------------------------------------------------------------------
 
 \appendix % Cue to tell LaTeX that the following "chapters" are Appendices
 
