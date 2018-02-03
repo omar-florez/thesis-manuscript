@@ -2,15 +2,9 @@ sudo: required
 dist: trusty
 before_install:
 - openssl aes-256-cbc -K $encrypted_65b80f527c7e_key -iv $encrypted_65b80f527c7e_iv -in .dropbox_uploader.enc -out ~/.dropbox_uploader -d
-- sudo apt-get -qq update && sudo apt-get install -y --no-install-recommends texlive-fonts-recommended
-  texlive-latex-extra texlive-fonts-extra dvipng texlive-latex-recommended texlive-xetex
-- sudo apt-get install -y xzdec
-- sudo apt-get install -y biber
-- sudo tlmgr init-usertree
-- sudo tlmgr option repository ftp://tug.org/historic/systems/texlive/2015/tlnet-final
-- sudo tlmgr install hyperref parskip babel tools graphics xcolor
+- ./tlsetup.sh
+
 script:
 - make latex COMPILER=xelatex
-- chmod +x dropbox_uploader.sh
 - ./dropbox_uploader.sh upload _build/main.pdf ${TRAVIS_BRANCH}/main-latest.pdf
 - ./dropbox_uploader.sh upload _build/main.pdf ${TRAVIS_BRANCH}/main-${TRAVIS_JOB_NUMBER}.pdf
