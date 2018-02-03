@@ -1,6 +1,7 @@
 # Thesis Manuscript
 
 [![Waseda University](https://img.shields.io/badge/research-Waseda_University-brightgreen.svg)](http://www.waseda.jp/sem-hflab/nclab/)
+[![Build Status](https://travis-ci.com/ljvmiranda921/thesis-manuscript.svg?token=AxBhoJS4fomNDw4sgFsV&branch=master)](https://travis-ci.com/ljvmiranda921/thesis-manuscript)
 
 This repository contains the LaTeX files of my thesis manuscript during my
 Master's degree in Waseda University (A.Y. 2016-2018). It uses an adapted version of the [Masters/Doctoral Thesis](https://www.latextemplates.com/template/masters-doctoral-thesis) template originally created by [Gunn](http://users.ecs.soton.ac.uk/srg/softwaretools/document/templates/) and [Patel](www.sunilpatel.co.uk/thesis-template/).
