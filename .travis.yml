@@ -1,6 +1,7 @@
 sudo: required
 dist: trusty
 before_install:
+- openssl aes-256-cbc -K $encrypted_65b80f527c7e_key -iv $encrypted_65b80f527c7e_iv -in .dropbox_uploader.enc -out ~/.dropbox_uploader -d
 - sudo apt-get -qq update && sudo apt-get install -y --no-install-recommends texlive-fonts-recommended
   texlive-latex-extra texlive-fonts-extra dvipng texlive-latex-recommended texlive-xetex
 - sudo apt-get install -y xzdec
@@ -10,3 +11,6 @@ before_install:
 - sudo tlmgr install hyperref parskip babel tools graphics xcolor
 script:
 - make latex COMPILER=xelatex
+- chmod +x dropbox_uploader.sh
+- ./dropbox_uploader.sh upload _build/main.pdf ${TRAVIS_BRANCH}/main-latest.pdf
+- ./dropbox_uploader.sh upload _build/main.pdf ${TRAVIS_BRANCH}/main-${TRAVIS_JOB_NUMBER}.pdf
