@@ -17,14 +17,13 @@ latex:
 	@$(COMPILER) -interaction=nonstopmode -halt-on-error -output-directory=$(BUILDDIR) $(PROJECT).tex
 	@echo "First pass (via $(COMPILER)) done!"
 	@cp $(BIBLIOGRAPHY).bib $(BUILDDIR)
-	@biber --output-directory=$(BUILDDIR) $(PROJECT)
+	@biber --output_directory=$(BUILDDIR) $(PROJECT)
 	@echo "Second pass (via bibtex) done!"
 	@$(COMPILER) -interaction=nonstopmode -halt-on-error -output-directory=$(BUILDDIR) $(PROJECT).tex
 	@echo "Third pass (via $(COMPILER)) done!"
 	@$(COMPILER) -interaction=nonstopmode -halt-on-error -output-directory=$(BUILDDIR) $(PROJECT).tex
 	@echo "Fourth pass (via $(COMPILER)) done!"
 	@echo "Compilation done. Output file can be seen in $(BUILDDIR)"
-	@evince $(BUILDDIR)/$(PROJECT).pdf
 
 clean:
 	@rm -rf $(BUILDDIR)
