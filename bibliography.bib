@@ -2,7 +2,40 @@
 % Bioinformatics Theory
 % ======================
 
-@InBook{GOHandbook:Springer,
+@article{marcotte1999combined,
+  title={A combined algorithm for genome-wide prediction of protein function},
+  author={Marcotte, Edward M and Pellegrini, Matteo and Thompson, Michael J and Yeates, Todd O and Eisenberg, David},
+  journal={Nature},
+  volume={402},
+  number={6757},
+  pages={83},
+  year={1999},
+  publisher={Nature Publishing Group}
+}
+
+@article{eisenberg2000protein,
+  title={Protein function in the post-genomic era},
+  author={Eisenberg, David and Marcotte, Edward M and Xenarios, Ioannis and Yeates, Todd O},
+  journal={Nature},
+  volume={405},
+  number={6788},
+  pages={823},
+  year={2000},
+  publisher={Nature Publishing Group}
+}
+
+@article{devos2000practical,
+  title={Practical limits of function prediction},
+  author={Devos, Damien and Valencia, Alfonso},
+  journal={Proteins: Structure, Function, and Bioinformatics},
+  volume={41},
+  number={1},
+  pages={98--107},
+  year={2000},
+  publisher={Wiley Online Library}
+}
+
+@InBook{gaudet2017gene,
     author = {Pascale Gaudet and Nives Skunca and James Hu and Christophe Dessimoz},
     editor = {Christophe Dessimoz and Nives Skunca},
     title = {The Gene Ontology Handbook},
@@ -11,7 +44,15 @@
     year = {2017}
 }
 
-@InBook{GOHandbookThroughput:Springer,
+@InBook{xiong2006essential,
+    author = {Jin Xiong},
+    title = {Essential Bioinformatics},
+    chapter = {Functional Genomics},
+    publisher = {Cambridge University Press},
+    year = {2006}
+}
+
+@InBook{cozzetto2017computational,
     author = {Domenico Cozzetto and David Jones},
     ALTeditor = {Christophe Dessimoz and Nives Skunca},
     title = {The Gene Ontology Handbook},
@@ -20,7 +61,18 @@
     year = {2017}
 }
 
-@Book{MLBioinfo,
+@article{mewes2006mips,
+  title={MIPS: analysis and annotation of proteins from whole genomes in 2005},
+  author={Mewes, Hans-Werner and Frishman, Dmitrij and Mayer, Klaus FX and M{\"u}nsterk{\"o}tter, Martin and Noubibou, Octave and Pagel, Philipp and Rattei, Thomas and Oesterheld, Matthias and Ruepp, Andreas and St{\"u}mpflen, Volker},
+  journal={Nucleic acids research},
+  volume={34},
+  number={suppl\_1},
+  pages={D169--D172},
+  year={2006},
+  publisher={Oxford University Press}
+}
+
+@Book{baldi2001bioinformatics,
     author = {Pierre Baldi and S{\o}ren Brunak},
     title = {Bioinformatics},
     subtitle = {The Machine Learning Approach},
@@ -28,13 +80,6 @@
     publisher = {MIT Press}
 }
 
-
-@online{EvidenceCode:GO,
-    author = {Gene Ontology Consortium},
-    title = {Guide to GO Evidence Codes},
-    year = {2015},
-    url = {http://www.geneontology.org/page/guide-go-evidence-codes}
-}
 
 % =====================
 % General Deep Learning
@@ -77,7 +122,29 @@
 % Autoencoders
 % =============
 
-@inproceedings{Baldi:GOAutoeencoder,
+
+@article{theis2017lossy,
+  title={Lossy image compression with compressive autoencoders},
+  author={Theis, Lucas and Shi, Wenzhe and Cunningham, Andrew and Husz{\'a}r, Ferenc},
+  journal={arXiv preprint arXiv:1703.00395},
+  year={2017}
+}
+
+
+@inproceedings{zhai2016semisupervised,
+  title={Semisupervised Autoencoder for Sentiment Analysis.},
+  author={Zhai, Shuangfei},
+  year={2016}
+}
+
+@inproceedings{wang2017feature,
+  title={Feature Selection Guided Auto-Encoder.},
+  author={Wang, Shuyang and Ding, Zhengming and Fu, Yun},
+  booktitle={Proceedings of the Thirty-First AAAI Conference on Artificial Intelligence},
+  year={2017}
+}
+
+@inproceedings{chicco2014deep,
     author = {Davide Chicco and Peter Sadowski and Pierre Baldi},
     title = {Deep autoencoder neural networks for gene ontology annotation predictions},
     booktitle = {Proceedings of the 5th ACM Conference on Bioinformatics, Computational Biology, and Health Informatics},
@@ -86,7 +153,7 @@
     OPTpages = {533-540}
 }
 
-@inproceedings{Vincent:DAE,
+@inproceedings{vincent2008denoising,
     author = {Pascal Vincent and Hugo Larochelle and Yoshua Bengio and Pierre-Antoine Manzagol},
     title = {Extracting and composing robust features with denoising autoencoders},
     booktitle = {Proceedings of the 25th International Conference on Machine Learning},
@@ -95,7 +162,7 @@
     OPTpages = {1096-1103}
 }
 
-@article{Vincent:SDAE,
+@article{vincent2010stacked,
     author = {Pascal Vincent and Hugo Larochelle and Isabelle Lajoie and Yoshua Bengio and Pierre-Antoine Manzagol},
     title = {Stacked Denoising Autoencoders: Learning Useful Representations in a Deep Network with a Local Denoising Criterion},
     journaltitle = {Journal of Machine Learning Research},
@@ -104,22 +171,15 @@
     OPTpages = {3371-3408}
 }
 
-@article{Langkvist:CRSAE,
-    author = {Martin L{\"a}ngkvist and Amy Loutfi},
-    title = {Learning Feature Representations with a Cost-Relevant Sparse Autoencoder},
-    journaltitle = {International Journal of Neural Systems},
-    year = {2005},
-    OPTpages = {1-11}
-}
 
-@inproceedings{Wang:FSGA,
+@inproceedings{wang2017features,
     author = {Shuyang Wang and Zhengming Ding and Yun Fu},
     title = {Feature Selection Guided Auto-Encoder},
     booktitle = {Proceedings of the Thirty-First AAAI Conference on Artificial Intelligence},
     year = {2017}
 }
 
-@inproceedings{Rifai:CAE,
+@inproceedings{rifai2011contractive,
     author = {Salah Rifai and Pascal Vincent and Xavier Muller and Xavier Glorot and Yoshua Bengio},
     title = {Contractive Auto-encoders Explicit Invariance During Feature Extraction},
     booktitle = {Proceedings of the 28th International Conference on Machine Learning},
@@ -127,42 +187,42 @@
     OPTvenue = {Bellevue USA}
 }
 
-@inproceedings{Hinton:AE,
+@inproceedings{hinton1994autoencoders,
     author = {Geoffrey Hinton and Richard Zemel},
     title = {Autoencoders, minimum description length, and helmholtz free energy},
     booktitle = {Neural Information Processing Systems},
     year = {1994}
 }
 
-@inproceedings{Coates:SparseAE,
+@inproceedings{coates2011sparse,
     author = {Adam Coates and Andrew Ng},
     title = {The importance of encoding versus training with sparse coding and vector quantization},
     booktitle = {Proceedings of the 28th International Conference on Machine Learning},
     year = {2011}
 }
 
-@inproceedings{Makhzani:kSparse,
+@inproceedings{makhzani2014ksparse,
     author = {Alireza Makhzani and Brendan Frey},
     title = {k-Sparse Autoencoders},
     booktitle = {International Conference on Learning Representations},
     year = {2014}
 }
 
-@inproceedings{Makhzani:FCWTA,
+@inproceedings{makhzani2015winner,
     author = {Alireza Makhzani and Brendan Frey},
     title = {Winner-Take-All Autoencoders},
     booktitle = {Neural Information Processing Systems},
     year = {2015}
 }
 
-@inproceedings{Chen:KATE,
+@inproceedings{chen2017kate,
     author = {Yu Chen and Mohammed Zaki},
     title = {KATE: K-Competitive Autoencoder for Text},
     booktitle = {Knowledge Discovery and Data Mining},
     year = {2017}
 }
 
-@article{Kamyshanska:PotentialAE,
+@article{kamyshanka2014potential,
     author = {Hanna Kamyshanska and Roland Memisevic},
     title = {The Potential Energy of an Autoencoder},
     journaltitle = {IEEE Transactions on Pattern Analysis and Machine Intelligence},
@@ -173,7 +233,15 @@
 % Multi-Label Classification
 % ==========================
 
-@article{Tsoumakas:MLC,
+@inproceedings{zhou2014learning,
+  title={Learning deep features for scene recognition using places database},
+  author={Zhou, Bolei and Lapedriza, Agata and Xiao, Jianxiong and Torralba, Antonio and Oliva, Aude},
+  booktitle={Advances in neural information processing systems},
+  pages={487--495},
+  year={2014}
+}
+
+@article{tsoumakas2007multilabel,
     author = {G. Tsoumakas and I. Katakis},
     title = {Multilabel classification: an overview},
     journal = {International Journal of Data Warehouse and Mining},
@@ -181,7 +249,7 @@
     volume = {3}
 }
 
-@article{Zhang:MLC,
+@article{zhang2014review,
     author = {Min-Ling Zhang and Zhi-Hua Zhou},
     title = {A Review on Multi-Label Learning Algorithms},
     journal = {IEEE Transactions on Knowledge and Data Engineering},
@@ -191,7 +259,36 @@
 }
 
 
-@InBook{Tsoumakas:MiningMultilabel,
+@article{zhang2017binary,
+  title={Binary relevance for multi-label learning: an overview},
+  author={Zhang, Min-Ling and Li, Yu-Kun and Liu, Xu-Ying and Geng, Xin},
+  journal={Frontiers of Computer Science},
+  year={2017},
+  pages={1--12},
+  publisher={Springer}
+}
+
+@inproceedings{read2009classifier,
+  title={Classifier chains for multi-label classification},
+  author={Read, Jesse and Pfahringer, Bernhard and Holmes, Geoff and Frank, Eibe},
+  booktitle={Joint European Conference on Machine Learning and Knowledge Discovery in Databases},
+  pages={254--269},
+  year={2009},
+  organization={Springer}
+}
+
+@article{boutell2004learning,
+  title={Learning multi-label scene classification},
+  author={Boutell, Matthew R and Luo, Jiebo and Shen, Xipeng and Brown, Christopher M},
+  journal={Pattern recognition},
+  volume={37},
+  number={9},
+  pages={1757--1771},
+  year={2004},
+  publisher={Elsevier}
+}
+
+@InBook{tsoumakas2017data,
     author = {G. Tsoumakas and I. Katakis and Ioannis Vlahavas},
     ALTeditor = {O. Maimon and L. Rokach},
     title = {Data Mining and Knowledge Discovery Handbook},
@@ -201,7 +298,7 @@
     pages = {667-685}
 }
 
-@article{Madjarov:MLC,
+@article{madjarov2012extensive,
     author = {Gjorgji Madjarov and Dragi Kocev and Dejan Gjorjevikz and Saso Dzeroski},
     title = {An extensive experimental comparison of methods for multi-label learning},
     journal = {Pattern Recognition},
@@ -212,23 +309,15 @@
 }
 
 
-@Book{MLC:MajorReference,
+@Book{herrera2016multilabel,
     ALTauthor = {Francisco Herrera and Francisco Charte and Antonio Rivera and Maria del Jesus},
     title = {Multilabel Classification, Problem Analysis, Metrics and Techniques},
     publisher = {Springer International Publishing},
     year = {2016}
 }
 
-@InBook{MLC:MajorReference2,
-    ALTauthor = {Francisco Herrera and Francisco Charte and Antonio Rivera and Maria del Jesus},
-    title = {Multilabel Classification, Problem Analysis, Metrics and Techniques},
-    chapter = {Multilabel Classification},
-    publisher = {Springer International Publishing},
-    year = {2016}
-}
 
-
-@article{Gibaja:MLC,
+@article{gibaja2015tutorial,
     author = {Eva Gibaja and Sebastian Ventura},
     title = {A Tutorial on Multilabel Learning},
     journal = {ACM Computing Surveys},
@@ -238,35 +327,12 @@
     pages = {2-38}
 }
 
-@PhdThesis{Kocev:RFPCT,
-    author = {D. Kocev},
-    title = {Ensembles for predicting structured outputs},
-    school = {IPS Jo\v{z}ef Stefan},
-    year = {2011}
-}
-
-@inproceedings{Tsoumakas:HOMER,
-    author = {G. Tsoumakas and I. Katakis and I. Vlahavas},
-    title = {Effective and efficient multilabel classification in domains with large number of labels},
-    booktitle = {Proceedings of the ECML/PKDD Workshop on Mining Multidimensional Data},
-    year = {2008},
-    pages = {30-44}
-}
-
-@inproceedings{Read:CC,
-    author = {J. Read and B. Pfahringer and G. Holmes and E. Frank},
-    title = {Classifier chains for multi-label classification},
-    booktitle = {Proceedings of the 20th European Conference on Machine Learning},
-    year = {2009},
-    pages = {254-269}
-}
-
 
 % ===============
 % Data Imbalance 
 % ===============
 
-@article{Charte:MLDImbalance,
+@article{charte2015imbalance,
     author = {Francisco Charte and Antonio Rivera and Maria del Jesus and Francisco Herrera},
     title = {Addressing imbalance in multilabel classification: Measures and random resampling algorithms},
     journal = {Neurocomputing},
@@ -278,16 +344,9 @@
 % =========
 % Datasets
 % =========
-@article{lecun-mnisthandwrittendigit-2010,
-    author = {LeCun, Yann and Cortes, Corinna},
-    howpublished = {http://yann.lecun.com/exdb/mnist/},
-    title = {{MNIST} handwritten digit database},
-    url = {http://yann.lecun.com/exdb/mnist/},
-    year = 2010
-}
 
 
-@inproceedings{Genbase:Data,
+@inproceedings{diplaris2005protein,
     author = {S. Diplaris and G. Tsoumakas and P. Mitkas and I. Vlahavas},
     title = {Protein Classification with Multiple Algorithms},
     booktitle = {10th Panhellenic Conference on Informatics},
@@ -295,28 +354,28 @@
     OPTvenue = {Greece}
 }
 
-@article{Yeast:Data,
+@article{elisseeff2001kernel,
     author = {A. Elisseeff and J. Weston},
     title = {A kernel method for multi-labelled classification},
     journal = {Advances in Neural Information Processing Systems},
     year = {2001}
 }
 
-@article{MULAN:DataRepo,
+@article{tsoumakas2011mulan,
     author = {G. Tsoumakas and E.S. Xioufis and J. Vilcek and I. Vlahavas},
     title = {MULAN multi-label dataset repository},
     year = {2011},
     note = {Available: \url{http://mulan.sourceforge.net/datasets.html}}
 }
 
-@article{WEKA:DataRepo,
+@article{read2015meka,
     author = {J. Read and P. Reutemann},
     title = {MEKA A multi-label dataset repository},
     year = {2015},
     note = {Available: \url{http://sourceforge.net/projects/meka/files/Datasets/}}
 }
 
-@inproceedings{MLDR:DataRepo,
+@inproceedings{charte2016r,
     author = {F. Charte and D. Charte and A.J. Rivera and M.J. del Jesus and F. Herrera},
     title = {R Ultimate multilabel dataset repository},
     booktitle = {11th International COnference on Hybrid Artificial Intelligence Systems},
@@ -327,7 +386,7 @@
 % ==============
 % Other Methods
 % ==============
-@inproceedings{Wang:PCA,
+@inproceedings{wang2013protein,
     author = {Wanlu Wang and Xin Zhang and Jun Meng and Yushi Luan},
     title = {Protein function prediction based on physiochemical properties and protein granularity},
     booktitle = {2013 IEEE International Conference on Granular Computing},
@@ -336,7 +395,7 @@
 }
 
 
-@article{2017arXiv170505919K,
+@article{kulmanov2017deepgo,
    author = {{Kulmanov}, M. and {Khan}, M.~A. and {Hoehndorf}, R.},
     title = "{DeepGO: Predicting protein functions from sequence and interactions using a deep ontology-aware classifier}",
   journal = {ArXiv e-prints},
@@ -351,24 +410,11 @@ archivePrefix = "arXiv",
 }
 
 
-% ================================ 
-% Related Deep Learning Techniques 
-% ================================
-
-@article{Srivastava:Dropout,
-    author = {Nitish Srivastava and Geoffrey Hinto and Alex Krizhevsky and Ilya Sutskever and Ruslan Salakhutdinov},
-    title = {Dropout: A Simple Way to Prevent Neural Networks from Overfitting},
-    journal = {Journal of Machine Learning Research},
-    year = {2014},
-    OPTnumber = {15},
-    OPTpages = {1929-1958}
-}
-
 % =======================
 % Machine Learning Tools 
 % =======================
 
-@article{demsarStats,
+@article{demsar2006statistical,
     author = {Janez Dem\u{s}ar},
     title = {Statistical Comparisons of Classifiers over Multiple Datasets},
     journal = {Journal of Machine Learning Research},
@@ -376,7 +422,7 @@ archivePrefix = "arXiv",
     year = 2006
 }
 
-@article{2017arXiv170201460S, 
+@article{szymanski2017scikit, 
     author = {{Szyma{\'n}ski}, P. and {Kajdanowicz}, T.}, 
     title = "{A scikit-based Python environment for performing multi-label classification}",
     journal = {ArXiv e-prints},
@@ -388,7 +434,7 @@ archivePrefix = "arXiv",
     month = feb,
 }
 
-@article{CC01a,
+@article{chang2011libsvm,
     author = {Chang, Chih-Chung and Lin, Chih-Jen},
     title = {{LIBSVM}: A library for support vector machines},
     journal = {ACM Transactions on Intelligent Systems and Technology},
@@ -399,7 +445,7 @@ archivePrefix = "arXiv",
     note =   {Software available at \url{http://www.csie.ntu.edu.tw/~cjlin/libsvm}}
 }
 
-@article{REF08a,
+@article{fan2008liblinear,
     author = {Rong-En Fan and Kai-Wei Chang and Cho-Jui Hsieh and Xiang-Rui Wang and Chih-Jen Lin},
     title = {{LIBLINEAR}: A Library for Large Linear Classification},
     journal = {Journal of Machine Learning Research},
