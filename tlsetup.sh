@@ -59,4 +59,11 @@ sudo tlmgr install \
     babel          \
     tools          \
     graphics       \
-    xcolor
+    xcolor         \
+    enumitem       \
+    amsmath        \
+    wrapfig        \
+    algorithms     \
+    algorithmicx   \
+    threeparttable  \
+    footmisc
