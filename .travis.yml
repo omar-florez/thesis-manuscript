@@ -5,6 +5,6 @@ before_install:
 - ./tlsetup.sh
 
 script:
-- make latex COMPILER=xelatex
+- make latex COMPILER=pdflatex
 - ./dropbox_uploader.sh upload _build/main.pdf ${TRAVIS_BRANCH}/main-latest.pdf
 - ./dropbox_uploader.sh upload _build/main.pdf ${TRAVIS_BRANCH}/main-${TRAVIS_JOB_NUMBER}.pdf
