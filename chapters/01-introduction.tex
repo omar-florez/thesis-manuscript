@@ -107,16 +107,15 @@ extraction}, a technique for finding new representations from raw data.
 
 \par Proteins can be described into either sequences or expressions 
 (\cite{xiong2006essential}). The former characterizes the protein as a chain
-of letters each representing an amino acid. There are twenty (20) known amino
-acids considered to be the building blocks of protein. When arranged into a
-sequence, the order of appearance becomes important. Although prediction can
-be done from protein sequences (\cite{whisstock2003prediction,
-devos2000practical}), this work will focus on using expressions as description
+of letters each representing an amino acid\textemdash the building blocks of
+protein. When arranged into a sequence, the order of appearance becomes important.
+Although prediction is possible using protein sequences (\cite{whisstock2003prediction,
+devos2000practical}), this work will focus on using expressions as descriptors
 for proteins. 
 
 \par The second way to describe protein features is through expressions:
 combinations of various techniques such as micro-array expression data,
-phylogenetic profiles and DNA chips. Proteins are represented as a vector of
+phylogenetic profiles and DNA chips. It represents proteins as a vector of
 numerical values describing the output of a micro-array process. In addition,
 using expressions have been observed to be effective in predicting protein
 functions (\cite{eisenberg2000protein, marcotte1999combined}). This research
@@ -127,12 +126,11 @@ from micro-array expression and phylogenetic profiles (See Sec.
 \subsection{Protein functions}
 
 \par Proteins can belong to one or more functional categories. These
-categories can refer to various life processes (e.g. metabolism, cell
-reproduction, synthesis, etc) and are arranged in an ontology. The word 
-\textit{ontology} may have philosophical roots, but organizing categories is
-convenient to observe the relationships and  properties of protein functions
-\textemdash and it turns out to be one of the  standard tools in
-bioinformatics.
+categories refer to various life processes (e.g. metabolism, cell
+reproduction, synthesis, etc) arranged in an ontology. This
+organization enables researchers to observe the relationships and 
+properties of protein functions, and is one of the standard tools
+in bioinformatics today.
 
 \par There are various ontologies describing a protein's functional category,
 and two of the most common are the Gene Ontology (GO) and the Munich
@@ -314,26 +312,28 @@ this kind of technique as \textit{unsupervised learning}
 (\cite{bengio2013representation}).
 
 \par Given a feature set $\mathbf{X}$, the aim is to find a set of parameters
-$\theta$ such that the composite function $(g_{\theta} \circ f_{\theta})
+$\theta$ such that the composite function $(g_{\theta'} \circ f_{\theta})
 (\mathbf{X})$ minimizes the reconstruction error:
 
 \[
-    J(\theta) = L(\mathbf{X}, g_{\theta}(f_{\theta}(\mathbf{X})))
+    J(\theta) = L(\mathbf{X}, g_{\theta'}(f_{\theta}(\mathbf{X})))
 \]
 
 \noindent Here, the functions $f$ and $g$ are known as the encoder and decoder.
 The former encodes the data into a representation $\mathbf{h} = f_{\theta}
 (\mathbf{X})$ while the latter attempts to reconstruct $\mathbf{h}$ back into 
-$\mathbf{X}$ via $\mathbf{\widetilde{X}} = \mathbf{X} \approx g_{\theta}
-(\mathbf{h})$. Take note that the size of $\mathbf{h}$ may not necessarily be
-the same as $\mathbf{X}$. In sum, what the autoencoder does is that it takes an
-input matrix and faithfully  reconstructs it given a bottleneck (the size of 
-$\mathbf{h}$). This may sound trivial, but due to the \textit{encoding layer} 
-$\mathbf{h}$, interesting structure is learned from the data. The learned 
-representations $\mathbf{h}$ are treated as the new input $\mathbf{\widehat{X}}$ 
-(similar to the \texttt{XOR} problem) for a classifier. With a good set-up and 
-optimization scheme, it is even possible to compress data using this technique 
-(\cite{theis2017lossy}).
+$\mathbf{X}$ via $\mathbf{\widetilde{X}} = \mathbf{X} \approx g_{\theta'}
+(\mathbf{h})$. Most works implement a tied-weighing scheme (i.e,
+$\theta=\theta^{T}$ between the encoder and decoder weights
+(\cite{bengio2013representation}). Take note that the
+size of $\mathbf{h}$ may not necessarily be the same as $\mathbf{X}$. In sum,
+the autoencoder takes an input matrix and faithfully reconstructs it given a
+bottleneck (the size of $\mathbf{h}$). This may sound trivial, but due to the
+\textit{encoding layer}  $\mathbf{h}$, interesting structure is learned from
+the data. The learned representations $\mathbf{h}$ are treated as the new
+input $\mathbf{\widehat{X}}$  (similar to the \texttt{XOR} problem) for a
+classifier. With a good set-up and optimization scheme, it is even possible to
+compress data using this technique (\cite{theis2017lossy}).
 
 \begin{figure}[!t]
   \centering
@@ -348,27 +348,26 @@ optimization scheme, it is even possible to compress data using this technique
 \label{Motivation}
 
 \par Although extracting features using an autoencoder has been helpful for
-classification, one shortcoming of this technique is that it tends to learn
+classification, one shortcoming of this technique is its tendency to learn
 trivial representations from sparse and high-dimensional data
-(\cite{wang2017feature, chen2017kate}) characteristic of proteins. This is
-usually the case when the optimization task is to learn an approximation to
-the identity $\mathbf{X} \approx \mathbf{\widehat{X}}$, which may favor
-irrelevant features due to overfitting instead of learning a generalized
-pattern or representation. It is then important to motivate the autoencoder
-in creating relevant features to accomplish the classification task.
+(\cite{wang2017feature, chen2017kate})\textemdash types of data characteristic
+of proteins. This is usually the case when the optimization task is to learn
+an approximation to the identity $\mathbf{X} \approx \mathbf{\widehat{X}}$,
+favoring irrelevant features by overfitting instead of learning a generalized
+pattern or representation. Motivating the autoencoder to create relevant features
+for the classification task is then important.
 
 \par To address this issue, this work proposes an autoencoder architecture that
 extracts a set of sparse yet relevant features. This is done through mutual
-competition, the neurons on the network compete based on their activation, and
+competition: the neurons on the network compete based on their activation, and
 the ``winners'' absorb the ``losers,'' boosting their importance in the network.
 Competition adjusts the backpropagation path, favoring the winners to represent
-the input data. This method is task-specific for protein function prediction
-because only a subset of features from protein data can be considered useful
-(\cite{iqbal2014efficient, gaudet2017gene}). The proposed method will be trained
-on two protein benchmark datasets, and the extracted features will be used as
-input to a binary relevance classifier. It will be compared against a baseline
-without feature extraction, and opposed to existing feature extraction techniques
-in literature.
+the input data. This method is task-specific for protein data because only a subset
+of its features is considered useful (\cite{iqbal2014efficient, gaudet2017gene}).
+The proposed method will be trained on two protein benchmark datasets, and the
+extracted features will be used as input to a binary relevance classifier. It will
+be compared against a baseline method without feature extraction, and opposed to
+existing techniques in literature.
 
 \section{Problem Formulation}
 \label{Problem}
@@ -389,7 +388,4 @@ answered throughout this work:
         as compared to the raw features? (Sec. \ref{FeatureRelevance})
 \end{itemize}
 
-\noindent Thorough explanation of the proposed method will be done in Chapter
-\ref{Methodology} while the results supporting the answers to the questions
-above will be discussed in Chapter \ref{Results}.
 
