@@ -312,26 +312,28 @@ this kind of technique as \textit{unsupervised learning}
 (\cite{bengio2013representation}).
 
 \par Given a feature set $\mathbf{X}$, the aim is to find a set of parameters
-$\theta$ such that the composite function $(g_{\theta} \circ f_{\theta})
+$\theta$ such that the composite function $(g_{\theta'} \circ f_{\theta})
 (\mathbf{X})$ minimizes the reconstruction error:
 
 \[
-    J(\theta) = L(\mathbf{X}, g_{\theta}(f_{\theta}(\mathbf{X})))
+    J(\theta) = L(\mathbf{X}, g_{\theta'}(f_{\theta}(\mathbf{X})))
 \]
 
 \noindent Here, the functions $f$ and $g$ are known as the encoder and decoder.
 The former encodes the data into a representation $\mathbf{h} = f_{\theta}
 (\mathbf{X})$ while the latter attempts to reconstruct $\mathbf{h}$ back into 
-$\mathbf{X}$ via $\mathbf{\widetilde{X}} = \mathbf{X} \approx g_{\theta}
-(\mathbf{h})$. Take note that the size of $\mathbf{h}$ may not necessarily be
-the same as $\mathbf{X}$. In sum, what the autoencoder does is that it takes an
-input matrix and faithfully  reconstructs it given a bottleneck (the size of 
-$\mathbf{h}$). This may sound trivial, but due to the \textit{encoding layer} 
-$\mathbf{h}$, interesting structure is learned from the data. The learned 
-representations $\mathbf{h}$ are treated as the new input $\mathbf{\widehat{X}}$ 
-(similar to the \texttt{XOR} problem) for a classifier. With a good set-up and 
-optimization scheme, it is even possible to compress data using this technique 
-(\cite{theis2017lossy}).
+$\mathbf{X}$ via $\mathbf{\widetilde{X}} = \mathbf{X} \approx g_{\theta'}
+(\mathbf{h})$. Most works implement a tied-weighing scheme (i.e,
+$\theta=\theta^{T}$ between the encoder and decoder weights
+(\cite{bengio2013representation}). Take note that the
+size of $\mathbf{h}$ may not necessarily be the same as $\mathbf{X}$. In sum,
+the autoencoder takes an input matrix and faithfully reconstructs it given a
+bottleneck (the size of $\mathbf{h}$). This may sound trivial, but due to the
+\textit{encoding layer}  $\mathbf{h}$, interesting structure is learned from
+the data. The learned representations $\mathbf{h}$ are treated as the new
+input $\mathbf{\widehat{X}}$  (similar to the \texttt{XOR} problem) for a
+classifier. With a good set-up and optimization scheme, it is even possible to
+compress data using this technique (\cite{theis2017lossy}).
 
 \begin{figure}[!t]
   \centering
