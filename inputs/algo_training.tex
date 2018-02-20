@@ -26,7 +26,7 @@
 \begin{algorithmic}[1]
 
 \INPUT Training examples $\mathbf{X}$, competition parameter $\alpha$, percent sparsity $k\%$
-\OUTPUT Model weights, $\theta$
+\OUTPUT Model weights $\theta$, extracted features $\mathbf{\widehat{X}}$
 
 \item[]
 \Procedure{Initialization}{}
@@ -39,16 +39,28 @@
 \item[]
 \Procedure{Training}{}
     \For{\textit{NumEpochs}}
-        \State Feedforward propagation: $\mathbf{h} = f(\theta \mathbf{x} + \theta_{0})$
+        \State Feedforward propagation: $\mathbf{h} \gets f_{\theta}(\mathbf{X}) =
+        \sigma(\theta\mathbf{X}^{T}+\theta_{0})$
         \Comment Until last encoding layer
-        \State \textit{WinnerLoserDictionary}$=$\Call{WinnerTakeAll}{$\mathbf{h}$, $k$}
-        \State $\mathbf{h'}=$\Call{Sparse}{\textit{WinnerLoserDictionary}, $\alpha$}
-        \State Compute output: $\mathbf{\widetilde{x}} = f(\theta' \mathbf{h'} + \theta_{0})$
+        \State $D \gets$ \Call{WinnerTakeAll}{$\mathbf{h}$, $k$}
+        \Comment Store winners and losers in a dictionary
+        \State $\mathbf{h'} \gets$ \Call{Sparse}{$D$, $\alpha$}
+        \State Compute output: $\mathbf{\widetilde{X}} \gets 
+        g_{\theta'}(\mathbf{h'}) = \sigma(\theta'\mathbf{h'}^{T}+\theta_{0})$
         \Comment Tied weights, $\theta'=\theta^{T}$
-        \State Backpropagate the error
+        \State Compute reconstruction error $\mathbf{J}_{\theta}$
+        \State \Call{Backpropagation}{$\mathbf{J}_{\theta}$}
         \Comment Only for winning neurons
     \EndFor
-    \State \Return Model weights $\theta$ 
+    \State \Return $\theta$ 
+\EndProcedure
+
+\item[]
+\Procedure{Transform}{$\mathbf{X}$}
+    \State
+    $\mathbf{\widehat{X}}=f_{\theta}(\mathbf{X})=\sigma(\theta\mathbf{X}^{T} +
+    \theta_{0})$
+    \State \Return $\mathbf{\widehat{X}}$
 \EndProcedure
 
 \end{algorithmic}
