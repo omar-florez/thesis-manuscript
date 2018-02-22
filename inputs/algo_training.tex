@@ -1,0 +1,55 @@
+%=============================================================================
+% algo-training.tex
+% Copyright (c) 2018. Lester James V. Miranda
+%
+% This file is part of thesis-manuscript.
+%
+% thesis-mansucript is free software: you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation, either version 3 of the License, or
+% (at your option) any later version.
+%
+% thesis-manuscript is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU General Public License for more details.
+%
+% You should have received a copy of the GNU General Public License
+% along with thesis-manuscript.  If not, see <http://www.gnu.org/licenses/>.
+%
+% Created by: Lester James V. Miranda <ljvmiranda@gmail.com>
+%=============================================================================
+
+\begin{algorithm}
+\caption{Training the proposed autoencoder network}
+\label{algo:training}
+\begin{algorithmic}[1]
+
+\INPUT Training examples $\mathbf{X}$, competition parameter $\alpha$, percent sparsity $k\%$
+\OUTPUT Model weights, $\theta$
+
+\item[]
+\Procedure{Initialization}{}
+    \State $\theta_{i}^{(0)} \gets \mathcal{N}(\mu,\,\sigma^{2})$
+    \Comment{Initialize weights}
+    \State $\theta_{0}^{(0)} \gets \mathcal{N}(\mu,\,\sigma^{2})$
+    \Comment{Initialize biases}
+\EndProcedure
+
+\item[]
+\Procedure{Training}{}
+    \For{\textit{NumEpochs}}
+        \State Feedforward propagation: $\mathbf{h} = f(\theta \mathbf{x} + \theta_{0})$
+        \Comment Until last encoding layer
+        \State \textit{WinnerLoserDictionary}$=$\Call{WinnerTakeAll}{$\mathbf{h}$, $k$}
+        \State $\mathbf{h'}=$\Call{Sparse}{\textit{WinnerLoserDictionary}, $\alpha$}
+        \State Compute output: $\mathbf{\widetilde{x}} = f(\theta' \mathbf{h'} + \theta_{0})$
+        \Comment Tied weights, $\theta'=\theta^{T}$
+        \State Backpropagate the error
+        \Comment Only for winning neurons
+    \EndFor
+    \State \Return Model weights $\theta$ 
+\EndProcedure
+
+\end{algorithmic}
+\end{algorithm}

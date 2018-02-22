@@ -1,0 +1,40 @@
+%=============================================================================
+% algo_sparse.tex
+% Copyright (c) 2018. Lester James V. Miranda
+%
+% This file is part of thesis-manuscript.
+%
+% thesis-mansucript is free software: you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation, either version 3 of the License, or
+% (at your option) any later version.
+%
+% thesis-manuscript is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU General Public License for more details.
+%
+% You should have received a copy of the GNU General Public License
+% along with thesis-manuscript.  If not, see <http://www.gnu.org/licenses/>.
+%
+% Created by: Lester James V. Miranda <ljvmiranda@gmail.com>
+%=============================================================================
+
+\begin{algorithm}
+    \caption{Sparse operation}
+    \label{algo:sparse}
+    \begin{algorithmic}[1]
+    
+    \INPUT Dictionary of winners and losers $D = \{\}$, competition parameter $\alpha$
+    \OUTPUT Updated activation of winners and losers $\mathbf{h}'$
+
+    \item[]
+    \State \textit{ToAllocate} $\gets$ \Call{Sum}{$D[Losers]$}
+    \Comment Sum all activations of loser neurons
+    \State $\mathbf{a}_{w} \gets$ $D[Winners]$ + $\alpha$ \textit{ToAllocate}
+    \Comment Update activation of winners, $\mathbf{a}_{w}$
+    \State $\mathbf{a}_{l} \gets 0$ 
+    \Comment Set activation of losers to $0$.
+    \State \textbf{return} $\mathbf{h}' = \{\mathbf{a}_{w}$, $\mathbf{a}_{l}\}$
+    \end{algorithmic}
+\end{algorithm}
