@@ -309,7 +309,10 @@ simultaneous presence in a protein sample.
         \caption{Genbase}
         \label{graph:genbase}
     \end{subfigure}
-    \caption{Co-occurence plot for the yeast and genbase datasets.}
+    \caption[Co-occurence plot for the yeast and genbase datasets]
+    {Co-occurence plot for the yeast and genbase datasets. Each arc corresponds
+    to a particular class where each chord indicates their simultaneous
+    presence on a given protein sample}
     \label{graph:cooccurence}
 \end{figure}
 
@@ -317,8 +320,12 @@ simultaneous presence in a protein sample.
 \label{ExperimentalEnvironment}
 
 Table \ref{setup:environment} describes the environment used for the
-experiments. The source code can be obtained from
-\url{https://github.com/ljvmiranda921/PFPredict}.
+experiments. The GPU was used to train the neural network, and the CPU for
+training the classifier. Only ten (10) out of the forty cores were used
+simultaneously during the experiments. The source code can be obtained from
+\url{https://github.com/ljvmiranda921/PFPredict}. It uses the Tensorflow
+library to construct the proposed network and runs on both Python 2.7 and 3.6
+and above versions.
 
 \begin{table}[h]
     \centering
