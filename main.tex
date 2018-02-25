@@ -54,7 +54,7 @@
 \usepackage{algpseudocode}
 \usepackage{threeparttable}
 \usepackage{footmisc}
-
+\usepackage{subcaption}
 
 \addbibresource{bibliography.bib}
 
@@ -65,7 +65,7 @@
 %	OTHER SETTINGS
 %------------------------------------------------------------------------------
 \setcounter{tocdepth}{1}
-\setitemize{itemsep=1pt}        % Modify spacing between items
+\setitemize{itemsep=-0.2em}        % Modify spacing between items
 \renewcommand{\arraystretch}{1.2} % Stretch tables
 
 % Command for algorithm INPUT and OUTPUT
@@ -81,6 +81,7 @@
 \DeclareMathAlphabet{\mathcal}{OMS}{cmsy}{m}{n}
 \SetMathAlphabet{\mathcal}{bold}{OMS}{cmsy}{b}{n}
 \newcommand{\bigO}{\mathcal{O}}
+\newcommand\given[1][]{\:#1\vert\:}
 %------------------------------------------------------------------------------
 %	MARGIN SETTINGS
 %------------------------------------------------------------------------------

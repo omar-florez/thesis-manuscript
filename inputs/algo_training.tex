@@ -1,0 +1,67 @@
+%=============================================================================
+% algo-training.tex
+% Copyright (c) 2018. Lester James V. Miranda
+%
+% This file is part of thesis-manuscript.
+%
+% thesis-mansucript is free software: you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation, either version 3 of the License, or
+% (at your option) any later version.
+%
+% thesis-manuscript is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU General Public License for more details.
+%
+% You should have received a copy of the GNU General Public License
+% along with thesis-manuscript.  If not, see <http://www.gnu.org/licenses/>.
+%
+% Created by: Lester James V. Miranda <ljvmiranda@gmail.com>
+%=============================================================================
+
+\begin{algorithm}
+\caption{Training the proposed autoencoder network}
+\label{algo:training}
+\begin{algorithmic}[1]
+
+\INPUT Training examples $\mathbf{X}$, competition parameter $\alpha$, percent sparsity $k\%$
+\OUTPUT Model weights $\theta$, extracted features $\mathbf{\widehat{X}}$
+
+\item[]
+\Procedure{Initialization}{}
+    \State $\theta_{i}^{(0)} \gets \mathcal{N}(\mu,\,\sigma^{2})$
+    \Comment{Initialize weights}
+    \State $\theta_{0}^{(0)} \gets \mathcal{N}(\mu,\,\sigma^{2})$
+    \Comment{Initialize biases}
+\EndProcedure
+
+\item[]
+\Procedure{Training}{}
+    \For{\textit{NumEpochs}}
+        \State Feedforward propagation: $\mathbf{h} \gets f_{\theta}(\mathbf{X}) =
+        \sigma(\theta\mathbf{X}^{T}+\theta_{0})$
+        \Comment Until last encoding layer
+        \State $D \gets$ \Call{WinnerTakeAll}{$\mathbf{h}$, $k$}
+        \Comment Store winners and losers in a dictionary
+        \State $\mathbf{h'} \gets$ \Call{Sparse}{$D$, $\alpha$}
+        \State Compute output: $\mathbf{\widetilde{X}} \gets 
+        g_{\theta'}(\mathbf{h'}) = \sigma(\theta'\mathbf{h'}^{T}+\theta_{0})$
+        \Comment Tied weights, $\theta'=\theta^{T}$
+        \State Compute reconstruction error $\mathbf{J}_{\theta}$
+        \State \Call{Backpropagation}{$\mathbf{J}_{\theta}$}
+        \Comment Only for winning neurons
+    \EndFor
+    \State \Return $\theta$ 
+\EndProcedure
+
+\item[]
+\Procedure{Transform}{$\mathbf{X}$}
+    \State
+    $\mathbf{\widehat{X}}=f_{\theta}(\mathbf{X})=\sigma(\theta\mathbf{X}^{T} +
+    \theta_{0})$
+    \State \Return $\mathbf{\widehat{X}}$
+\EndProcedure
+
+\end{algorithmic}
+\end{algorithm}

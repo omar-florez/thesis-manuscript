@@ -1,0 +1,40 @@
+%=============================================================================
+% algo_wta.tex
+% Copyright (c) 2018. Lester James V. Miranda
+%
+% This file is part of thesis-manuscript.
+%
+% thesis-mansucript is free software: you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation, either version 3 of the License, or
+% (at your option) any later version.
+%
+% thesis-manuscript is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU General Public License for more details.
+%
+% You should have received a copy of the GNU General Public License
+% along with thesis-manuscript.  If not, see <http://www.gnu.org/licenses/>.
+%
+% Created by: Lester James V. Miranda <ljvmiranda@gmail.com>
+%=============================================================================
+
+
+\begin{algorithm}
+    \caption{Winner-Take-All operation}
+    \label{algo:wta}
+    \begin{algorithmic}[1]
+    
+    \INPUT Output of last encoding layer $\mathbf{h}$, percent sparsity $k\%$
+    \OUTPUT Dictionary of winners and losers, $D = \{\}$
+
+    \item[]
+    \State \textit{LayerSize} $\gets$ length($\mathbf{h}$)
+    \Comment Get number of units in the layer
+    \State \textit{NeuronsToKeep} $\gets k\% * \text{\textit{LayerSize}}$
+    \State $D[\text{Winners}] \gets$ first \textit{NeuronsToKeep} in \Call{SortAscendingOrder}{$\mathbf{h}$}
+    \State $D[\text{Losers}] \gets$ remaining neurons in \Call{SortAscendingOrder}{$\mathbf{h}$}
+    \State \Return $D$
+    \end{algorithmic}
+\end{algorithm}
