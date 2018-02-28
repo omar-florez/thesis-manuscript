@@ -1,19 +1,26 @@
-\begin{table}[t]
-    \footnotesize
+\begin{table}[ht]
+    \small
     \centering
     \caption{Results for the Yeast Dataset using SVM with Linear Kernel}
-    \label{results:yeast_lsvm_main}
+    \label{results:yeast_lsvm}
     \begin{threeparttable}
-    \begin{tabular}{@{}lllllll@{}}
+    \begin{tabular}{@{}rrlllll@{}}
     \toprule
-    \multicolumn{2}{l}{Metrics}      & Base                 & PCA                  & AE                  & SdAE          & Proposed      \\ \midrule
-    H     & \textit{--}               & $0.3507 \pm 0.0012$  & $0.3619  \pm 0.0021$ & $0.3739 \pm 0.0005$ & $0.3170 \pm 0.0036$ & $\mathbf{0.2794 \pm 0.0053}$ \\
-    A     & \textit{mi}              & $0.6504 \pm 0.0021$  & $0.6465 \pm 0.0022$  & $0.6287 \pm 0.0005$ & $0.6425 \pm 0.0022$ & $\mathbf{0.6802 \pm 0.0071}$ \\
-          & \textit{ma}              & $0.6507 \pm 0.0016$  & $\mathbf{0.6548 \pm 0.0016}$  & $0.6524 \pm 0.0009$ & $0.6099 \pm 0.0013$ & $0.6012 \pm 0.0072$ \\
-          & \textit{sp}              & $0.6525 \pm 0.0022$  & $0.6499 \pm 0.0023$  & $0.6299 \pm 0.0005$ & $0.6471 \pm 0.0019$ & $\mathbf{0.6851 \pm 0.0079}$ \\
-    F     & \textit{mi}              & $0.5330 \pm 0.0032$  & $0.5305 \pm 0.0025$  & $0.5173 \pm 0.0006$ & $0.5445 \pm 0.0024$ & $\mathbf{0.5569 \pm 0.0097}$ \\
-          & \textit{ma}              & $0.5913 \pm 0.0031$  & $\mathbf{0.6023 \pm 0.0019}$  & $0.5816 \pm 0.0006$ & $0.5779 \pm 0.0019$ & $0.5709 \pm 0.0094$ \\
-          & \textit{sp}              & $0.5223 \pm 0.0031$  & $0.5217 \pm 0.0027$  & $0.5101 \pm 0.0008$ & $0.5302 \pm 0.0020$ & $\mathbf{0.5354 \pm 0.0107}$ \\ \bottomrule
+    && \multicolumn{5}{c}{Prediction Model} \\ \cmidrule{3-7}
+    \multicolumn{2}{r}{Metrics}               & Baseline                & Wang, 2013 & Chicco, 2014 & Miranda, 2017 & Proposed            \\ \midrule
+\multicolumn{2}{l}{Area ROC} \\
+         & \textit{micro}              & $0.6504 \pm 0.0021$  & $0.6465 \pm 0.0022$  & $0.6287 \pm 0.0005$ & $0.6425 \pm 0.0022$ & $\mathbf{0.6802 \pm 0.0071}$ \\
+          & \textit{macro}              & $0.6507 \pm 0.0016$  & $\mathbf{0.6548 \pm 0.0016}$  & $0.6524 \pm 0.0009$ & $0.6099 \pm 0.0013$ & $0.6012 \pm 0.0072$ \\
+          & \textit{samples}              & $0.6525 \pm 0.0022$  & $0.6499 \pm 0.0023$  & $0.6299 \pm 0.0005$ & $0.6471 \pm 0.0019$ & $\mathbf{0.6851 \pm 0.0079}$ \\
+\multicolumn{2}{l}{F-score} \\
+         & \textit{micro}              & $0.5330 \pm 0.0032$  & $0.5305 \pm 0.0025$  & $0.5173 \pm 0.0006$ & $0.5445 \pm 0.0024$ & $\mathbf{0.5569 \pm 0.0097}$ \\
+          & \textit{macro}              & $0.5913 \pm 0.0031$  & $\mathbf{0.6023 \pm 0.0019}$  & $0.5816 \pm 0.0006$ & $0.5779 \pm 0.0019$ & $0.5709 \pm 0.0094$ \\
+          & \textit{samples}              & $0.5223 \pm 0.0031$  & $0.5217 \pm
+    0.0027$  & $0.5101 \pm 0.0008$ & $0.5302 \pm 0.0020$ & $\mathbf{0.5354 \pm
+    0.0107}$ \\ 
+    \multicolumn{2}{l}{Hamm. Loss}            & $0.3507 \pm 0.0012$  & $0.3619
+    \pm 0.0021$ & $0.3739 \pm 0.0005$ & $0.3170 \pm 0.0036$ & $\mathbf{0.2794
+    \pm 0.0053}$ \\ \bottomrule
     \end{tabular}
     \begin{tablenotes}
       \item SVM Hyperparameters for Proposed Model: $C=3.594$
