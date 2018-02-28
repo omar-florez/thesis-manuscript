@@ -7,6 +7,30 @@
 
 \section{Measuring model quality}
 \label{ModelQuality}
+\par In this section, the proposed model will be compared to other works in
+literature. The existing works follow the same pipeline for protein function
+prediction\textemdash extract features from data, then classify with the
+extracted features:
+
+\begin{itemize}
+    \item \cite{wang2013protein} applied principal component
+    analysis (PCA) to reduce the dimensions of protein data from $353$ to
+    $204$. 
+    \item \cite{chicco2014deep} used a deep autoencoder with two-layers
+    to predict the protein functions of \textit{B.taurus} and \textit{G.
+    gallus}. 
+    \item \cite{miranda2017feature} implemented a stacked denoising
+    autoencoder to obtain robust features from raw data to predict protein
+    functions.  
+\end{itemize}
+
+\par In addition, we will also compare against a baseline model without feature
+extraction. All features, extracted or not, will be trained on a
+binary-relevance SVM for classification (using both gaussian and linear
+kernels). The pipeline will run for ten (10) trials with the mean and
+standard deviation of the results on the test data reported. 
+
+\input{./inputs/results_yeast_svm.tex}
 
 \section{Estimating feature relevance}
 \label{FeatureRelevance}
