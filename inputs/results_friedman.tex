@@ -1,0 +1,22 @@
+\begin{table}[t]
+    \footnotesize
+    \centering
+    \caption{$p$-values for Friedman's test of significance}
+    \label{results:friedman}
+    \begin{threeparttable}
+    \begin{tabular}{@{}llll@{}}
+    \toprule
+    Comparison                & $\chi^2$    & $p$-value       & Sig.\tnote{1}   \\ \midrule
+    Yeast with Gaussian-SVM   & $13.257$    & $0.0101$        & **              \\
+    Yeast with Linear-SVM     & $11.200$    & $0.0244$        & **              \\
+    Genbase with Gaussian-SVM & $26.388$    & $2.642e-5$      & ***             \\
+    Genbase with Linear-SVM   & $27.314$    & $1.717e-5$      & ***             \\ \cmidrule{1-4}
+    Yeast                     & $18.400$    & $0.001031$      & ***             \\
+    Genbase                   & $50.251$    & $3.201e-10$     & ***             \\ \cmidrule{1-4}
+    Overall (all datasets)    & $47.335$    & $1.299e-09$     & ***             \\ \bottomrule
+    \end{tabular}
+    \begin{tablenotes}
+        \item[1] Significance: * - $p \leq 0.1$, ** - $p \leq 0.05$, *** - $p \leq 0.01$
+    \end{tablenotes}
+    \end{threeparttable}
+\end{table}
