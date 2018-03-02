@@ -1,0 +1,35 @@
+\begin{table}[h!]
+    \footnotesize
+    \centering
+    \caption{Results for the Genbase Dataset using SVM with Gaussian Kernel}
+    \label{results:genbase_svm}
+    \begin{threeparttable}
+    \begin{tabular}{@{}rrlllll@{}}
+    \toprule
+    && \multicolumn{5}{c}{Prediction Model} \\ \cmidrule{3-7}
+    \multicolumn{2}{r}{Metrics}               & Baseline                & Wang, 2013 & Chicco, 2014 & Miranda, 2017 & Proposed            \\ \midrule
+\multicolumn{2}{l}{Area ROC} \\
+           & \textit{micro}       & $0.8563 \pm 0.0002$ & $0.9872 \pm 0.0001$ &
+$0.9741 \pm 0.0098$ & $0.9872 \pm 0.0009$ & $\mathbf{0.9992 \pm 0.0000}$ \\
+            & \textit{macro}       & $0.6706 \pm 0.0004$ & $0.9928 \pm 0.0002$
+            & $0.9786 \pm 0.0106$ & $0.9834 \pm 0.0009$ & $\mathbf{0.9996 \pm
+            0.0000}$ \\
+            & \textit{samples}       & $0.6129 \pm 0.0003$ & $0.9503 \pm
+0.0001$ & $0.9756 \pm 0.0097$ & $0.9875 \pm 0.0007$ & $\mathbf{0.9992 \pm
+0.0000}$ \\
+\multicolumn{2}{l}{F-score} \\
+           & \textit{micro}       & $0.6706 \pm 0.0003$ & $0.8872 \pm 0.0008$ &
+$0.7846 \pm 0.0865$ & $0.9619 \pm 0.0109$ & $\mathbf{0.9863 \pm 0.0070}$ \\
+            & \textit{macro}       & $0.7159 \pm 0.0005$ & $0.9503 \pm 0.0002$
+            & $0.8922 \pm 0.0400$ & $0.9640 \pm 0.0061$ & $\mathbf{0.9919 \pm
+            0.0020}$ \\
+            & \textit{samples}       & $0.7603 \pm 0.0001$ & $0.9282 \pm 0.0004$ & $0.8098 \pm 0.0945$ & $0.9699 \pm 0.0080$ & $\mathbf{0.9886 \pm 0.0063}$ \\ 
+    \multicolumn{2}{l}{Hamm. Loss} & $0.0407 \pm 0.0001$ & $0.0141 \pm 0.0021$
+                                   & $0.0352 \pm 0.0168$ & $0.0045 \pm 0.0013$
+                                   & $\mathbf{0.0016 \pm 0.0000}$ \\ \bottomrule
+    \end{tabular}
+    \begin{tablenotes}
+        \item SVM Hyperparameters for Proposed Model: $C=1.000$, $\gamma=1.24e-3$
+    \end{tablenotes}
+    \end{threeparttable}
+    \end{table}
