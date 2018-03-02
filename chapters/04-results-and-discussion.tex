@@ -24,46 +24,12 @@ significance:
         investigates the effect of the hyperparameters to the model.
 \end{itemize}
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-\section{Measuring model quality}
-\label{ModelQuality}
-\par In this section, the proposed model will be compared to other works in
-literature. The existing works follow the same pipeline for protein function
-prediction\textemdash extract features from data, then classify with the
-extracted features:
-
-\begin{itemize}
-    \item \cite{wang2013protein} applied principal component
-    analysis (PCA) to reduce the dimensions of protein data from $353$ to
-    $204$. 
-    \item \cite{chicco2014deep} used a deep autoencoder with two-layers
-    to predict the protein functions of \textit{B.taurus} and \textit{G.
-    gallus}. 
-    \item \cite{miranda2017feature} implemented a stacked denoising
-    autoencoder to obtain robust features from raw data to predict protein
-    functions.  
-\end{itemize}
-
-\par In addition, we will also compare against a baseline model without feature
-extraction. All features, extracted or not, will be trained on a
-binary-relevance SVM for classification (using both gaussian and linear
-kernels). The pipeline will run for ten (10) trials with the mean and
-standard deviation of the results on the test data reported. 
-
-\input{./inputs/results_yeast_svm.tex}
-
-=======
->>>>>>> 44dbd3a... [WIP] Update Results
-=======
 For all experiments, the performance on the test data is reported. All
 hyperparameters were tuned using random-search with 5-fold cross-validation.
 For Sections \ref{Benchmarking} and \ref{AblationTest}, the
 models were ran for ten (10) trials with the mean and standard deviation
 reported. 
 
-
->>>>>>> 5f912c2... [WIP] Update Results
 \section{Estimating feature relevance}
 \label{FeatureRelevance}
 
@@ -107,7 +73,6 @@ our autoencoder:
     \caption{Feature importance histogram for the raw data in both datasets}
     \label{results:fi_base}
 \end{figure}
-
 
 \begin{figure}[h!]
     \centering
@@ -180,7 +145,6 @@ smoother.
     \caption{Feature importance histogram for the extracted features in Genbase}
     \label{results:fi_genbase}
 \end{figure}
-
 
 \paragraph{Genbase} The histogram from \ref{results:fi_genbase_base} shows a
 large number of the original feature set deemed irrelevant by the
@@ -327,8 +291,6 @@ literature.
 \section{Comparison to other models}
 \label{Benchmarking}
 
-<<<<<<< HEAD
-=======
 \par In this section, the proposed model will be compared to other works in
 literature. The existing works follow the same pipeline for protein function
 prediction\textemdash extract features from data, then classify with the
@@ -393,12 +355,9 @@ datasets and overall.
 
 \input{./inputs/results_yeast_svm.tex}
 \input{./inputs/results_yeast_lsvm.tex}
-<<<<<<< HEAD
->>>>>>> e04caa4... [WIP] Update Results
-=======
+
 \input{./inputs/results_genbase_svm.tex}
 \input{./inputs/results_genbase_lsvm.tex}
->>>>>>> 408d4d0... [WIP] Update Results
 
 \par For the Yeast dataset, the proposed method's performance is not that
 apparent against the $\textit{Baseline}$ and \cite{wang2013protein}, but are
