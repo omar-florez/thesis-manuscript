@@ -43,8 +43,8 @@
             headsepline,
             consistentlayout]{style}
 \usepackage[utf8]{inputenc}
-\usepackage[T1]{fontenc}
-\usepackage{mathptmx}
+%\usepackage[T1]{fontenc}
+%\usepackage{mathptmx}
 \usepackage[backend=biber,style=authoryear,natbib=true]{biblatex}
 \usepackage[autostyle=true]{csquotes}
 \usepackage{enumitem}
@@ -58,9 +58,6 @@
 \usepackage{subcaption}
 
 \addbibresource{bibliography.bib}
-
-\listfiles
-
 
 %------------------------------------------------------------------------------
 %	OTHER SETTINGS
@@ -89,12 +86,12 @@
 
 \geometry{
     paper=letterpaper, % Change to letterpaper for US letter
-    %inner=2.5cm, % Inner margin
-    %outer=3.8cm, % Outer margin
-    %bindingoffset=.5cm, % Binding offset
+    inner=2.5cm, % Inner margin
+    outer=3.8cm, % Outer margin
+    bindingoffset=.5cm, % Binding offset
     top=1.5cm, % Top margin
     bottom=1.5cm, % Bottom margin
-    %showframe, % Uncomment to show how the type block is set on the page
+    showcrop
 }
 
 %------------------------------------------------------------------------------
@@ -102,8 +99,8 @@
 %------------------------------------------------------------------------------
 
 \thesistitle{
-    Predicting Protein Functions via Selective Feature Extraction
-    using a Mutually-Competitive Autoencoder
+    A Study of Autoencoder-based Feature Extraction Techniques for Protein
+    Function Prediction
 }
 \supervisor{Dr. Jinglu Hu}
 \degree{Master of Engineering}
@@ -246,11 +243,11 @@ $\omega$ & angular frequency & test \\
 
 \pagestyle{thesis} % Return the page headers back to the "thesis" style
 
-\include{chapters/01-introduction}
-\include{chapters/02-literature-review}
-\include{chapters/03-proposed-method}
-\include{chapters/04-results-and-discussion}
-\include{chapters/05-conclusion}
+\include{chapters/introduction}
+\include{chapters/background}
+%\include{chapters/stacked-denoising}
+%\include{chapters/mutual-competition}
+%\include{chapters/conclusion}
 
 %------------------------------------------------------------------------------
 %	THESIS CONTENT - APPENDICES
