@@ -75,6 +75,9 @@
 % Set-up footnotes
 \renewcommand{\thefootnote}{\fnsymbol{footnote}}
 
+% Item settings
+\setlist{parsep=0pt, listparindent=\parindent}
+
 % Math fonts set-up
 \DeclareMathAlphabet{\mathcal}{OMS}{cmsy}{m}{n}
 \SetMathAlphabet{\mathcal}{bold}{OMS}{cmsy}{b}{n}
@@ -224,13 +227,32 @@ All Rights Reserved
 %	SYMBOLS
 %------------------------------------------------------------------------------
 
-\begin{symbols}{lll} % Include a list of Symbols (a three column table)
+\begin{symbols}{ll} % Include a list of Symbols (a three column table)
+
+$N$                         & number of samples         \\
+$q$                         & number of labels          \\
+$x$                         & raw feature              \\
+$x^{\prime}$                & extracted feature        \\
+$\widetilde{x}$             & corrupted feature        \\
+$\widehat{x}$               & reconstructed feature    \\
+$y$                         & ground-truth label       \\
+$\widehat{y}$               & prediction               \\
 
 
+\addlinespace
+$f$                         & encoder function          \\
+$g$                         & decoder function          \\
+$L$                         & loss function             \\
+$q^{\prime}$                & corrupting function       \\
 
-\addlinespace % Gap to separate the Roman symbols from the Greek
+\addlinespace % learnable parameters 
+$\theta$                    & network weight parameters \\
+$W$                         & classifier parameters     \\
 
-$\omega$ & angular frequency & test \\
+\addlinespace % hyperparameter
+$k$                         & percentage of winners to keep \\
+$\alpha$                    & competition parameter         \\
+$e$                         & encoding dimension            \\
 
 \end{symbols}
 
@@ -244,7 +266,7 @@ $\omega$ & angular frequency & test \\
 \pagestyle{thesis} % Return the page headers back to the "thesis" style
 
 \include{chapters/introduction}
-\include{chapters/background}
+%\include{chapters/background}
 %\include{chapters/stacked-denoising}
 %\include{chapters/mutual-competition}
 %\include{chapters/conclusion}

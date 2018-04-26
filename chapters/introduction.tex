@@ -23,70 +23,99 @@
 \chapter{Introduction}
 \label{Introduction}
 
-\par In bioinformatics, predicting a protein's function is a fundamental task.
-If a protein's functional category is known, then designing drugs or
-identifying a disease's molecular mechanism is achievable. However, acquiring
-this knowledge is slow and difficult due to the complexity in a protein's
-biological information, and the unfamiliarity of life's organization at the
-molecular level (\cite{baldi2001bioinformatics}). In addition, more and more
-proteins are being characterized by high-throughput sequencing techniques
-today, creating vast stores of genomic data available for use
-(\cite{gaudet2017gene, cozzetto2017computational}). This widens the gap between
-annotated and unannotated proteins, urging the need for a more efficient,
-accurate, and fast set of prediction techniques in the presence of
-``genomic big data.''
-
-\par Machine learning techniques have been observed to perform well in complex
-tasks involving large amounts of data (\cite{chen2014data}). They have been
-exceptional in recognizing patterns and learning from a vast number of examples 
-(\cite{lecun2015deep}). Before prediction, a machine learning model must first
-discern a pattern from a set of data, and use that to infer the category, or 
+\par In bioinformatics, predicting a protein's function is a fundamental
+task. Once accomplished, we can use our knowledge of a protein's function to
+various applications such as drug-design or disease identification
+(\cite{baldi2001bioinformatics}). However, acquiring this information is
+difficult due to the slow and expensive nature of existing biochemical
+techniques today (\cite{cozzetto2017computational}). As an increasing number
+of proteins are being identified by high-throughput sequencing methods today,
+the backlog for unannotated protein data rises (\cite{gaudet2017gene}). This
+then calls for a fast, accurate, and efficient set of prediction techniques
+in the face of ``genomic big data.''
+  
+\par Machine learning has shown promise in complex tasks involving large
+amounts of data (\cite{chen2014data}). They have been exceptional in
+recognizing patterns and learning from a vast number of examples
+(\cite{lecun2015deep}). Before prediction, a machine learning model must
+discern a pattern from a dataset, and use it to infer the category, or
 \textit{class}, a new sample belongs to. Because most proteins can perform
-multiple functions at once, \textit{multi-label classification}\textemdash
-a subset of machine learning\textemdash is used. However, the effectiveness of
-a multi-label classification model still depends on the pattern it learns, and
-how well it represents the input data provided.
+multiple functions at once, we frame the protein function prediction problem
+as a multilabel classification task. It is important to note that the
+effectiveness of a classification model strongly depends on the pattern it
+learns, and how well it represents the input data provided.
 
-\par Learning to understand data and representing it in a form beneficial for a
-machine learning model is known as \textit{representation learning}. Although
-it is entirely possible to manually engineer characteristics, or \textit{features}
-, of a dataset, it is labor-intensive and requires thorough domain-expertise 
-(\cite{bengio2013representation}).  Instead, it is preferable to automatically
-extract useful information from data using a \textit{feature extractor}, and
-ensure that the new features are relevant. Selecting more relevant features is
-apt for protein datasets because it is noisy, i.e., both relevant and irrelevant
-data are present. Properly discerning which characteristics are important and 
-transforming them into features useful to a predictor is essential in
-identifying protein functions.
-
-\par This research presents a novel architecture based on the autoencoder neural
-network. The proposed network motivates selective behavior in order to produce
-relevant features. This is done through mutual competition: adjusting the
-backpropagation path to keep a select number of neurons active while ensuring
-meaningful representations. It is expected that this method will be able to
-predict protein functions well, as compared to using raw data directly or to
-other techniques in literature. 
+\par Feature extraction aims to represent raw data into a form beneficial to
+a machine learning model. Although it is entirely possible to manually
+engineer characteristics, or \textit{features}, from a dataset, it is
+labor-intensive and requires thorough domain-expertise
+(\cite{bengio2013representation}). Instead, it is preferable to automatically
+derive useful information from our inputs and ensure that the new features
+are relevant. The better a feature extraction method can represent raw data,
+the easier a classification model can discriminate between its samples. For
+protein datasets, extracting \textit{relevant} information is challenging for
+two reasons: protein samples are (1) noisy, and (2) high-dimensional. Noise,
+inherent in data-acquisition and intrinsic to biological complexity,
+introduces irrelevant information to the classification task. On the other
+hand, high-dimensional datasets suffer from the \textit{curse of
+dimensionality}, further complicating the discrimination process. Properly
+discerning which characteristics are important and transforming them into
+features useful to a predictor is essential in identifying protein functions.
 
 \newpage
 
-\par \noindent The rest of the document is organized as follows:
+\par This research investigates the effect of \textit{extracting relevant
+features} on the performance of a multilabel classification model in
+predicting protein functions. We put emphasis on feature relevance, given the
+noisy and high-dimensional nature of protein data. We hypothesize that by
+obtaining relevant features, we can achieve higher classification performance
+than naively extracting features or not extracting them at all. The models
+that we will introduce in this work were based from an autoencoder neural
+network. For the time being, know that autoencoders learn new representations
+by actively reconstructing the input with the presence of information
+bottlenecks. We studied two autoencoder architectures, and tested them on
+protein benchmarks. The main contributions of this research are as follows:
 
-\begin{itemize} 
-    \item The remaining sections of Chapter \ref{Introduction}
-        discuss the context behind this work (Sec. \ref{Background}), the
-        research motivation (Sec. \ref{Motivation}), and the formulation of the
-        research problem (Sec. \ref{Problem}).  
-    \item Chapter \ref{LiteratureReview} comments on the related literature
-        that also tackles the problem of protein function prediction. 
-    \item Chapter \ref{Methodology} outlines the proposed method
-        and gives an overview of its training and testing schemes (Sec. 
-        \ref{Methodology}). In addition, an explanation of the datasets used (Sec.
-        \ref{Datasets}) and a description of the experimental environment
-        (Sec. \ref{ExperimentalEnvironment}) will be done. 
-    \item Chapter \ref{Results} discusses the experiments conducted to evaluate the 
-        proposed method: benchmarking performance with other techniques 
-        (Sec. \ref{Benchmarking}), measuring model quality (Sec.\ref{ModelQuality}),
-        and estimating feature relevance (Sec.\ref{FeatureRelevance}).
-    \item Lastly, Chapter \ref{Conclusion} concludes the work. Potential avenues for 
-        future research (Sec. \ref{FutureWork}) will be discussed.
+\begin{itemize}
+    \item We applied a stacked denoising autoencoder, a technique
+    commonly-used in image denoising, to the protein function prediction problem.
+    \begin{quote}
+    \par We have demonstrated the efficacy of the autoencoder in a different
+    problem domain by learning \textit{robust} features to aid multilabel
+    classification. However, autoencoder training is inherently greedy, and
+    motivating the network to learn sparse yet relevant features should
+    offset this problem.
+    \end{quote}
+    \item We designed a mutually-competitive autoencoder architecture that
+    motivates the creation of sparse yet relevant features from raw data.
+    \begin{quote}
+    \par We have proven that by learning \textit{relevant} representations
+    of the raw inputs, classification performance can improve. This architecture
+    outperformed not only a model without feature extraction, but also other
+    feature extraction methods by a significant margin. 
+    \end{quote}
+\end{itemize}
+
+
+
+\par \noindent This document is divided into five (5) chapters, with the rest
+organized as follows:
+
+\begin{itemize}
+    \item \textsc{Chapter \ref{BackgroundChapter}} \textit{(Background of the
+    Study)} provides an overview of the protein function prediction problem,
+    the idea behind feature extraction, and the formulation of a multilabel
+    classification problem. It also reviews related works that will be
+    benchmarked against our proposed method.
+    \item \textsc{Chapter \ref{SDAEChapter}} \textit{(Feature Extraction
+    using a Stacked Denoising Autoencoder for Protein Function Prediction)}
+    investigates the use of denoising autoencoders in the protein function
+    prediction problem in a multilabel setting.
+    \item \textsc{Chapter \ref{SelectiveChapter}} \textit{(Selective Feature
+    Extraction using a Mutually-Competitive Autoencoder)} describes our proposed
+    autoencoder architecture and key experiments that will examine its performance
+    on a protein function prediction task.
+    \item \textsc{Chapter \ref{ConclusionsChapter}} \textit{(Conclusions)} gives
+    a concise summary of this research, key insights, and potential avenues for
+    future research.
 \end{itemize}
