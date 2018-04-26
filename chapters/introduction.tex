@@ -24,13 +24,13 @@
 \label{Introduction}
 
 \par In bioinformatics, predicting a protein's function is a fundamental
-task. Once accomplished, we can use our knowledge of a protein's function to
+task. Once accomplished, we can use our knowledge of protein functions to
 various applications such as drug-design or disease identification
 (\cite{baldi2001bioinformatics}). However, acquiring this information is
 difficult due to the slow and expensive nature of existing biochemical
-techniques today (\cite{cozzetto2017computational}). As an increasing number
-of proteins are being identified by high-throughput sequencing methods today,
-the backlog for unannotated protein data rises (\cite{gaudet2017gene}). This
+techniques today (\cite{cozzetto2017computational}). As the number
+of proteins discovered by high-throughput methods increases,
+the backlog of unannotated protein data piles up (\cite{gaudet2017gene}). This
 then calls for a fast, accurate, and efficient set of prediction techniques
 in the face of ``genomic big data.''
   
@@ -41,9 +41,18 @@ recognizing patterns and learning from a vast number of examples
 discern a pattern from a dataset, and use it to infer the category, or
 \textit{class}, a new sample belongs to. Because most proteins can perform
 multiple functions at once, we frame the protein function prediction problem
-as a multilabel classification task. It is important to note that the
-effectiveness of a classification model strongly depends on the pattern it
-learns, and how well it represents the input data provided.
+as a multilabel classification task. In this manner, the primary question
+becomes:
+
+\begin{quote}
+    \itshape
+    Given a set of protein characteristics, what can we infer about
+    its function/s?
+\end{quote}
+
+\noindent It is important to note that the effectiveness of a classification
+model strongly depends on the pattern it learns, and how well it represents
+the input data provided.
 
 \par Feature extraction aims to represent raw data into a form beneficial to
 a machine learning model. Although it is entirely possible to manually
@@ -58,8 +67,8 @@ two reasons: protein samples are (1) noisy, and (2) high-dimensional. Noise,
 inherent in data-acquisition and intrinsic to biological complexity,
 introduces irrelevant information to the classification task. On the other
 hand, high-dimensional datasets suffer from the \textit{curse of
-dimensionality}, further complicating the discrimination process. Properly
-discerning which characteristics are important and transforming them into
+dimensionality}, further complicating the discrimination process.
+Distinguishing which characteristics are important and transforming them into
 features useful to a predictor is essential in identifying protein functions.
 
 \newpage
@@ -113,7 +122,7 @@ organized as follows:
     prediction problem in a multilabel setting.
     \item \textsc{Chapter \ref{SelectiveChapter}} \textit{(Selective Feature
     Extraction using a Mutually-Competitive Autoencoder)} describes our proposed
-    autoencoder architecture and key experiments that will examine its performance
+    autoencoder architecture and key experiments that examine its performance
     on a protein function prediction task.
     \item \textsc{Chapter \ref{ConclusionsChapter}} \textit{(Conclusions)} gives
     a concise summary of this research, key insights, and potential avenues for

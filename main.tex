@@ -55,9 +55,25 @@
 \usepackage{algpseudocode}
 \usepackage{threeparttable}
 \usepackage{footmisc}
+\usepackage{ntheorem}
+\usepackage{mdframed}
 \usepackage{subcaption}
 
 \addbibresource{bibliography.bib}
+
+%------------------------------------------------------------------------------
+%	DEFINITION
+%------------------------------------------------------------------------------
+\theoremstyle{definition}
+\theoremheaderfont{\bfseries}
+\newmdtheoremenv[
+    leftmargin=40, rightmargin=20,
+    backgroundcolor=gray!20, linecolor=gray!20,
+    innertopmargin=10,
+    ntheorem
+]{definition}{Definition}[section]
+%\newtheorem{definition}{Definition}[section]
+
 
 %------------------------------------------------------------------------------
 %	OTHER SETTINGS
@@ -266,7 +282,7 @@ $e$                         & encoding dimension            \\
 \pagestyle{thesis} % Return the page headers back to the "thesis" style
 
 \include{chapters/introduction}
-%\include{chapters/background}
+\include{chapters/background}
 %\include{chapters/stacked-denoising}
 %\include{chapters/mutual-competition}
 %\include{chapters/conclusion}
