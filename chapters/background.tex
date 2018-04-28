@@ -1,5 +1,5 @@
 %=============================================================================
-% Introduction
+% Background
 % Copyright (c) 2018. Lester James V. Miranda
 %
 % This file is part of thesis-manuscript.
@@ -20,148 +20,125 @@
 % Created by: Lester James V. Miranda <ljvmiranda@gmail.com>
 %=============================================================================
 
-\chapter{Introduction}
-\label{Introduction}
+\chapter{Background of the Study}
+\label{BackgroundChapter}
 
-\par In bioinformatics, predicting a protein's function is a fundamental task.
-If a protein's functional category is known, then designing drugs or
-identifying a disease's molecular mechanism is achievable. However, acquiring
-this knowledge is slow and difficult due to the complexity in a protein's
-biological information, and the unfamiliarity of life's organization at the
-molecular level (\cite{baldi2001bioinformatics}). In addition, more and more
-proteins are being characterized by high-throughput sequencing techniques
-today, creating vast stores of genomic data available for use
-(\cite{gaudet2017gene, cozzetto2017computational}). This widens the gap between
-annotated and unannotated proteins, urging the need for a more efficient,
-accurate, and fast set of prediction techniques in the presence of
-``genomic big data.''
-
-\par Machine learning techniques have been observed to perform well in complex
-tasks involving large amounts of data (\cite{chen2014data}). They have been
-exceptional in recognizing patterns and learning from a vast number of examples 
-(\cite{lecun2015deep}). Before prediction, a machine learning model must first
-discern a pattern from a set of data, and use that to infer the category, or 
-\textit{class}, a new sample belongs to. Because most proteins can perform
-multiple functions at once, \textit{multi-label classification}\textemdash
-a subset of machine learning\textemdash is used. However, the effectiveness of
-a multi-label classification model still depends on the pattern it learns, and
-how well it represents the input data provided.
-
-\par Learning to understand data and representing it in a form beneficial for a
-machine learning model is known as \textit{representation learning}. Although
-it is entirely possible to manually engineer characteristics, or \textit{features}
-, of a dataset, it is labor-intensive and requires thorough domain-expertise 
-(\cite{bengio2013representation}).  Instead, it is preferable to automatically
-extract useful information from data using a \textit{feature extractor}, and
-ensure that the new features are relevant. Selecting more relevant features is
-apt for protein datasets because it is noisy, i.e., both relevant and irrelevant
-data are present. Properly discerning which characteristics are important and 
-transforming them into features useful to a predictor is essential in
-identifying protein functions.
-
-\par This research presents a novel architecture based on the autoencoder neural
-network. The proposed network motivates selective behavior in order to produce
-relevant features. This is done through mutual competition: adjusting the
-backpropagation path to keep a select number of neurons active while ensuring
-meaningful representations. It is expected that this method will be able to
-predict protein functions well, as compared to using raw data directly or to
-other techniques in literature. 
-
-\newpage
-
-\par \noindent The rest of the document is organized as follows:
-
-\begin{itemize} 
-    \item The remaining sections of Chapter \ref{Introduction}
-        discuss the context behind this work (Sec. \ref{Background}), the
-        research motivation (Sec. \ref{Motivation}), and the formulation of the
-        research problem (Sec. \ref{Problem}).  
-    \item Chapter \ref{LiteratureReview} comments on the related literature
-        that also tackles the problem of protein function prediction. 
-    \item Chapter \ref{Methodology} outlines the proposed method
-        and gives an overview of its training and testing schemes (Sec. 
-        \ref{Methodology}). In addition, an explanation of the datasets used (Sec.
-        \ref{Datasets}) and a description of the experimental environment
-        (Sec. \ref{ExperimentalEnvironment}) will be done. 
-    \item Chapter \ref{Results} discusses the experiments conducted to evaluate the 
-        proposed method: benchmarking performance with other techniques 
-        (Sec. \ref{Benchmarking}), measuring model quality (Sec.\ref{ModelQuality}),
-        and estimating feature relevance (Sec.\ref{FeatureRelevance}).
-    \item Lastly, Chapter \ref{Conclusion} concludes the work. Potential avenues for 
-        future research (Sec. \ref{FutureWork}) will be discussed.
-\end{itemize}
+\par In this chapter, we begin by looking into the problem of protein
+function prediction in the lens of how protein data is usually represented
+(Sec. \ref{ProteinFunctionPrediction}). Then, armed with the knowledge that
+proteins can perform multiple functions at once, we will frame the protein
+function prediction problem as a multilabel classification task (Sec.
+\ref{MultilabelClassification}). We will argue that learning new
+representations from data is vital to accomplish this task (Sec.
+\ref{FeatureExtraction}), and at the same time introduce the autoencoder
+neural network as basis for our methods. We then examine
+previous works that have tackled this problem with a similar approach (Sec.
+\ref{LiteratureReview}) and finally, express our research motivation
+(Sec. \ref{Motivation}) and formulate research questions and hypotheses
+throughout this work (Sec. \ref{Problem}).
 
 
-\section{Background of the Study}
-\label{Background}
+\section{Protein Data Representation}
+\label{ProteinFunctionPrediction}
 
-Approaching the problem of protein function prediction requires the
-understanding of how protein data is represented. Proteins are always
-described into two: first by their (1) \textbf{features} or characteristics,
-and second by their (2) \textbf{labels} or set of functions it performs. This
-section will discuss these types of data, and give a brief background on two
-related topics: \textbf{multi-label classification}, a set of machine learning
-methods for predicting multiple associations in a sample, and \textbf{feature 
-extraction}, a technique for finding new representations from raw data.
+Approaching the protein function prediction problem requires an
+understanding of how protein data is often represented. We always
+describe proteins in two ways: first by their (1) \textit{features} or
+characteristics, and then by their (2) \textit{labels} or functional
+categories.
 
-\subsection{Protein features}
+\subsection{Protein features from high-throughput methods}
 
-\par Proteins can be described into either sequences or expressions 
-(\cite{xiong2006essential}). Sequences describe the protein as a chain
-of amino acids, the building blocks of protein, represented by a single letter.
-When arranged into a sequence, the order of appearance becomes important.
-On the other hand, expressions describe the protein as combinations of various
-techniques such as micro-array expression data, phylogenetic profiles and DNA
-chips. It represents proteins as a vector of numerical values containing the
-output of the micro-array process.
+\par High-throughput sequencing techniques ushered in the emergence of
+genomic big data (\cite{reuter2015high}). Scientists conducted various
+experiments (e.g. DNA microarray, phylogenetic trees, etc.) to profile
+protein sequences, resulting to huge amounts of structured data available for
+use. The datasets produced from these experiments helped facilitate protein
+function prediction, be it through biochemical or computational means
+(\cite{eisenberg2000protein, marcotte1999combined}). We will be using two
+protein benchmarks, Yeast and Genbase, that were derived from these
+experiments.
 
-\par Although prediction is possible using protein sequences
-(\cite{whisstock2003prediction, devos2000practical}), expressions have
-been observed to be effective in predicting protein functions
-(\cite{eisenberg2000protein, marcotte1999combined}). Thus, this
-research will focus on the latter as descriptors for protein data. In
-particular, micro-array expression data and phylogenetic profiles will
-be used (See Sec. \ref{Datasets})
+\par We define a \textit{protein feature set} as a matrix $\mathbf{X}$ where
+each row and column is represented as a protein sample $i=1\dots N$ and a
+specific measurement $j=1\dots d$ respectively. Both Yeast and Genbase
+datasets were formed from microarray gene expression data, with the former
+containing phylogenetic profiles as additional information. Succintly, our
+raw features is defined as $\mathbf{X} \in \mathbb{R}^{N \times d}$ where $N$
+is the number of protein samples and $d$ is the dimension or number of
+attributes.
+
+\par It is vital to spend some time emphasizing that noise is intrinsic to
+high-throughput data (\cite{hong2013estimating}). A DNA microarray, for
+example, is formed by probing unique regions of a gene in order to detect
+expressions present in the tissue. Probing is sometimes conducted
+heterogeneously, for ``different parts of the body, different [organisms], or
+different phases of the cellular cycle'' (\cite{nguyen2009noise}). Each step
+has the potential to introduce noise that may be detrimental to our task.
+Thus, extracting features from noisy data can compound its effect and damage
+our classification model. Later on, we will discuss the denoising autoencoder
+as a way to reduce the effect of noise from our raw features; but first, let's
+look into what these features actually describe, that is, a protein's
+function.
 
 \subsection{Protein functions}
 
-\par Proteins can belong to one or more functional categories. They
-refer to various life processes such as metabolism, cell
-reproduction, synthesis that arranged in an ontology. This
-organization enables researchers to observe the relationships and 
-properties of protein functions, and is one of the standard tools
-in bioinformatics today.
+\par Proteins perform a variety of functions to maintain our survival. They
+can be seen in almost every facet of our biological processes: cell
+reproduction, signalling, metabolism, and etc. By design, a singular protein
+can perform multiple functions at once. This means that there is a
+one-to-many relationship between protein samples and its function/s. A good
+example is the YAL041W protein found in \textit{S. cerevisiae} or baker's
+yeast (\cite{elisseeff2001kernel}) in Figure \ref{demo:yeast_go}. YAL041W is
+associated with multiple functional categories: cell growth, organization,
+communication, and viral detection. To an extent, these categories are not
+related to one another yet they are wilfully performed by a single protein.
 
-\par Various ontologies describe a protein's functional category,
-and two of the most common are the Gene Ontology (GO) and the Munich
-Information Center for Protein Sequences (MIPS) annotations
-(\cite{gaudet2017gene, mewes2006mips}). Although each differ on their
-experimental methods, they remain similar by representing
-protein functions as a direct acyclic graph (DAG) to express the relationship
-between its members (e.g., ``is-a'', ``part-of'', etc.). To illustrate,
-Figure \ref{demo:yeast_go} shows the gene ontology of the  function ``cellular
-bud site selection'' performed by YAL041W, a protein found in
-\textit{S. cerevisiae} or baker's yeast.
-
-\begin{figure}[!t]
+\begin{figure}[t]
   \centering
-  \includegraphics[width=0.49\textwidth]{ch01/demo_lineage}
-  \caption[Gene ontology for \texttt{GO:0000282} or "cellular bud site selection"]{
-      Gene ontology for cellular bud site selection (\texttt{GO:0000282})
-      showing its relationship with respect to the parent and child classes.
-  }
+  \includegraphics[width=0.65\textwidth]{ch01/demo_ontology}
+  \caption{Functional categories of protein YAL041W in \textit{S. cerevisiae}}
   \label{demo:yeast_go}
 \end{figure}
 
-\par It is evident from \texttt{GO:0000282}'s ontology that hierarchical
-relationships exist between protein functions. This research strictly
-focuses on multi-label classification without accounting for label
-hierarchy. The benchmark datasets employed in this work and in existing literature
-have independent, multiple labels. Still, classification in the presence
-of multiple labels is no trivial task, and it is important to understand common 
-techniques for overcoming this problem.
+\par We define a set of protein functions or \textit{labels} as a binary
+matrix $\mathbf{Y}$ where each row $i=1 \dots N$ is a protein sample, and
+each column $j=1 \dots q$ is a protein function (designated as $\lambda$).
+The size of $q$ depends on the number of possible labels in the dataset. In
+addition, a protein labelset (a row vector) $\mathbf{y}_n$ is encoded as a
+one-hot vector of size $q$. Say we're given a protein sample $n$ that performs
+functions $\lambda_1, \lambda_4,$ and $\lambda_5$ in a set that only has
+five functional categories, $q=5$, then we express its labelset as:
 
-\subsection{Multi-label classification}
+\[
+    \mathbf{y}_n = \left[\begin{matrix}
+        1 & 0 & 0 & 1 & 1
+    \end{matrix} \right]
+\]
+
+More formally, we represent a set of protein labelsets as $\mathbf{Y} \in
+\{0,1\}^{N \times q}$, where each row-vector $\mathbf{y}_n \in \{0,1\}^q$
+is a labelset containing $q$ labels $\lambda$. 
+
+
+\newpage
+Together, we have the following definition:
+
+\begin{definition}{}
+A protein dataset $\mathcal{D}$ consists of $N$ pairs of feature and label
+vectors $\{(\mathbf{x}_i, \mathbf{y}_i)\}_{i=1}^{N}$ where $\mathbf{x}_i \in
+\mathbb{R}^d$ and $\mathbf{y}_i \in \{0,1\}^q$. In matrix-form, $\mathcal{D}$
+consists of feature and label matrices, $\mathcal{D} = \langle \mathbf{X},
+\mathbf{Y} \rangle$ where $\mathbf{X} \in \mathbb{R}^{N \times d}$ and
+$\mathbf{Y} \in \{0,1\}^{N \times q}$.
+\end{definition}
+
+\par We will use this definition as we formulate the protein function
+prediction problem as a multilabel classification task.
+
+
+\section{Multilabel classification}
+\label{MultilabelClassification}
 
 \par In typical classification tasks, two kinds of data are presented:
 the \textit{features}, denoted by the matrix $\mathbf{X} =
@@ -183,15 +160,15 @@ given that multiple classes are associated to it. Imagine a picture of a beach:
 one can observe not only the ``sea'' nor the ``person,'' but both of them
 existing in the same image as shown in Figure \ref{demo:multilabel}.
 
-\begin{figure}[!t]
-  \centering
-  \includegraphics[width=0.70\textwidth]{ch01/demo_multilabel}
-  \caption[Example of multi-label data in image scenes from MIT
-  Places dataset]{
-      Example of multi-label data in image scenes from the MIT
-      Places dataset (\cite{zhou2014learning})}
-  \label{demo:multilabel}
-\end{figure}
+%\begin{figure}[!t]
+%  \centering
+%  \includegraphics[width=0.70\textwidth]{ch01/demo_multilabel}
+%  \caption[Example of multi-label data in image scenes from MIT
+%  Places dataset]{
+%      Example of multi-label data in image scenes from the MIT
+%      Places dataset (\cite{zhou2014learning})}
+%  \label{demo:multilabel}
+%\end{figure}
 
 \par For multi-label datasets, labels are often defined by vectors instead of
 scalars. Here, the notation $\mathbf{Y}$ denotes the whole label matrix
@@ -247,7 +224,8 @@ if a BR classifier can stand on its own, it is hypothesized that higher
 performance is achievable when using the extracted features as compared to the
 raw data itself.
 
-\subsection{Feature Extraction}
+\section{Feature Extraction}
+\label{FeatureExtraction}
 
 \par Feature extraction can be best illustrated with the \texttt{XOR} gate.
 Here, we take its two inputs $\mathbf{x}_{i} = (x_{1}$, $x_{2})_{i}$ as features
@@ -297,7 +275,7 @@ there's a need to learn a function $f$ such that $f: \mathbf{x} \rightarrow
   \label{demo:xor}
 \end{figure}
 
-\subsubsection{The basic autoencoder}
+\subsection{The basic autoencoder}
 
 
 \par This research proposes a feature extraction technique based on the
@@ -342,6 +320,9 @@ compress data using this technique (\cite{theis2017lossy}).
   }
   \label{schema:autoencoder}
 \end{figure}
+
+\section{Literature Review}
+\label{LiteratureReview}
 
 \section{Motivation}
 \label{Motivation}
@@ -388,5 +369,4 @@ answered throughout this work:
     \item How well do the hyperparameters improve the basic autoencoder and
         affect model performance? (Sec. \ref{AblationTest})
 \end{itemize}
-
 
