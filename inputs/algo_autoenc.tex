@@ -1,0 +1,45 @@
+%=============================================================================
+% algo_autoenc.tex
+% Copyright (c) 2018. Lester James V. Miranda
+%
+% This file is part of thesis-manuscript.
+%
+% thesis-mansucript is free software: you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation, either version 3 of the License, or
+% (at your option) any later version.
+%
+% thesis-manuscript is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU General Public License for more details.
+%
+% You should have received a copy of the GNU General Public License
+% along with thesis-manuscript.  If not, see <http://www.gnu.org/licenses/>.
+%
+% Created by: Lester James V. Miranda <ljvmiranda@gmail.com>
+%=============================================================================
+
+\begin{algorithm}
+    \caption{Training an autoencoder neural network}
+    \label{algo:autoenc}
+    \begin{algorithmic}[1]
+    
+    \INPUT Raw attributes $\mathbf{X}$
+    \OUTPUT Learned parameters $\theta^{\ast}$
+
+    \item[]
+    \For{\textit{NumEpochs}}
+        \State $\mathbf{h} \gets f_{\theta}(\mathbf{X}) = \sigma(\theta\mathbf{X}^{T} + \theta_0)$
+        \Comment Encoder function
+        \State $\mathbf{\widehat{X}} \gets g_{\theta^{\prime}}(\mathbf{h}) = \sigma(\theta^{\prime} \mathbf{h}^{T} + \theta^{\prime}_{0})$
+        \Comment Decoder with tied-weights, $\theta^{\prime}=\theta^{T}$
+        \State $J(\theta) \gets L(\mathbf{X}, \mathbf{\widehat{X}})$
+        \Comment Compute loss
+        \State \Call{Backpropagation}{$J(\theta)$}
+        \Comment Optimize parameters
+    \EndFor
+    \State \Return $\theta^{\ast}$
+    \Comment Return learned parameters
+    \end{algorithmic}
+\end{algorithm}
