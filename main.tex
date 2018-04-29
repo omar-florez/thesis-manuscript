@@ -245,8 +245,12 @@ All Rights Reserved
 
 \begin{symbols}{ll} % Include a list of Symbols (a three column table)
 
+% dimensions
 $N$                         & number of samples         \\
 $q$                         & number of labels          \\
+$d$                         & number of features        \\
+
+\addlinespace % data
 $x$                         & raw feature              \\
 $x^{\prime}$                & extracted feature        \\
 $\widetilde{x}$             & corrupted feature        \\
@@ -255,11 +259,12 @@ $y$                         & ground-truth label       \\
 $\widehat{y}$               & prediction               \\
 
 
-\addlinespace
+\addlinespace % functions
 $f$                         & encoder function          \\
 $g$                         & decoder function          \\
 $L$                         & loss function             \\
 $q^{\prime}$                & corrupting function       \\
+$h$                         & classifier                \\
 
 \addlinespace % learnable parameters 
 $\theta$                    & network weight parameters \\
