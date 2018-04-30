@@ -274,10 +274,11 @@ simple demonstration using the XOR gate to illustrate this idea.
 
 \subsection{A simple demonstration using the XOR gate}
 
-\par Creating new features can be best illustrated with the XOR gate. Here,
-we take two inputs $\mathbf{x} = \langle x_{1}$, $x_{2} \rangle, x_1, x_2
-\in \{0,1\}$ as features and its output $y_{i} \in \{0,1\}$ as the label.
-With $N=4$ samples representing all possible bit-combinations, a dataset
+\par Creating new features can be best illustrated with the XOR gate. The
+goal is to separate binary 0's and 1's of the output. We take two
+inputs $\mathbf{x} = \langle x_{1}$, $x_{2} \rangle, x_1, x_2 \in \{0,1\}$ as
+features and its output $y_{i} \in \{0,1\}$ as the label. With $N=4$ samples
+representing all possible bit-combinations, a dataset
 $\mathcal{D}=\{(\mathbf{x}_{i}, y_{i})\}_{i=1}^{4}$ can be constructed as:
 
 \[
@@ -299,14 +300,14 @@ where:
     \mathcal{D}^{\prime} = \{(0,0,0), (1,0,1), (0,1,1), (0,0,0)\}
 \]
 
-\par It can be seen from Figure \ref{demo:xor} (\textit{right}) that
-$\mathcal{D}^{\prime}$ is a linearly separable problem solvable by any simple
-classifier. In this demonstration, it is evident that hand-engineering
-features, or \textit{extracting new features} has been helpful. However, with
-large datasets, it will be tedious to manually find useful representations
-from data. It is much preferable to automate the whole process. In the next section,
-we will turn our attention to an effective way of learning $\phi$ in a
-parameterized fashion\textemdash the autoencoder neural network.
+\par It can then be seen from Figure \ref{demo:xor} (\textit{right}) that
+$\mathcal{D}^{\prime}$ is now a linearly separable problem. In this
+demonstration, it is evident that hand-engineering features, or
+\textit{extracting new features} has been helpful. However, with large
+datasets, it will be tedious to manually find useful representations from
+data. It is much preferable to automate the whole process. In the next
+section, we will turn our attention to an effective way of learning $\phi$ in
+a parameterized fashion\textemdash the autoencoder neural network.
 
 \begin{figure}[!t]
   \centering
@@ -337,14 +338,13 @@ presence of information bottlenecks.
 
 \par There are two key aspects in training autoencoders: (1) information
 reconstruction and (2) information bottleneck. The concept is that if an
-autoencoder can reconstruct information ``perfectly'', even with
-constraints involved, then it has learned the latent structure of the raw
-data. The simplest way to constrain an autoencoder is by limiting the number
-of hidden nodes $e$ less than the original dimension of the data $d$. Say for
-example, a dataset with $d=100$ dimensions. If we set $e=20$, and the
-autoencoder was still able to reconstruct the original data ``perfectly'', then
-it has learned a hidden structure from the data that can be expressed in a
-lesser capacity.
+autoencoder can reconstruct information ``perfectly'', even with constraints
+involved, then it has learned the latent structure of the raw data. The
+simplest way to constrain an autoencoder is by limiting the number of hidden
+nodes $e$ less than the original dimension $d$ of the data. Say for example,
+a dataset with $d=100$ dimensions. If we set $e=20$, and the autoencoder was
+still able to reconstruct the original data ``perfectly'', then it has
+learned a hidden structure from the data expressed in a lesser capacity.
 
 \par In practice, the autoencoder architecture consists of an encoder-decoder
 scheme where the encoder function $f_{\theta}$ transforms the original input
@@ -371,16 +371,18 @@ discovered by the autoencoder. We can then use this to transform our original
 data via the encoder function\textemdash i.e, $ \mathbf{X}^{\prime} =
 f_{\theta^{\ast}}(\mathbf{X})$, we treat $f_{\theta^{\ast}}$ as
 $\phi$\textemdash and feed the transformation $\mathbf{X}^{\prime}$ into the
-multilabel classifier $\mathcal{H}$. We can illustrate this simple model
-in Figure \ref{schema:pipeline}.
+multilabel classifier $\mathcal{H}$. We can illustrate this simple model in
+Figure \ref{schema:pipeline}. In the next section, we will look into various
+works that have attempted to solve the protein function prediction problem
+using the pipeline similar to the figure above.
 
-\begin{figure}[!h]
+\begin{figure}[!t]
   \centering
-  \includegraphics[width=0.80\textwidth]{ch01/schema_pipeline}
+  \includegraphics[width=0.85\textwidth]{ch01/schema_pipeline}
   \caption{Simple diagram of the protein function prediction model}
   \label{schema:pipeline}
 \end{figure}
 
-In the next section, we will look into various works that have attempted to
-solve the protein function prediction problem using the pipeline similar to
-the above figure.
+
+\section{Review of Related Literature}
+
