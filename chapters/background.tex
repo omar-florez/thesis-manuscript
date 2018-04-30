@@ -35,7 +35,7 @@ neural network as basis for our methods. We then examine
 previous works that have tackled this problem with a similar approach (Sec.
 \ref{LiteratureReview}) and finally, express our research motivation
 (Sec. \ref{Motivation}) and formulate research questions and hypotheses
-throughout this work (Sec. \ref{Problem}).
+throughout this work.
 
 
 \section{Protein Data Representation}
@@ -145,7 +145,7 @@ prediction problem as a multilabel classification task.
 
 \par Classification is one of the most common tasks in machine learning
 (\cite{herrera2016multilabel}). Given input features $\mathbf{X}$ and its
-label $y$, the task is to find a mapping function $\mathcal{H}: \mathbf{X}
+label $y$, the goal is to find a mapping function $\mathcal{H}: \mathbf{X}
 \rightarrow y$ that can accurately associate each set of attributes to its
 particular label. For prediction, we then use the mapping function as
 $\mathcal{H}: \mathbf{X} \rightarrow \widehat{y}$. A good example is image
@@ -161,12 +161,12 @@ distinguish what particular object (or animal) it belongs to.
   \label{demo:traditional}
 \end{figure}
 
-\par However, we are well aware that proteins can perform multiple functions at
-once, and that the traditional definition of classification does not apply to our
-given task. Instead, we aim to discriminate between \textit{multiple labels} and
-associate them to the feature set. An apt counterpart to image classification is
-scene classification, where multiple objects (or animals) are associated to a given
-image.
+\par However, we are well aware that proteins can perform multiple functions
+at once, and that the traditional definition of classification does not apply
+to our given task. Instead, we aim to discriminate between \textit{multiple
+labels} and associate them to the feature set. An apt counterpart to image
+classification is scene classification (\cite{boutell2004learning}), where
+multiple objects (or animals) are associated to a given image.
 
 \begin{figure}[!h]
   \centering
@@ -204,7 +204,7 @@ classification problems: binary relevance.
 \subsection{Binary relevance in multilabel classification}
 
 \par Binary relevance (BR) decomposes a multilabel problem into a series of
-single-label classification tasks (\cite{boutell2004learning,
+single-label classification tasks (\cite{godbole2004discriminative,
 tsoumakas2007multilabel}). The concept is to take any ``off-the-shelf''
 classifier $h$ and train it on each label $\lambda$, fitting a total of $q$
 classifiers as seen in Figure \ref{demo:binaryrelevance}. Further
@@ -383,6 +383,99 @@ using the pipeline similar to the figure above.
   \label{schema:pipeline}
 \end{figure}
 
-
 \section{Review of Related Literature}
+\label{LiteratureReview}
 
+\par There are three major movements that we should consider as we trace the
+developments in protein function prediction (PFP) in machine learning: first
+is by (1) direct classification, then by (2) dimensionality-reduction, and
+lastly by (3) deep feature extraction. Machine learning approaches first
+involved feeding raw data into a classifier, then found the need to reduce
+the number of features in the dataset, and later on realized the need to
+learn suitable representations of protein data for the classifier. This
+research falls into the third category, utilizing deep neural networks to
+learn representations for a multilabel classifier. But before that, let's
+start from the beginning, where raw protein data is being fed directly to a
+multilabel classifier.
+
+\paragraph{Direct multilabel classification} The earliest attempt to solve
+the protein function prediction problem was done by
+\cite{elisseeff2001kernel}. They formulated PFP as a ranking problem (not yet
+as a multilabel problem but rather an extension of multiclass
+classification), and implemented a variant of the support-vector machine
+(SVM) known as Rank-SVM. They tested their technique on \textit{S.
+cerevisiae}, giving rise to the now known Yeast dataset. Later on,
+\cite{diplaris2005protein} benchmarked various techniques on their own
+protein data \textemdash the Genbase dataset. It is noteworthy that
+in the conclusion of their work, they expressed their intention to
+investigate ``alternative representations of the learning problem,'' which
+brought a slew of techniques for multilabel classification.
+
+\par This brought forth the main baseline for multilabel classification, the
+Binary Relevance (BR) algorithm
+(\cite{godbole2004discriminative,tsoumakas2007multilabel}). These were then
+extended into Label Powerset (LP) and Classifier Chains (CC)
+(\cite{read2009classifier}), but BR's conceptual ease and ``relative speed''
+enabled it to stay. Furthermore, various literature reviews attested BR's
+performance, especially when paired with an SVM classifier
+(\cite{luaces2012binary, zhang2014review,tsoumakas2017data}). For our
+research, we will use the Binary Relevance with SVM (BR-SVM) as the baseline
+of our work.
+
+\paragraph{Reducing protein data dimensionality} Although binary relevance
+has achieved good traction in protein function prediction, training a
+classifier for each label can be time-consuming. Researchers have then
+resorted to dimensionality-reduction techniques to reduce the number of
+features in a protein\footnote{The Genbase dataset, for instance, has $1186$
+attributes} (\cite{wang2009using, wang2013protein, wang2017protein}); they
+may not reduce the number of labels to train their classifier upon, but they
+can perhaps reduce the time it takes to train one. It is important to note
+that these techniques gave a semblance to feature extraction. Reducing
+dimensions in a data may be akin to finding a different representation of a
+feature space. However, this is still limited primarily due to most
+techniques being linear with less capacity (\cite{cunningham2015linear}). In
+our work, we will compare against the work of \cite{wang2013protein} that
+uses Principal Component Analysis (PCA) as a dimensionality-reduction
+technique to a k-nearest neighbors classifier (k-NN). They were able to
+reduce a protein dataset with $353$ features into $204$, achieving good
+classification performance. We chose this method because it follows a similar
+pipeline to Figure \ref{schema:pipeline}, and uses a similar data source
+(gene expressions) as our protein benchmark.
+
+\paragraph{Deep feature extraction in protein function prediction} Reducing
+dimensions in protein data has helped speed-up and improve classification,
+but common approaches such as principal component analysis (PCA) and linear
+discriminant analysis (LDA) are linear (\cite{bengio2013representation}),
+failing to capture the nonlinearities present in a protein's feature space.
+This gave way for researchers to apply deep learning techniques to protein
+data\textemdash both for protein sequences
+(\cite{bhola2014machine,kulmanov2017deepgo, zou2017protein}) and expressions
+(\cite{baldi2001bioinformatics, chicco2014deep}). Later on, we will benchmark
+against \cite{chicco2014deep}, who used a deep autoencoder network to extract
+features from protein gene expressions. Comparing against this method enables
+us to have a baseline, traditional autoencoder implementation to check our
+proposed architecture upon.
+
+\newpage
+\par As mentioned, this research falls under the last category of deep
+feature extraction. This method has been useful in aiding the classifier with
+a more separable feature space as we've demonstrated earlier in the XOR
+example. In addition, with Binary Relevance, we can decouple the feature
+extractor from the multilabel classifier enabling us to test our extraction
+method to different types of classifier.
+
+
+\par However, we argue that extracting features is not enough. It is
+important to learn representations that are relevant with respect to the
+classifier. In the next section, we will express our research
+motivation\textemdash clarifying the meaning of feature relevance\textemdash
+and formulate the problem as we proceed to the main body of this work.
+
+\section{Research Motivation}
+\label{Motivation}
+
+
+\subsection{Problem formulation and research hypotheses}
+
+% - Where your research comes in
+% - Note on decoupling
