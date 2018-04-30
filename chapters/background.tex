@@ -337,14 +337,13 @@ presence of information bottlenecks.
 
 \par There are two key aspects in training autoencoders: (1) information
 reconstruction and (2) information bottleneck. The concept is that if an
-autoencoder can reconstruct information ``perfectly'', even with
-constraints involved, then it has learned the latent structure of the raw
-data. The simplest way to constrain an autoencoder is by limiting the number
-of hidden nodes $e$ less than the original dimension of the data $d$. Say for
-example, a dataset with $d=100$ dimensions. If we set $e=20$, and the
-autoencoder was still able to reconstruct the original data ``perfectly'', then
-it has learned a hidden structure from the data that can be expressed in a
-lesser capacity.
+autoencoder can reconstruct information ``perfectly'', even with constraints
+involved, then it has learned the latent structure of the raw data. The
+simplest way to constrain an autoencoder is by limiting the number of hidden
+nodes $e$ less than the original dimension $d$ of the data. Say for example,
+a dataset with $d=100$ dimensions. If we set $e=20$, and the autoencoder was
+still able to reconstruct the original data ``perfectly'', then it has
+learned a hidden structure from the data expressed in a lesser capacity.
 
 \par In practice, the autoencoder architecture consists of an encoder-decoder
 scheme where the encoder function $f_{\theta}$ transforms the original input
@@ -383,4 +382,4 @@ in Figure \ref{schema:pipeline}.
 
 In the next section, we will look into various works that have attempted to
 solve the protein function prediction problem using the pipeline similar to
-the above figure.
+the figure above.
