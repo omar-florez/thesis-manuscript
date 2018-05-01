@@ -55,8 +55,8 @@ experiments (e.g. DNA microarray, phylogenetic trees, etc.) to profile
 protein sequences, resulting to huge amounts of structured data available for
 use. These datasets facilitated protein function prediction, be it through
 biochemical or computational means (\cite{eisenberg2000protein,
-marcotte1999combined}). Similarly, we will be using two protein benchmarks, Yeast and
-Genbase, derived from these experiments.
+marcotte1999combined}). Similarly, this work will use two protein benchmarks,
+Yeast and Genbase, derived from these experiments.
 
 \par We define a \textit{protein feature set} as a matrix $\mathbf{X}$ where
 each row and column is represented as a protein sample $i=1\dots N$ and a
@@ -161,12 +161,12 @@ distinguish what particular object (or animal) it belongs to.
   \label{demo:traditional}
 \end{figure}
 
-\par However, we are well aware that proteins can perform multiple functions
-at once, and that the traditional definition of classification does not apply
-to our given task. Instead, we aim to discriminate between \textit{multiple
-labels} and associate them to the feature set. An apt counterpart to image
-classification is scene classification (\cite{boutell2004learning}), where
-multiple objects (or animals) are associated to a given image.
+\par However, proteins can perform multiple functions at once, and the
+traditional definition of classification does not apply to the given task.
+Instead, the goal is to discriminate between \textit{multiple labels} and
+associate them to the feature set. An apt counterpart to image classification
+is scene classification (\cite{boutell2004learning}), where multiple objects
+(or animals) are associated to a given image.
 
 \begin{figure}[!h]
   \centering
@@ -246,27 +246,30 @@ madjarov2012extensive}).
 \par This research will concentrate on finding good representations for the
 BR classifier to solve the problem of protein function prediction. The
 process of obtaining new features from raw data is called \textit{feature
-extraction} and is one of the core ideas in this work. Even if a BR
+extraction}, and is one of the core ideas in this work. Even if a BR
 classifier can stand on its own, we hypothesize that higher performance can
 be achieved with the extracted features than the raw data itself.
 
-\section{Extracting Features for better Data Representation}
+\section{Extracting Features for Better Data Representation}
 \label{FeatureExtraction}
 
 \par One of the core ideas in this work is feature extraction\footnote{
   Feature extraction has been referred to in various ways in literature:
   feature learning, representation learning, manifold learning, etc. We will
   use the term ``feature extraction'' in this work.
-}
-\textemdash where new features are derived from raw attributes for better
+}\textemdash where new features are derived from raw attributes for better
 data representation, and consequently, better classification. The success of
 machine learning algorithms depends on data representations, for it can
 entangle manifolds or explanatory factors of variation behind the data
 (\cite{bengio2013representation}). 
 
-\par More formally, we want to learn a mapping $\phi$ such that $\phi:
+\par More formally, the goal is to learn a mapping $\phi$ such that $\phi:
 \mathbf{X} \rightarrow \mathbf{X}^{\prime}$, where $\mathbf{X}^{\prime}$
-represents the extracted features useful to a classifier $\mathcal{H}$. We
+represents the extracted features useful\footnote{
+  We will preemptively state that ensuring a feature set is useful will
+  be the prime motivation of this work. We will attempt to define ``usefulness''
+  or \textit{relevance} in Sec. \ref{Motivation}
+} to a classifier $\mathcal{H}$. We
 hypothesize that using $\mathbf{X}^{\prime}$ should provide better
 classification (perhaps measured in accuracy, F-score, etc.) than just using
 the raw attributes $\mathbf{X}$. The proceeding section will give a
@@ -275,7 +278,7 @@ simple demonstration using the XOR gate to illustrate this idea.
 \subsection{A simple demonstration using the XOR gate}
 
 \par Creating new features can be best illustrated with the XOR gate. The
-goal is to separate binary 0's and 1's of the output. We take two
+goal is to separate binary 0's and 1's of the gate output. We take two
 inputs $\mathbf{x} = \langle x_{1}$, $x_{2} \rangle, x_1, x_2 \in \{0,1\}$ as
 features and its output $y_{i} \in \{0,1\}$ as the label. With $N=4$ samples
 representing all possible bit-combinations, a dataset
@@ -313,8 +316,8 @@ a parameterized fashion\textemdash the autoencoder neural network.
   \centering
   \includegraphics[width=0.75\textwidth]{ch01/demo_xor}
   \caption[Illustration of feature extraction using the XOR gate]
-    {Illustration of feature extraction using the XOR gate. Binary `1's are represented as
-    circles while binary `0's as cross-marks.}
+    {Illustration of feature extraction using the XOR gate.\\ Binary `1's are
+    represented as circles while binary `0's as cross-marks.}
   \label{demo:xor}
 \end{figure}
 
@@ -344,37 +347,37 @@ simplest way to constrain an autoencoder is by limiting the number of hidden
 nodes $e$ less than the original dimension $d$ of the data. Say for example,
 a dataset with $d=100$ dimensions. If we set $e=20$, and the autoencoder was
 still able to reconstruct the original data ``perfectly'', then it has
-learned a hidden structure from the data expressed in a lesser capacity.
+learned a hidden structure from the data that was expressed in a lesser
+capacity.
 
 \par In practice, the autoencoder architecture consists of an encoder-decoder
 scheme where the encoder function $f_{\theta}$ transforms the original input
 $\mathbf{X}$ into a certain representation $\mathbf{h}$ (from $100$ features
 to $20$), and the decoder function $g_{\theta^{\prime}}$ converts
-$\mathbf{h}$ into an approximation of the original input
+$\mathbf{h}$ into an approximation of the raw features
 $\mathbf{\widehat{X}}$ (where $\mathbf{\widehat{X}} =
-g_{\theta^{\prime}}(\mathbf{h}) \approx \mathbf{X}$). We contrive the network
-to reconstruct $\mathbf{X}$ by setting the loss function as a comparison of
-the original input and its approximation:
+g_{\theta^{\prime}}(\mathbf{h}) \approx \mathbf{X}$). Setting the loss
+function as a comparison of the original input and its approximation
+contrives the network to reconstruct $\mathbf{X}$:
 
 \[
     J(\theta) = L(\mathbf{X}, \mathbf{\widehat{X}}) \quad \text{where} \quad
     \mathbf{\widehat{X}} = (g_{\theta^{\prime}} \circ f_{\theta}) (\mathbf{X})
 \]
 
-The procedure for training an autoencoder can be seen in Algorithm
-\ref{algo:autoenc}.
+Algorithm \ref{algo:autoenc} describes the procedure for training an autoencoder.
 
 \input{./inputs/algo_autoenc.tex}
 
 The learned parameters $\theta^{\ast}$ encapsulates the latent structure
-discovered by the autoencoder. We can then use this to transform our original
-data via the encoder function\textemdash i.e, $ \mathbf{X}^{\prime} =
-f_{\theta^{\ast}}(\mathbf{X})$, we treat $f_{\theta^{\ast}}$ as
-$\phi$\textemdash and feed the transformation $\mathbf{X}^{\prime}$ into the
-multilabel classifier $\mathcal{H}$. We can illustrate this simple model in
-Figure \ref{schema:pipeline}. In the next section, we will look into various
-works that have attempted to solve the protein function prediction problem
-using the pipeline similar to the figure above.
+discovered by the autoencoder. These parameters transform the original data
+via the encoder function\textemdash i.e, $ \mathbf{X}^{\prime} =
+f_{\theta^{\ast}}(\mathbf{X})$, $f_{\theta^{\ast}} \equiv \phi$\textemdash
+and feed the transformation $\mathbf{X}^{\prime}$ into the multilabel
+classifier $\mathcal{H}$. Figure \ref{schema:pipeline} illustrates this
+simple model. In the next section, we will trace major developments in
+protein function prediction via a machine learning approach that adheres
+similarly to the figure above.
 
 \begin{figure}[!t]
   \centering
@@ -386,30 +389,30 @@ using the pipeline similar to the figure above.
 \section{Review of Related Literature}
 \label{LiteratureReview}
 
-\par There are three major movements that we should consider as we trace the
+\par There are three major movements one should consider when tracing the
 developments in protein function prediction (PFP) in machine learning: first
-is by (1) direct classification, then by (2) dimensionality-reduction, and
-lastly by (3) deep feature extraction. Machine learning approaches first
-involved feeding raw data into a classifier, then found the need to reduce
-the number of features in the dataset, and later on realized the need to
-learn suitable representations of protein data for the classifier. This
+is by (1) direct classification, then by (2) dimensionality reduction, and
+lastly by (3) deep feature extraction. Machine learning techniques first
+involved feeding raw data into a classifier, then found the need in reducing
+the number of features in the dataset, and later on realized the importance
+of learning suitable data representations for the classifier. This
 research falls into the third category, utilizing deep neural networks to
 learn representations for a multilabel classifier. But before that, let's
 start from the beginning, where raw protein data is being fed directly to a
 multilabel classifier.
 
-\paragraph{Direct multilabel classification} The earliest attempt to solve
-the protein function prediction problem was done by
-\cite{elisseeff2001kernel}. They formulated PFP as a ranking problem (not yet
-as a multilabel problem but rather an extension of multiclass
+\paragraph{Direct multilabel classification}
+The earliest attempt to solve the protein function prediction problem was
+done by \cite{elisseeff2001kernel}. They formulated PFP as a ranking problem
+(not yet as a multilabel problem but rather an extension of multiclass
 classification), and implemented a variant of the support-vector machine
 (SVM) known as Rank-SVM. They tested their technique on \textit{S.
 cerevisiae}, giving rise to the now known Yeast dataset. Later on,
 \cite{diplaris2005protein} benchmarked various techniques on their own
-protein data \textemdash the Genbase dataset. It is noteworthy that
-in the conclusion of their work, they expressed their intention to
-investigate ``alternative representations of the learning problem,'' which
-brought a slew of techniques for multilabel classification.
+protein data\textemdash the Genbase dataset. It is noteworthy that in the
+conclusion of their work, they expressed their intention to investigate
+``alternative representations of the learning problem,'' which brought a slew
+of techniques for multilabel classification.
 
 \par This brought forth the main baseline for multilabel classification, the
 Binary Relevance (BR) algorithm
@@ -422,57 +425,128 @@ performance, especially when paired with an SVM classifier
 research, we will use the Binary Relevance with SVM (BR-SVM) as the baseline
 of our work.
 
-\paragraph{Reducing protein data dimensionality} Although binary relevance
-has achieved good traction in protein function prediction, training a
-classifier for each label can be time-consuming. Researchers have then
-resorted to dimensionality-reduction techniques to reduce the number of
-features in a protein\footnote{The Genbase dataset, for instance, has $1186$
-attributes} (\cite{wang2009using, wang2013protein, wang2017protein}); they
-may not reduce the number of labels to train their classifier upon, but they
-can perhaps reduce the time it takes to train one. It is important to note
-that these techniques gave a semblance to feature extraction. Reducing
-dimensions in a data may be akin to finding a different representation of a
-feature space. However, this is still limited primarily due to most
-techniques being linear with less capacity (\cite{cunningham2015linear}). In
-our work, we will compare against the work of \cite{wang2013protein} that
-uses Principal Component Analysis (PCA) as a dimensionality-reduction
-technique to a k-nearest neighbors classifier (k-NN). They were able to
-reduce a protein dataset with $353$ features into $204$, achieving good
-classification performance. We chose this method because it follows a similar
-pipeline to Figure \ref{schema:pipeline}, and uses a similar data source
-(gene expressions) as our protein benchmark.
+\paragraph{Reducing protein data dimensionality}
+Although binary relevance has achieved good traction in protein function
+prediction, training a classifier for each label can be time-consuming.
+Researchers have then resorted to dimensionality-reduction techniques to
+reduce the number of features in a protein\footnote{The Genbase dataset, for
+instance, has $1186$ attributes} (\cite{wang2009using, wang2013protein,
+wang2017protein}); they may not reduce the number of labels to train their
+classifier upon, but they can perhaps reduce the time it takes to train one.
+It is important to note that these techniques gave a semblance to feature
+extraction. Reducing dimensions in a data may be akin to finding a different
+representation of a feature space. However, dimensionality-reduction is still
+limited primarily due to it being linear with less capacity
+(\cite{cunningham2015linear}). In our work, we will compare against the work
+of \cite{wang2013protein} that uses Principal Component Analysis (PCA) as a
+dimensionality-reduction technique to a k-nearest neighbors classifier
+(k-NN). They were able to reduce a protein dataset with $353$ features into
+$204$, achieving good classification performance. We chose this method
+because it follows a similar pipeline to Figure \ref{schema:pipeline}, and
+uses a similar data source (gene expressions) to our protein benchmark.
 
-\paragraph{Deep feature extraction in protein function prediction} Reducing
-dimensions in protein data has helped speed-up and improve classification,
-but common approaches such as principal component analysis (PCA) and linear
-discriminant analysis (LDA) are linear (\cite{bengio2013representation}),
-failing to capture the nonlinearities present in a protein's feature space.
-This gave way for researchers to apply deep learning techniques to protein
-data\textemdash both for protein sequences
-(\cite{bhola2014machine,kulmanov2017deepgo, zou2017protein}) and expressions
-(\cite{baldi2001bioinformatics, chicco2014deep}). Later on, we will benchmark
-against \cite{chicco2014deep}, who used a deep autoencoder network to extract
-features from protein gene expressions. Comparing against this method enables
-us to have a baseline, traditional autoencoder implementation to check our
-proposed architecture upon.
-
-\newpage
-\par As mentioned, this research falls under the last category of deep
-feature extraction. This method has been useful in aiding the classifier with
-a more separable feature space as we've demonstrated earlier in the XOR
-example. In addition, with Binary Relevance, we can decouple the feature
-extractor from the multilabel classifier enabling us to test our extraction
-method to different types of classifier.
-
+\paragraph{Deep feature extraction in protein function prediction}
+Reducing dimensions in protein data has sped-up and improved classification,
+but common approaches such as principal component analysis (PCA) are linear
+(\cite{bengio2013representation}), failing to capture the nonlinearities
+present in a protein's feature space. This gave way for researchers to apply
+deep learning techniques to protein data\textemdash both for protein
+sequences (\cite{bhola2014machine,kulmanov2017deepgo, zou2017protein}) and
+expressions (\cite{baldi2001bioinformatics, chicco2014deep}). Later on, we
+will benchmark against \cite{chicco2014deep}, who used a deep autoencoder
+network to extract features from protein gene expressions. Comparing against
+this method enables us to have a baseline, traditional autoencoder
+implementation to check our proposed architecture upon. As mentioned, this
+research falls under the last category of deep feature extraction. This
+method has been useful in aiding the classifier with a more separable feature
+space, as demonstrated earlier by the XOR example. In addition, with Binary
+Relevance, we can decouple the feature extractor from the multilabel
+classifier to enable testing with different types of classifier.
 
 \par However, we argue that extracting features is not enough. It is
-important to learn representations that are relevant with respect to the
-classifier. In the next section, we will express our research
-motivation\textemdash clarifying the meaning of feature relevance\textemdash
-and formulate the problem as we proceed to the main body of this work.
+important to learn representations relevant with respect to the classifier.
+The next section elaborates this work's motivation\textemdash clarifying the
+meaning of feature relevance\textemdash and formulate the problem and
+research hypothesis throughout this work.
 
 \section{Research Motivation}
 \label{Motivation}
 
+\par Learning new representations from raw protein data has been effective in
+capturing nonlinearities in the feature space\textemdash a feat unachievable
+by dimensionality reduction or direct classification. However, there is a
+need to ensure that the extracted features are indeed \textit{relevant}. It
+is important to have useful representations, not just linear combination of
+features and weights optimizing a loss function. Given these, we state our
+reseasrch motivation:
 
-\subsection{Problem formulation and research hypotheses}
+% State the motivation of this work: it's not enough to extract features
+% it is also impmortant to extract relevant features.
+\begin{quote}
+  \itshape
+  \small
+  Although learning new representations from protein data has been explored
+  in protein function prediction, we examine the effect of extracting
+  relevant features to the predictive performance of a multilabel classifier.
+  Hence, we propose two autoencoder-based techniques for motivating the
+  extraction of such features. Our approach should improve a classifier's
+  predictive performance, bringing us a step closer to a faster and more
+  efficient annotation of protein functions.
+\end{quote}
+
+% enter relevance, define relevance, what does it mean to have a set of
+% relevant features?
+% use bengio and blum's definitions
+\paragraph{Definitions of relevance}
+\cite{blum1997selection} tackled the definition of relevance in their work.
+According to them, feature relevance generally depends on the question:
+``relevant to what?'' This means that features must be relevant
+with respect to:
+\begin{itemize}
+  \item the target concept (i.e., \textit{labels}). \item the multilabel
+  classifier (i.e., related to the task at hand)
+\end{itemize}
+
+\par They formulated various definitions of feature relevance depending on the
+problem's goal. Because our main task is classification, we will adhere to
+their definition of relevance as ``incremental usefulness'':
+
+\begin{definition}
+  \label{DefRelevance}
+   Given a dataset $\mathcal{D}$, a learning algorithm $\mathcal{H}$ and a
+   feature set $\mathbf{X}$. A feature set $\mathbf{X}^{\prime}$ is
+   incrementally useful to $\mathcal{H}$ with respect to $\mathbf{X}$ if the
+   accuracy of the hypothesis that $\mathcal{L}$ produces using
+   $\mathbf{X}^{\prime}$\footnote{Adapted from \cite{blum1997selection}}
+   is better than the accuracy achieved using just the
+   feature set $\mathbf{X}$.
+\end{definition}
+
+\par\noindent For multilabel classification, we will be using a different set
+of metrics instead of the accuracy. Originally, \cite{blum1997selection} uses
+$\{x_{i}\} \cup \mathbf{X}$, but he goes at length extending this definition
+to linear combinations of features, rather than just relevant individual
+features\textemdash even citing PCA in the process. Simply put, this
+validates the assumption that relevant features should produce better
+predictions. In the next section, we will formulate the problem and state our
+research hypothesis.
+
+\subsection{Problem formulation}
+
+\par The goal of this work is to extract a set of relevant features to
+improve a classifier's performance in predicting protein functions. Formally,
+the problem is defined as:
+
+\begin{definition}
+  Given a dataset $\mathcal{D}=\langle \mathbf{X}, \mathbf{Y} \rangle$ and a
+  classifier $\mathcal{H}$, construct a feature extractor $\phi$ that learns
+  a feature set $\mathbf{X}^{\prime}$ by $\phi: \mathbf{X} \rightarrow
+  \mathbf{X}^{\prime}$ such that $\mathbf{X}^{\prime}$ is relevant with respect
+  to $\mathcal{H}$ and $\mathbf{X}$ by virtue of Def. \ref{DefRelevance}.
+\end{definition}
+
+\par We will explore two different models that aim to accomplish this task.
+Our research hypothesis is that using the proposed feature extractors
+$\phi^{\ast}$ will produce relevant features $\mathbf{X}^{\prime}$, and in
+consequence, improve the predictive performance of the classifier
+$\mathcal{H}$.
