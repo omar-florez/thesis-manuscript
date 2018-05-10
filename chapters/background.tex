@@ -93,7 +93,7 @@ yeast (\cite{elisseeff2001kernel}) in Figure \ref{demo:yeast_go}.
 
 \begin{figure}[!h]
   \centering
-  \includegraphics[width=0.65\textwidth]{ch01/demo_ontology}
+  \includegraphics[width=0.75\textwidth]{ch01/demo_ontology}
   \caption{Functional categories of protein YAL041W in \textit{S. cerevisiae}}
   \label{demo:yeast_go}
 \end{figure}
@@ -545,8 +545,19 @@ the problem is defined as:
   to $\mathcal{H}$ and $\mathbf{X}$ by virtue of Def. \ref{DefRelevance}.
 \end{definition}
 
-\par We will explore two different models that aim to accomplish this task.
-Our research hypothesis is that using the proposed feature extractors
-$\phi^{\ast}$ will produce relevant features $\mathbf{X}^{\prime}$, and in
-consequence, improve the predictive performance of the classifier
-$\mathcal{H}$.
+\par\noindent We will explore two different models that aim to accomplish
+this task. Our research hypothesis is that by using the proposed feature
+extractors $\phi^{\ast}$, relevant features $\mathbf{X}^{\prime}$ can be
+produced and in consequence, improve the predictive performance of the
+classifier $\mathcal{H}$.
+
+\par The next chapter will discuss the Stacked Denoising Autoencoder (SdAE),
+examining its denoising capability to obtain relevant features from an
+inherently noisy protein dataset. SdAEs were originally used in image
+denoising, yet this work will explore its efficacy in protein datasets in a
+multilabel setting. The follow chapter will improve upon the autoencoder
+architecture via a Mutually-Competitive autoencoder that learns a sparse and
+relevant feature set by means of mutual competition. All of the resulting
+features from these models will be fed into a BR-SVM classifier. We will test
+this pipeline against the hypothesis that the features extracted using these
+methods can improve the predictive performance of the classifier.
