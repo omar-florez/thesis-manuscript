@@ -24,25 +24,25 @@
 \label{Introduction}
 
 \par In bioinformatics, predicting a protein's function is a fundamental
-task. Once accomplished, we can use our knowledge of protein functions to
-various applications such as drug-design or disease identification
+task. Once accomplished, we can apply our knowledge to various applications
+such as drug design or disease identification
 (\cite{baldi2001bioinformatics}). However, acquiring this information is
 difficult due to the slow and expensive nature of existing biochemical
-techniques today (\cite{cozzetto2017computational}). As the number
-of proteins discovered by high-throughput methods increases,
-the backlog of unannotated protein data piles up (\cite{gaudet2017gene}). This
-then calls for a fast, accurate, and efficient set of prediction techniques
-in the face of ``genomic big data.''
+techniques today (\cite{cozzetto2017computational}). As the number of
+proteins discovered by high-throughput methods increases, the backlog of
+unannotated protein data piles up (\cite{gaudet2017gene}). This then calls
+for a fast, accurate, and efficient set of prediction techniques in the face
+of ``genomic big data.''
   
 \par Machine learning has shown promise in complex tasks involving large
 amounts of data (\cite{chen2014data}). They have been exceptional in
 recognizing patterns and learning from a vast number of examples
 (\cite{lecun2015deep}). Before prediction, a machine learning model must
-discern a pattern from a dataset, and use it to infer the category, or
+discern a pattern from a dataset, and use that to infer the category, or
 \textit{class}, a new sample belongs to. Because most proteins can perform
 multiple functions at once, we frame the protein function prediction problem
-as a multilabel classification task. In this manner, the primary question
-becomes:
+as a multilabel classification task. In this manner, our primary question
+is:
 
 \begin{quote}
     \itshape
@@ -78,13 +78,13 @@ features useful to a predictor is essential in identifying protein functions.
 relevant features} on the performance of a multilabel classification model in
 predicting protein functions. We put emphasis on feature relevance, given the
 noisy and high-dimensional nature of protein data. We hypothesize that by
-obtaining relevant features, we can achieve higher classification performance
-than naively extracting features or not extracting them at all. The models
-that we will introduce in this work were based from an autoencoder neural
-network. For the time being, know that autoencoders learn new representations
-by actively reconstructing the input with the presence of information
-bottlenecks. We studied two autoencoder architectures, and tested them on
-protein benchmarks. The main contributions of this research are as follows:
+obtaining relevant features, we can achieve better performance than naively
+extracting features or not extracting them at all. The models that we will
+introduce in this work were based from an autoencoder neural network. For the
+time being, know that autoencoders learn new representations by actively
+reconstructing the input with the presence of information bottlenecks. We
+studied two autoencoder architectures, and tested them on protein benchmarks.
+The main contributions of this research are as follows:
 
 \begin{itemize}
     \item We applied a stacked denoising autoencoder, a technique

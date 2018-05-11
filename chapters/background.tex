@@ -31,12 +31,10 @@ function prediction problem as a multilabel classification task (Sec.
 \ref{MultilabelClassification}). We will argue that learning new
 representations from data is vital to accomplish this task (Sec.
 \ref{FeatureExtraction}), and at the same time introduce the autoencoder
-neural network as basis for our methods. We then examine
-previous works that have tackled this problem with a similar approach (Sec.
-\ref{LiteratureReview}) and finally, express our research motivation
-(Sec. \ref{Motivation}) and formulate research questions and hypotheses
-throughout this work.
-
+neural network as basis for our methods. We then examine previous works that
+have tackled this problem with a similar approach (Sec.
+\ref{LiteratureReview}) and finally, express our research motivation and
+hypotheses throughout this work (Sec. \ref{Motivation}).
 
 \section{Protein Data Representation}
 \label{ProteinFunctionPrediction}
@@ -55,7 +53,7 @@ experiments (e.g. DNA microarray, phylogenetic trees, etc.) to profile
 protein sequences, resulting to huge amounts of structured data available for
 use. These datasets facilitated protein function prediction, be it through
 biochemical or computational means (\cite{eisenberg2000protein,
-marcotte1999combined}). Similarly, this work will use two protein benchmarks,
+marcotte1999combined}). This research will use two protein benchmarks,
 Yeast and Genbase, derived from these experiments.
 
 \par We define a \textit{protein feature set} as a matrix $\mathbf{X}$ where
@@ -147,10 +145,10 @@ prediction problem as a multilabel classification task.
 (\cite{herrera2016multilabel}). Given input features $\mathbf{X}$ and its
 label $y$, the goal is to find a mapping function $\mathcal{H}: \mathbf{X}
 \rightarrow y$ that can accurately associate each set of attributes to its
-particular label. For prediction, we then use the mapping function as
+particular label. For prediction, we formulate the mapping function as
 $\mathcal{H}: \mathbf{X} \rightarrow \widehat{y}$. A good example is image
-classification, where given an image, the classifier must be able to
-distinguish what particular object (or animal) it belongs to.
+classification: given an image, train a classifier to distinguish what
+particular object (or animal) it belongs to.
 
 \begin{figure}[!h]
   \centering
@@ -182,7 +180,7 @@ is scene classification (\cite{boutell2004learning}), where multiple objects
 given a protein sample (i.e., the image/scene), we are required to find the
 functional categories associated with it (i.e., the objects in the scene).
 This task is known as \textit{multilabel classification} (MLC). Notice that
-in MLC, for each label $\lambda$, we only have two classes: $0$ (does not
+in MLC, we only have two classes for each label $\lambda$: $0$ (does not
 belong to $\lambda$) and $1$ (belongs to $\lambda$). Thus, MLC is akin to
 doing binary classification for each label. Formally, we define the multilabel
 classification task as:
@@ -393,10 +391,10 @@ similarly to the figure above.
 developments in protein function prediction (PFP) in machine learning: first
 is by (1) direct classification, then by (2) dimensionality reduction, and
 lastly by (3) deep feature extraction. Machine learning techniques first
-involved feeding raw data into a classifier, then found the need in reducing
+involved feeding raw data into a classifier, then found the need to reduce
 the number of features in the dataset, and later on realized the importance
 of learning suitable data representations for the classifier. This
-research falls into the third category, utilizing deep neural networks to
+research falls into the third category: utilizing deep neural networks to
 learn representations for a multilabel classifier. But before that, let's
 start from the beginning, where raw protein data is being fed directly to a
 multilabel classifier.
@@ -474,8 +472,8 @@ research hypothesis throughout this work.
 
 \par Learning new representations from raw protein data has been effective in
 capturing nonlinearities in the feature space\textemdash a feat unachievable
-by dimensionality reduction or direct classification. However, there is a
-need to ensure that the extracted features are indeed \textit{relevant}. It
+by dimensionality reduction or direct classification alone. However, there is
+a need to ensure that the extracted features are indeed \textit{relevant}. It
 is important to have useful representations, not just linear combination of
 features and weights optimizing a loss function. Given these, we state our
 reseasrch motivation:
@@ -503,8 +501,8 @@ According to them, feature relevance generally depends on the question:
 ``relevant to what?'' This means that features must be relevant
 with respect to:
 \begin{itemize}
-  \item the target concept (i.e., \textit{labels}). \item the multilabel
-  classifier (i.e., related to the task at hand)
+  \item the target concept (i.e., protein functions). 
+  \item the task at hand (i.e., multilabel classification)
 \end{itemize}
 
 \par They formulated various definitions of feature relevance depending on the
@@ -523,7 +521,7 @@ their definition of relevance as ``incremental usefulness'':
 \end{definition}
 
 \par\noindent For multilabel classification, we will be using a different set
-of metrics instead of the accuracy. Originally, \cite{blum1997selection} uses
+of metrics instead of accuracy. Originally, \cite{blum1997selection} uses
 $\{x_{i}\} \cup \mathbf{X}$, but he goes at length extending this definition
 to linear combinations of features, rather than just relevant individual
 features\textemdash even citing PCA in the process. Simply put, this
@@ -545,19 +543,20 @@ the problem is defined as:
   to $\mathcal{H}$ and $\mathbf{X}$ by virtue of Def. \ref{DefRelevance}.
 \end{definition}
 
-\par\noindent We will explore two different models that aim to accomplish
+\par\noindent We will explore two different models that aims to accomplish
 this task. Our research hypothesis is that by using the proposed feature
 extractors $\phi^{\ast}$, relevant features $\mathbf{X}^{\prime}$ can be
 produced and in consequence, improve the predictive performance of the
 classifier $\mathcal{H}$.
 
-\par The next chapter will discuss the Stacked Denoising Autoencoder (SdAE),
-examining its denoising capability to obtain relevant features from an
-inherently noisy protein dataset. SdAEs were originally used in image
-denoising, yet this work will explore its efficacy in protein datasets in a
-multilabel setting. The follow chapter will improve upon the autoencoder
-architecture via a Mutually-Competitive autoencoder that learns a sparse and
-relevant feature set by means of mutual competition. All of the resulting
-features from these models will be fed into a BR-SVM classifier. We will test
-this pipeline against the hypothesis that the features extracted using these
-methods can improve the predictive performance of the classifier.
+\par The next chapter (Ch. \ref{SDAEChapter}) will discuss the Stacked
+Denoising Autoencoder (SdAE), examining its denoising capability to obtain
+relevant features from an inherently noisy protein dataset. SdAEs were
+originally used in image denoising, yet this work will explore its efficacy
+in protein datasets in a multilabel setting. The following chapter (Ch.
+\ref{SelectiveChapter}) will improve upon the autoencoder architecture via a
+Mutually-Competitive autoencoder that learns a sparse and relevant feature
+set by means of mutual competition. All of the resulting features from these
+models will be fed into a BR-SVM classifier. We will test this pipeline
+against the hypothesis that the features extracted using these methods can
+improve the predictive performance of the classifier.
