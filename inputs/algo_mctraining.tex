@@ -1,0 +1,46 @@
+%=============================================================================
+% algo-training.tex
+% Copyright (c) 2018. Lester James V. Miranda
+%
+% This file is part of thesis-manuscript.
+%
+% thesis-mansucript is free software: you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation, either version 3 of the License, or
+% (at your option) any later version.
+%
+% thesis-manuscript is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU General Public License for more details.
+%
+% You should have received a copy of the GNU General Public License
+% along with thesis-manuscript.  If not, see <http://www.gnu.org/licenses/>.
+%
+% Created by: Lester James V. Miranda <ljvmiranda@gmail.com>
+%=============================================================================
+
+\begin{algorithm}[!h]
+\caption{Training the mutually-competitive autoencoder network}
+\label{algo:mc_training}
+\begin{algorithmic}[1]
+
+\INPUT Training examples $\mathbf{X}$, hyperparameters $\langle\alpha, k\%, e\rangle$
+\OUTPUT Learned weights, $\theta^{\ast}$
+
+\item[]
+\For{\textit{NumEpochs}}
+    \State Feedforward propagation: $\mathbf{h} \gets f_{\theta}(\mathbf{X}) =
+    \sigma(\theta\mathbf{X}^{T}+\theta_{0})$
+    \State $D \gets$ \Call{WinnerTakeAll}{$\mathbf{h}$, $k$}
+    \State $\mathbf{h'} \gets$ \Call{Sparse}{$D$, $\alpha$}
+    \State Compute output: $\mathbf{\widetilde{X}} \gets 
+    g_{\theta'}(\mathbf{h'}) = \sigma(\theta'\mathbf{h'}^{T}+\theta_{0})$
+    \State Compute reconstruction error $L$
+    \State $\theta^{\ast} \gets$ \Call{Backpropagation}{$L$}
+\EndFor
+\State \Return $\theta^{\ast}$ 
+
+\end{algorithmic}
+\end{algorithm}
+
