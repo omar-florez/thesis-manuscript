@@ -31,10 +31,10 @@
     \item[]
     \State \textit{ToAllocate} $\gets$ \Call{Sum}{$D[Losers]$}
     \Comment Sum all activations of loser neurons
-    \State $\mathbf{a}_{w} \gets$ $D[Winners]$ + $\alpha$ \textit{ToAllocate}
+    \State $\mathbf{h}_{w} \gets$ $D[Winners]$ + $\alpha$ \textit{ToAllocate}
     \Comment Update activation of winners, $\mathbf{a}_{w}$
-    \State $\mathbf{a}_{l} \gets 0$ 
+    \State $\mathbf{h}_{l} \gets 0$ 
     \Comment Set activation of losers to $0$.
-    \State \textbf{return} $\mathbf{h}' = \{\mathbf{a}_{w}$, $\mathbf{a}_{l}\}$
+    \State \textbf{return} $\mathbf{h}' = \{\mathbf{h}_{w}$, $\mathbf{h}_{l}\}$
     \end{algorithmic}
 \end{algorithm}
