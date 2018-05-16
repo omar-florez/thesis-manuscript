@@ -55,8 +55,10 @@
 \usepackage{algpseudocode}
 \usepackage{threeparttable}
 \usepackage{footmisc}
+\usepackage{siunitx}
 \usepackage{ntheorem}
 \usepackage{mdframed}
+\usepackage{array}
 \usepackage{subcaption}
 
 \addbibresource{bibliography.bib}
@@ -74,6 +76,19 @@
 ]{definition}{Definition}[section]
 %\newtheorem{definition}{Definition}[section]
 
+%------------------------------------------------------------------------------
+%   SIUNITX SETTINGS
+%------------------------------------------------------------------------------
+% set-up numbers
+\sisetup{
+    output-exponent-marker=\ensuremath{\mathrm{e}},
+    round-mode=places, round-precision=2,
+    separate-uncertainty=false,
+    detect-weight=true,
+    detect-family=true,
+    detect-inline-weight=math
+}
+\newcommand{\hg}{\bfseries}
 
 %------------------------------------------------------------------------------
 %	OTHER SETTINGS
@@ -118,8 +133,8 @@
 %------------------------------------------------------------------------------
 
 \thesistitle{
-    A Study of Autoencoder-based Feature Extraction Techniques for Protein
-    Function Prediction
+    Autoencoder-based Feature Extraction Techniques for Protein Function
+    Prediction
 }
 \supervisor{Dr. Jinglu Hu}
 \degree{Master of Engineering}
@@ -288,8 +303,8 @@ $e$                         & encoding dimension            \\
 
 \include{chapters/introduction}
 \include{chapters/background}
-%\include{chapters/stacked-denoising}
-%\include{chapters/mutual-competition}
+\include{chapters/stacked-denoising}
+\include{chapters/mutual-competition}
 %\include{chapters/conclusion}
 
 %------------------------------------------------------------------------------

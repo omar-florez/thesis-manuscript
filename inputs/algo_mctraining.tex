@@ -1,5 +1,5 @@
 %=============================================================================
-% algo_sparse.tex
+% algo-training.tex
 % Copyright (c) 2018. Lester James V. Miranda
 %
 % This file is part of thesis-manuscript.
@@ -20,21 +20,27 @@
 % Created by: Lester James V. Miranda <ljvmiranda@gmail.com>
 %=============================================================================
 
-\begin{algorithm}
-    \caption{Sparse operation}
-    \label{algo:sparse}
-    \begin{algorithmic}[1]
-    
-    \INPUT Dictionary of winners and losers $D = \{\}$, competition parameter $\alpha$
-    \OUTPUT Updated activation of winners and losers $\mathbf{h}'$
+\begin{algorithm}[!h]
+\caption{Training the mutually-competitive autoencoder network}
+\label{algo:mc_training}
+\begin{algorithmic}[1]
 
-    \item[]
-    \State \textit{ToAllocate} $\gets$ \Call{Sum}{$D[Losers]$}
-    \Comment Sum all activations of loser neurons
-    \State $\mathbf{h}_{w} \gets$ $D[Winners]$ + $\alpha$ \textit{ToAllocate}
-    \Comment Update activation of winners, $\mathbf{h}_{w}$
-    \State $\mathbf{h}_{l} \gets 0$ 
-    \Comment Set activation of losers to $0$.
-    \State \textbf{return} $\mathbf{h}' = \{\mathbf{h}_{w}$, $\mathbf{h}_{l}\}$
-    \end{algorithmic}
+\INPUT Training examples $\mathbf{X}$, hyperparameters $\langle\alpha, k\%, e\rangle$
+\OUTPUT Learned weights, $\theta^{\ast}$
+
+\item[]
+\For{\textit{NumEpochs}}
+    \State Feedforward propagation: $\mathbf{h} \gets f_{\theta}(\mathbf{X}) =
+    \sigma(\theta\mathbf{X}^{T}+\theta_{0})$
+    \State $D \gets$ \Call{WinnerTakeAll}{$\mathbf{h}$, $k$}
+    \State $\mathbf{h'} \gets$ \Call{Sparse}{$D$, $\alpha$}
+    \State Compute output: $\mathbf{\widetilde{X}} \gets 
+    g_{\theta'}(\mathbf{h'}) = \sigma(\theta'\mathbf{h'}^{T}+\theta_{0})$
+    \State Compute reconstruction error $L$
+    \State $\theta^{\ast} \gets$ \Call{Backpropagation}{$L$}
+\EndFor
+\State \Return $\theta^{\ast}$ 
+
+\end{algorithmic}
 \end{algorithm}
+

@@ -1,0 +1,33 @@
+\begin{table}[t]
+%
+\centering
+\begin{threeparttable}
+\caption{Benchmark analysis on Genbase dataset}
+\label{results:mc_benchmark_genbase}
+%
+\begin{tabular}{@{}rrllllll@{}}
+\toprule
+        &       &  \multicolumn{5}{c}{Prediction Model\tnote{1}} \\ \cmidrule{3-7}
+Metrics & Avg.  & Baseline       & M1             & M2             & M3               & Proposed\tnote{2}  & Sig.\tnote{3}\\
+\midrule
+AUROC     & micro    & \num{0.856(0)} & \num{0.987(0)} & \num{0.974(10)} & \num{0.987(1)}  & \hg \num{0.999(0)}  & ***  \\
+        & macro    & \num{0.671(0)} & \num{0.992(0)} & \num{0.979(11)} & \num{0.983(1)}  & \hg \num{0.999(0)}  & ***  \\
+        & sample    & \num{0.613(0)} & \num{0.950(0)} & \num{0.976(10)} & \num{0.988(1)}  & \hg \num{0.999(0)}  & ***  \\
+F-score & micro    & \num{0.671(0)} & \num{0.887(1)} & \num{0.785(87)} & \num{0.962(11)} & \hg \num{0.986(7)}  & ***  \\
+        & macro    & \num{0.716(0)} & \num{0.950(0)} & \num{0.892(40)} & \num{0.964(6)}  & \hg \num{0.992(2)}  & ***  \\
+        & sample    & \num{0.760(0)} & \num{0.928(0)} & \num{0.810(95)} & \num{0.970(8)}  & \hg \num{0.989(6)}  & ***  \\
+Hamming Loss   & --    & \num{0.041(0)} & \num{0.014(2)} & \num{0.035(17)} & \num{0.005(1)}  & \hg \num{0.002(0)}  & ***  \\
+\bottomrule
+\end{tabular}
+%
+\begin{tablenotes}
+    \footnotesize
+    \item[*] Values with $0.XXX(0)$ stdev. have deviations in the ten-thousandths place 
+    \item[1] M1: \cite{wang2013protein}, M2: \cite{chicco2014deep}, M3: \cite{miranda2017feature}
+    \item[2] Feature ext.: $\{e=30,\alpha=5.32,k=0.6\}$, BR-SVM: $\{C=\num{1.00}, \gamma=\num{1.24e-3}\}$
+    \item[3] Significance: *-$p\leq 0.1$, **-$p\leq 0.05$, ***-$p\leq 0.01$
+\end{tablenotes}
+%
+\end{threeparttable}
+%
+\end{table}

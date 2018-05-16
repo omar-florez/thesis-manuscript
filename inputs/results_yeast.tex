@@ -1,0 +1,40 @@
+\begin{table}[t]
+%
+\centering
+\begin{threeparttable}
+\caption{Benchmark analysis on Yeast dataset}
+\label{results:mc_benchmark_yeast}
+%
+\begin{tabular}{@{}rr*{6}{l}@{}}
+\toprule
+        & & \multicolumn{5}{c}{Prediction Model\tnote{1}} \\ \cmidrule{3-7}
+Metrics & Avg. & Baseline & M1 & M2 & M3 & Proposed\tnote{2} &
+Sig.\tnote{3}\\
+\midrule
+AUROC & micro & \num{0.667(3)} & \num{0.666(2)} & \num{0.643(1)} &
+\num{0.668(4)} & \hg \num{0.732(2)} & *** \\
+        & macro & \num{0.655(3)} & \num{0.659(2)} & \hg \num{0.662(1)} &
+        \num{0.648(2)} & \num{0.646(2)} & ** \\
+        & sample & \num{0.670(3)} & \num{0.656(2)} & \num{0.643(1)} &
+        \num{0.657(3)} & \hg \num{0.743(4)} & *** \\
+F-score & micro & \num{0.548(4)} & \num{0.538(2)} & \num{0.530(1)} &
+\num{0.579(3)} & \hg \num{0.629(3)} & *** \\
+        & macro & \num{0.597(4)} & \num{0.603(2)} & \num{0.590(1)} &
+        \num{0.613(2)} & \hg \num{0.630(2)} & *** \\
+        & sample & \num{0.536(3)} & \num{0.524(2)} & \num{0.517(1)} &
+        \num{0.572(3)} & \hg \num{0.609(4)} & *** \\
+Hamming Loss & -- & \num{0.322(2)} & \num{0.343(2)} & \num{0.354(1)} &
+\num{0.231(3)} & \hg \num{0.224(2)} & *** \\
+\bottomrule
+\end{tabular}
+%
+\begin{tablenotes}
+        \footnotesize
+    \item[1] M1: \cite{wang2013protein}, M2: \cite{chicco2014deep}, M3: \cite{miranda2017feature}
+    \item[2] Feature ext.: $\{e=500,\alpha=10.0,k=0.6\}$, BR-SVM: $\{C=\num{1.00}, \gamma=\num{1.63e-3}\}$
+    \item[3] Significance: *-$p\leq 0.1$, **-$p\leq 0.05$, ***-$p\leq 0.01$
+\end{tablenotes}
+%
+\end{threeparttable}
+%
+\end{table}
