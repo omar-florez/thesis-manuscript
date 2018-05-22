@@ -151,11 +151,13 @@ classification. From this design, three hyperparameters can be derived:
 \par The entire protein function prediction model consists of two stages: (1)
 a \textit{feature extraction} stage that contains the mutually-competitive
 autoencoder, and a (2) \textit{multi-label classification} stage that assigns
-each protein sample to its respective set of functions. During training, the
-model learns the parameters $\theta$ and $W$ for the two stages separately.
-At inference, matrix operations are applied to transform the input data and
-predict protein functions. Figure \ref{schema:traintest_mc} shows the training
-and test phases.
+each protein sample to its respective set of functions.\footnote{This
+pipeline is similar to the one we implemented using the stacked denoising
+autoencoder in Chapter \ref{SDAEChapter}} During training, the model learns
+the parameters $\theta$ and $W$ for the two stages separately. At inference,
+matrix operations are applied to transform the input data and predict protein
+functions. Figure \ref{schema:traintest_mc} shows the training and test
+phases.
 
 %\newpage
 \begin{itemize}
@@ -188,7 +190,7 @@ and test phases.
 
 \begin{figure}[!h]
   \centering
-  \includegraphics[width=0.8\textwidth]{ch04/schema_traintest}
+  \includegraphics[width=0.90\textwidth]{ch04/schema_traintest}
   \caption[Protein function prediction pipeline]{Protein function prediction
   pipeline for the mutually-competitive autoencoder}
   \label{schema:traintest_mc}
@@ -239,7 +241,7 @@ can be seen in Tables \ref{exp:hyperparameter} and \ref{exp:key_results}.
 
 \begin{table}[h]
   \centering
-  \caption{Summary of experiments for characterizing the autoencoder}
+  \caption{Summary of experiments for autoencoder characterization}
   \label{exp:hyperparameter}
       \begin{tabular}{@{}rp{0.65\textwidth}@{}}
           \toprule
@@ -252,7 +254,7 @@ can be seen in Tables \ref{exp:hyperparameter} and \ref{exp:key_results}.
 
 \begin{table}[t]
   \centering
-  \caption{Summary of experiments for testing hypotheses}
+  \caption{Summary of experiments for analysis and benchmarking}
   \label{exp:key_results}
   \begin{threeparttable}
       \begin{tabular}{@{}rp{0.65\textwidth}@{}}
@@ -295,8 +297,7 @@ the Appendix}.
       Environment                    & Value                                             \\ \midrule
       \textit{Validation and testing}                                                    \\
       Number of trials               & 10: mean and std. dev. reported                   \\
-      Train--test split              & 80--20                                            \\
-      Validation Scheme              & $K$-fold cross-validation, $k=5$                  \\ \cmidrule{1-2}
+      Train--validation--test split  & 50--30--20                                        \\ \cmidrule{1-2}
       \textit{Hardware dependencies}                                                     \\
       Number of cores\tnote{1}       & 10 in use (40 maximum)                            \\
       CPU                            & Intel Xeon 2.2GHz: Classifier training            \\
@@ -346,15 +347,19 @@ implementation details can be seen in Appendix \ref{AppendixImplementation}.
 \subsubsection{Experiments on the Yeast Dataset}
 
 Figure \ref{results:mc_benchmark_yeast} shows the results for Yeast. Recall
-that test set performance should always be lower than training set
+that validation set performance should always be lower than training set
 performance, as the former simulates unseen samples. Here we can observe the
 following:
 
 \begin{itemize}
-  \item An overcomplete autoencoder ($e=500$) gives the optimal test-set
-  performance. However, adding more hidden units tends to overfit the model.
-  \item The amount of winners to keep should not be too high ($k=1.00$) nor too low ($k=0.00$). Here, we see an optimal value in the middle range ($k\in\left[0.33, 0.67\right]$).
-  \item The value of $\alpha$ should not be excessively high nor excessively low. A value between \num{1e0} to \num{100} should suffice.
+  \item An overcomplete autoencoder ($e=500$) gives the optimal validation
+  set performance. However, adding more hidden units tends to overfit the
+  model.
+  \item The amount of winners to keep should not be too high ($k=1.00$) nor
+  too low ($k=0.00$). Here, we see an optimal value in the middle range
+  ($k\in\left[0.33, 0.67\right]$).
+  \item The value of $\alpha$ should not be excessively high nor excessively
+  low. A value between \num{1e0} to \num{100} should suffice.
 \end{itemize}
 
 \begin{figure}[!h]
@@ -367,13 +372,19 @@ following:
 \subsubsection{Experiments on the Genbase Dataset}
 
 Figure \ref{results:mc_char_genbase} shows the results for Genbase. A similar
-procedure was performed for both training and test data. We can infer the
-following from the plots:
+procedure was performed for both training and validation data. We can infer
+the following from the plots:
 
 \begin{itemize}
-  \item An undercomplete autoencoder ($e\in\left[50,100\right]$) gives the optimal test-set performance. A large value can damage the model (e.g., $e=2000$).
-  \item Similar to the Yeast dataset, the amount of winners should be moderated. Although lower values are preferred, setting them too low can potentially damage the model.
-  \item The competition parameter $\alpha$ can be set at a low value (around $\alpha \in \left[1,10\right]$). Increasing this value further only gives marginal benefits.
+  \item An undercomplete autoencoder ($e\in\left[50,100\right]$) gives the
+  optimal validation set performance. A large value can damage the model (e.g.,
+  $e=2000$).
+  \item Similar to the Yeast dataset, the amount of winners should be
+  moderated. Although lower values are preferred, setting them too low can
+  potentially damage the model.
+  \item The competition parameter $\alpha$ can be set at a low value (around
+  $\alpha \in \left[1,10\right]$). Increasing this value further only gives
+  marginal benefits.
 \end{itemize}
 
 \begin{figure}[!h]
@@ -382,7 +393,6 @@ following from the plots:
   \caption{Model behavior on the Genbase Dataset}
   \label{results:mc_char_genbase}
 \end{figure}
-
 
 \subsection{Key results for the mutually-competitive autoencoder}
 
