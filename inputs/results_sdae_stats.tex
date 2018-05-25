@@ -1,0 +1,22 @@
+\begin{table}[!h]
+%
+\centering
+\begin{threeparttable}
+\caption{One-vs-All Overall Comparison\\using post-hoc Bonferroni-Holm Test\tnote{1}}
+\label{results:sdae_stats}
+%
+\begin{tabular}{@{}r*{3}{l}@{}}
+\toprule
+Proposed Model vs.                       & Z-statistic    & $p$-value         & Sig.\tnote{2} \\ \midrule
+Baseline                                 & $3.373282$      & $0.00057$         & ***          \\
+\cite{wang2013protein}                   & $3.440050$      & $0.00116$         & **           \\
+\cite{chicco2014deep}                    & $1.903010$      & $0.05704$         & ***          \\ \bottomrule
+\end{tabular}
+\begin{tablenotes}
+\footnotesize
+\item[1] Friedman's test rejects $H_{0}$ with $\chi^{2}=\num{9.37050}$.
+\item[2] Significance: *-$p\leq0.1$, **-$p\leq0.05$, ***-$p\leq0.01$
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
