@@ -1,0 +1,34 @@
+\begin{table}[!h]
+%
+\centering
+\begin{threeparttable}
+\caption{Benchmark analysis on Genbase dataset}
+\label{results:sdae_benchmark_genbase}
+%
+\begin{tabular}{@{}rrlllll@{}}
+\toprule
+        &        &  \multicolumn{5}{c}{Prediction Model\tnote{1}} \\ \cmidrule{3-6}
+Metrics & Avg.   & Baseline       & M1             & M2             & Proposed\tnote{2}   & Sig.\tnote{3}\\
+\midrule
+AUROC   & micro  & \num{0.856(0)} & \hg\num{0.987(0)} & \num{0.974(10)} & \hg\num{0.987(1)}     & ***  \\
+        & macro  & \num{0.671(0)} & \hg\num{0.992(0)} & \num{0.979(11)} & \num{0.983(1)}        & ***  \\
+        & sample & \num{0.613(0)} & \num{0.950(0)}    & \num{0.976(10)} & \hg\num{0.988(1)}     & ***  \\
+F-score & micro  & \num{0.671(0)} & \num{0.887(1)}    & \num{0.785(87)} & \hg\num{0.962(11)}    & ***  \\
+        & macro  & \num{0.716(0)} & \num{0.950(0)}    & \num{0.892(40)} & \hg\num{0.964(6)}     & ***  \\
+        & sample & \num{0.760(0)} & \num{0.928(0)}    & \num{0.810(95)} & \hg\num{0.970(8)}     & ***  \\
+Hamming Loss & -- & \num{0.041(0)} & \num{0.014(2)}   & \num{0.035(17)} & \hg\num{0.005(1)}     & ***  \\
+\bottomrule
+\end{tabular}
+%
+\begin{tablenotes}
+    \footnotesize
+    \item[*] Values with $0.XXX(0)$ stdev. have deviations in the ten-thousandths place 
+    \item[1] M1: \cite{wang2013protein}, M2: \cite{chicco2014deep}
+    \item[2] Feature ext.: $\{r=0.60, e=1186-50\}$, BR-SVM: $\{C=\num{1.668e2}, \gamma=\num{2.154e-4}\}$
+    \item[3] Significance: *-$p\leq 0.1$, **-$p\leq 0.05$, ***-$p\leq 0.01$
+\end{tablenotes}
+%
+\end{threeparttable}
+%
+\end{table}
+

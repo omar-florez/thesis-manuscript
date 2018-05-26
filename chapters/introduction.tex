@@ -24,13 +24,13 @@
 \label{Introduction}
 
 \par In bioinformatics, predicting a protein's function is a fundamental
-task. This knowledge can lead us to various applications such as drug design
-or disease identification (\cite{baldi2001bioinformatics}). However,
-acquiring this information is difficult, for existing biochemical techniques
-are slow and expensive (\cite{cozzetto2017computational}). As the number of
-proteins being discovered increases, the backlog of unannotated protein data
-piles up (\cite{gaudet2017gene}). This then calls for a fast, accurate, and
-efficient set of prediction techniques in the face of ``genomic big data.''
+task; it enables various applications such as drug design or disease
+identification (\cite{baldi2001bioinformatics}). However, acquiring this
+information is difficult, for existing biochemical techniques are slow and
+expensive (\cite{cozzetto2017computational}). As the number of proteins being
+discovered increases, the number of annotated protein data lags behind
+(\cite{gaudet2017gene}). This then calls for a fast, accurate, and efficient
+set of prediction techniques in the face of ``genomic big data.''
   
 \par Machine learning has shown promise in complex tasks involving large
 amounts of data (\cite{chen2014data}). They have been exceptional in
@@ -71,16 +71,16 @@ features useful to a predictor is essential in identifying protein functions.
 
 \newpage
 
-\par This work's overarching theme is about the effect of \textit{extracting
-relevant features} on the performance of a multilabel classification model in
-predicting protein functions. We put emphasis on feature relevance, given the
-noisy and high-dimensional nature of protein data. We hypothesize that by
+\par This work explores the effect of \textit{extracting
+relevant features} on the performance of a multilabel classifier in
+predicting protein functions. We put emphasis on feature relevance, given that
+proteins are noisy and high-dimensional in nature. We hypothesize that by
 obtaining relevant features, we can achieve better performance than naively
 extracting features or not extracting them at all. The models that we will
 introduce in this work were based from an autoencoder neural network. For the
 time being, know that autoencoders learn new representations by actively
-reconstructing the input with the presence of information bottlenecks. We
-studied two autoencoder architectures, and tested them on protein benchmarks.
+reconstructing the input with the presence of information bottlenecks. Here, we
+studied two autoencoder architectures and tested them on protein benchmarks.
 The main contributions of this research are as follows:
 
 \begin{itemize}
