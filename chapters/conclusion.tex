@@ -1,6 +1,125 @@
+%=============================================================================
+% Conclusion
+% Copyright (c) 2018. Lester James V. Miranda
+%
+% This file is part of thesis-manuscript.
+%
+% thesis-mansucript is free software: you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation, either version 3 of the License, or
+% (at your option) any later version.
+%
+% thesis-manuscript is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU General Public License for more details.
+%
+% You should have received a copy of the GNU General Public License
+% along with thesis-manuscript.  If not, see <http://www.gnu.org/licenses/>.
+%
+% Created by: Lester James V. Miranda <ljvmiranda@gmail.com>
+%=============================================================================
 \chapter{Conclusion}
-\label{Conclusion}
+\label{ConclusionsChapter}
+
+\par In this work, we have tackled the protein function prediction problem in
+the angle of feature extraction: if we can extract \emph{better} features, then
+we can obtain better predictions. Better features mean task-relevant and
+meaningful representations of data, and by Def. \ref{DefRelevance}, can be
+measured with an improvement in classification performance. 
+
+\par Hence, we presented two autoencoder-based approaches geared towards the
+extraction of relevant features: (1) a stacked denoising autoencoder-based
+model that sifts through noise to obtain relevant features and (2) a
+mutually-competitive autoencoder architecture that derives sparse yet relevant
+representations. Our main hypothesis states that by using these methods, we can
+generate relevant features, thereby inducing greater classification
+performance. We tested our hypothesis on two protein benchmarks, Yeast and
+Genbase, in a multilabel setting. There are two key insights in our work:
 
 
-\section{Future work}
-\label{FutureWork}
+% Extracting relevant features is indeed crucial
+\paragraph{Learning relevant features has benefit to classification.}
+Features extracted from our two models have superior performance than other
+techniques in literature. Specifically, we outperformed a
+dimensionality-reduction approach (PCA) and a feature extractor not designed to
+obtain relevant features (traditional autoencoder). More importantly, we
+surpassed a baseline method without feature extraction. This shows that
+although learning new representations is important, mere feature extraction is
+not enough. It is crucial to ensure that the features we are deriving are
+relevant to the task at hand. 
+
+% Mutually-competitive autoencoder outperforms stacked denoising autoencoder
+\paragraph{The mutually-competitive architecture outperforms the stacked
+denoising autoencoder in most metrics} The architecture we designed in Chapter
+\ref{SelectiveChapter} has greater performance than the stacked denoising
+autoencoder (SdAE) in Chapter \ref{SDAEChapter} with respect to our problem
+domain. We suggest two explanations for this behavior. First, the MC
+autoencoder adds a higher degree of control during feature extraction. Aside
+from the architecure, we can set three different hyperparameters to dictate the
+flow of information in our network. Second, the autoencoder's strength lies on
+its ability to prevent information loss while preserving data from the original
+inputs. As we've seen in our ablation tests, the competition parameter that
+reallocates neuron activations after winner-take-all has been beneficial to the
+classifier's predictive performance. Thus, we not only learn the manifold, but
+preserve more information to the relevant neurons.
+
+\newpage
+\par Next, we would like to list down the merits and major contributions of our
+research:
+\begin{itemize}
+    \item In Chapter \ref{SDAEChapter}, we have successfully demonstrated the
+        transferability of the stacked denoising autoencoder, commonly-used in
+        images, to protein data within a multilabel setting. Learning the
+        manifold via small perturbations in the input has been beneficial. More
+        bottlenecks can lead to better generalization.
+    \item In Chapter \ref{SelectiveChapter}, we have proposed an autoencoder
+        architecture capable of extracting task-relevant representations of
+        data. We have tested this on protein benchmarks and obtained good
+        results. This architecture gives finer control during extraction, and
+        performs even better than the denoising autoencoder approach.
+    \item Overall, we have validated our claim that by extracting relevant
+        features, we can improve the performance of a multilabel classifier in
+        the protein domain. We obtained better performance when we're
+        consciously extracting task-relevant features than by simple
+        dimensionality-reduction or feature learning techniques.
+\end{itemize}
+
+\par In addition, it is also necessary to discuss some limitations in our work.
+These can provide good jump-off points for further research:
+\begin{itemize}
+    \item \textit{It is difficult to interpret the extracted features from both
+        models.} Although we know that these features help the classifier, it
+        is difficult to distinguish what they truly represent (cell binding
+        sites, sequence length, etc.). By nature, neural network models are
+        black-boxes, and if we're optimizing for accuracy, we might sacrifice
+        interpretability.
+    \item \textit{Our work does not cover hierarchical labels.} There may be
+        cases where labels also have a relationship with one another: a
+        ``husky'' is a ``dog'' as ``cellular bud site selection'' is a
+        ``mitotic cell cycle process.'' Our protein benchmarks all have flat
+        labels, and thus these cases were not considered. 
+\end{itemize}
+
+\par Lastly, here are some suggestions for future work:
+\begin{itemize}
+    \item \textit{Better model interpretability for autoencoder networks.} This
+        is a huge area of research and may involve the use of generative
+        methods such as variational autoencoders.
+    \item \textit{Improve handling of data imbalance.} There are cases when one
+        label is more dominant to the other, affecting classification
+        performance. A more balanced dataset can boost classifier performance.
+    \item \textit{Consider label information during autoencoder training.} This
+        is relevant when hierarchical labels are involved. Our feature
+        extractor is unsupervised, and it may be interesting to see a
+        supervised approach to autoencoder training.
+\end{itemize}
+
+\par Applying machine learning to the problem of protein function prediction is
+a herculean task. It requires careful thought not only in classifying
+multilabel data, but also of how proteins are represented to the classifier.
+We have shown that by procuring task-relevant protein representations, we can
+aid the classification of protein functions. We hope that through our methods,
+we can add value to this fundamental task, and pave way to the development of
+advanced medicine and better healthcare for the society. $\blacksquare$
+
