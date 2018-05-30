@@ -34,7 +34,7 @@ SdAE, commonly-used in images, in multilabel protein datasets. We start by
 describing the SdAE architecture (Sec. \ref{SDArchitecture}), then illustrate
 how it fits in the protein function prediction pipeline (Sec.
 \ref{SDPipeline}). Then, we describe our experimental set-up (Sec.
-\ref{SDSetup}), present results (Sec. \ref{SDResults}), and draw conclusions
+\ref{SDSetup}), present our findings (Sec. \ref{SDResults}), and draw conclusions
 (Sec. \ref{SDConclusions}).
 
 \section{Stacked Denoising Autoencoder}
@@ -76,33 +76,34 @@ In theory, this should improve classification performance.
   \label{demo:manifold}
 \end{wrapfigure}
 
-\par It is important to spend some time examining how corrupting inputs
-during autoencoder training can enable generalization. Recall that
-generalization prevents model overfitting, i.e. fitting too close to the
-training set resulting to poor performance on the test set (represents unseen
-or future data). Instead, what we want to do is obtain the main factors of
-variation from the samples. Interpreting SdAEs this way permits us to apply
-this method to a different domain\textemdash in this case, protein
-data\textemdash with more confidence.
+\par We'll spend some time examining how a stacked denoising autoencoder's
+corrupting function enables the model to generalize during training. Recall
+that generalization prevents model overfitting, i.e. fitting too close to the
+training set that results to poor performance on the test set. The test set
+represents unseen or future instances and we want to perform well on that.
+Thus, our goal is to obtain the main factors of variation from the samples.
+Perceiving SdAEs this way permits us to transfer this method to a different
+domain\textemdash in our case, multilabel protein data\textemdash with more
+confidence.
 
 \par Say we're given a training dataset $X$ (marked by $\times$) that lies on
-a manifold represented by the spline in Figure \ref{demo:manifold}. We don't
-know what the spline looks like and the training data is not always
-perfect.\footnote{The training data will not always be lying on-top of the
-spline. We know this to be true because there will always be unmodeled
-physics or measurement errors when obtaining the data that we cannot always
-account, i.e., $x+\epsilon$} Our task is to learn the manifold which is
-equivalent to identifying the structure of the spline. Applying the noise
-function $q(\widetilde{X}|X)$ results to data points $\widetilde{x}$ (red
-dots) that are further away from the spline. SdAE learns the manifold
-(structure of the spline) by projecting these noisy inputs back to the spline
-as demonstrated by the reconstructed inputs
-$g_{\theta^{\prime}}(f_{\theta}(\widetilde{X}))$
-(\cite{vincent2008denoising}). As we can see, the projections (purple lines)
-can ``approximate'' the manifold and accommodate subtle variations even if a
-new data point is slightly-off the spline. This idea is crucial given the
-pretext that protein datasets are inherently noisy due to unaccounted
-measurement errors (Sec. \ref{ProteinFunctionPrediction}).
+a manifold represented by the spline in Figure \ref{demo:manifold}. In
+practice, we don't know what the spline looks like and the training data is
+not always perfect.\footnote{
+  The training data will not always be lying on-top of the spline. We know
+  this to be true because there will always be unmodeled physics or
+  measurement errors (i.e., $x+\epsilon$) that we cannot always account
+  during data acquisition.
+} Our task is to learn the manifold equivalent to identifying the structure
+of the spline. Applying the noise function $q(\widetilde{X}|X)$ results to
+data points $\widetilde{x}$ (red dots) that are further away from the spline.
+SdAE learns the manifold by projecting the noisy inputs back as demonstrated
+by the dotted lines $g_{\theta^{\prime}}(f_{\theta}(\widetilde{X}))$
+(\cite{vincent2008denoising}). As shown, the projections can approximate the
+manifold and accommodate subtle variations even if a new data point is
+slightly-off the spline. This idea is crucial given the pretext that protein
+datasets are inherently noisy due to unaccounted measurement errors (Sec.
+\ref{ProteinFunctionPrediction}).
 
 \begin{figure}[h]
   \centering
@@ -112,22 +113,21 @@ measurement errors (Sec. \ref{ProteinFunctionPrediction}).
   \label{demo:denoise}
 \end{figure}
 
-\par Figure \ref{demo:denoise} provides a good demonstration of the
-capabilities of SdAE in the MNIST dataset. It has learned to ``ignore'' the
-unnecessary variations in the data (noise) while focusing on the structural
-manifold of the image. As a result, it was able to reproduce cleaner images
-from noisy samples. In context to our work, we can see that SdAE has learned
-to distinguish between relevant and irrelevant aspects of the image: it
-retained useful information (the actual digit) and discarded unnecessary ones
-(random noise). 
+\par Figure \ref{demo:denoise} demonstrates the reconstruction capability of
+SdAE in the MNIST dataset. It has learned to ``ignore'' the unnecessary
+variations in the data (noise) while focusing on the structural manifold of
+the image. As a result, it was able to reproduce cleaner images from noisy
+samples. It is evident that SdAE has learned to distinguish between relevant
+and irrelevant aspects of the image: it retained useful information (the
+actual digit) while discarding unnecessary ones (random noise).
 
 \subsection{Practical considerations for SdAE training}
 
-\par Table \ref{exp:noise_types} describes three different
-corrupting functions for SdAE. We used the salt-and-pepper (SP)
-noise because the dataset has been preprocessed by normalizing
-the values in the range $(0,1)$. It is also a natural choice due
-to the hidden representations being squashed by a sigmoid function.
+\par Table \ref{exp:noise_types} describes three different corrupting functions
+for SdAE. We applied the salt-and-pepper (SP) noise for the dataset has been
+preprocessed by normalizing the inputs in the $\left[0,1\right]$ range. It is
+also a natural choice due to the hidden representations being squashed by a
+sigmoid function.
 
 \begin{table}[!h]
   \centering
@@ -137,23 +137,23 @@ to the hidden representations being squashed by a sigmoid function.
   \label{exp:noise_types}
   \begin{tabular}{@{}rp{0.70\textwidth}@{}}
       \toprule
-      Noise                  & Description                                                   \\ \midrule
-      Gaussian               & additive isotropic Gaussian noise $\mathbf{\widetilde{x}} |
-                              \mathbf{x} \sim \mathcal{N}(\mathbf{x}, \sigma^2 I)$           \\
-      Masking                & a random sample of elements in $\mathbf{x}$ are forced to $0$ \\
-      Salt-and-Pepper        & a random sample of elements in $\mathbf{x}$ is set to their
-                               maximum or minimum value (usually $0$ or $1$)                 \\\bottomrule
+      Noise            & Description                                                   \\ \midrule
+      Gaussian         & additive isotropic Gaussian noise $\mathbf{\widetilde{x}} |
+                         \mathbf{x} \sim \mathcal{N}(\mathbf{x}, \sigma^2 I)$          \\
+      Masking          & a random sample of elements in $\mathbf{x}$ are forced to $0$ \\
+      Salt-and-Pepper  & a random sample of elements in $\mathbf{x}$ is set to their
+                         maximum or minimum value (usually $0$ or $1$)                 \\\bottomrule
   \end{tabular}
 \end{table}
 
-\par We introduce a hyperparameter, noise rate ($r$), that dictates how much
-of the elements in $\mathbf{x}$ will be affected by the noise. For
+\par We introduce a hyperparameter, noise rate ($r$), that dictates how much of
+the elements in $\mathbf{x}$ will be affected by the noise. For
 salt-and-pepper, this determines the percentage of features, that will be set
-to $0$ or $1$ based on a coin flip (i.e., $P(0) = P(1) = 0.5$)
+to $0$ or $1$ based on a coin flip i.e., $P(0) = P(1) = 0.5$.
 
 
 \par Lastly, Algorithm \ref{algo:sdae} describes the training procedure for SdAE.
-It is similar to a deep autoencoder (Alg. \ref{algo:autoenc}), the only difference
+It is similar to a deep autoencoder (Alg. \ref{algo:autoenc}), where the only difference
 is that we corrupt the inputs first. In the next section, we will present how
 we incorporated SdAE in the protein function prediction pipeline.
 
@@ -171,22 +171,22 @@ we incorporated SdAE in the protein function prediction pipeline.
 \end{figure}
 
 \par The protein function prediction pipeline consists of a (1) \textit{feature
-extraction} and a (2) \textit{multi-label classification} stage as shown in
-Figure \ref{schema:traintest_sdae}.\footnote{Except for the corruption part,
-the pipeline in the mutually-competitive autoencoder (Chapter
-\ref{SelectiveChapter}) looks exactly like this.} This follows the blueprint
-introduced in Chapter \ref{Introduction} (Fig. \ref{schema:pipeline}); we
-have a feature extractor $\phi$ that derives new features $X^{\prime}$, and
-in turn, use them to train a multilabel classifier $\mathcal{H}$. Here, the SdAE
-takes the role of the feature extractor, and a binary-relevance support-vector
-machine (BR-SVM) as the classifier. Our main goal is to find the best set of
-features $X^{\prime}$ that improves $\mathcal{H}$'s predictive performance.
-As with standard machine learning practice, we have two phases\footnote{
+extraction} and (2) \textit{multi-label classification} stage as shown in
+Figure \ref{schema:traintest_sdae}.\footnote{
+    Except for the corruption part, the pipeline in the mutually-competitive
+    autoencoder (Chapter \ref{SelectiveChapter}) looks exactly like this.
+} 
+This follows the blueprint introduced in Figure \ref{schema:pipeline}: we have
+a feature extractor $\phi$ that derives new features $X^{\prime}$ to train a
+multilabel classifier $\mathcal{H}$. Here, the SdAE takes the role of the
+feature extractor, and a binary-relevance support-vector machine (BR-SVM) as
+the classifier. Our main goal is to find the best set of features $X^{\prime}$
+that improves $\mathcal{H}$'s predictive performance. As with standard machine
+learning practice, we have two phases\footnote{
   We usually split the dataset into training and test data such that
   $\mathcal{D} = \{\mathcal{D}_{tr}, \mathcal{D}_{ts}\}$. We didn't put the
-  subscripts $tr$ and $ts$ for the features $\mathbf{X}$ and labels
-  $\mathbf{Y}$ explicitly in all equations for it can be easily inferred
-  which set is being used in which context.
+  subscripts $tr$ and $ts$ for it can be easily inferred which set is being
+  used in a given context.
 }:
 
 \begin{itemize}
@@ -215,17 +215,17 @@ As with standard machine learning practice, we have two phases\footnote{
     \label{eqn:encoder_mc_sdae}
     f_{\theta^{\ast}}(\mathbf{X}_{ts}) = \theta^{\ast T} \mathbf{X}_{ts} + \theta_{0}^{\ast}
   \end{align}
-  
-  \noindent for the classifier to infer upon. This produces a set of
-  predictions $\mathbf{\widehat{Y}}_{ts}$ that we'll use to compare against a
-  held-out set of ground-truth labels $\mathbf{Y}_{ts}$. We then evaluate
-  these predictions using various metrics described in the next section.
+ 
+  \noindent Then the classifier infers from the derived features, producing a set of
+  predictions $\mathbf{\widehat{Y}}_{ts}$. We compare our predictions to a
+  held-out set of ground-truth labels using the metrics described in the next
+  section.
 \end{itemize}
 
 \newpage
 \subsection{Evaluation metrics}
 
-To evaluate the performance of the prediction model, we will use the following
+To evaluate the performance of our prediction model, we will use the following
 metrics\footnote[2]{\textit{tp}: true positive, \textit{fp}: false positive,
 \textit{tn}: true negative, \textit{fn}: false negative}:
 
@@ -255,7 +255,7 @@ our work on mutually-competitive autoencoders in Chapter \ref{SelectiveChapter}.
 
 \par We performed two (2) sets of experiments for the SdAE-based protein
 function prediction pipeline. First, we checked how each hyperparameter,
-i.e., noise rate ($r$) and number of encoding units ($e$) affects a
+i.e., noise rate ($r$) and number of encoding units ($e$), affects a
 classifier's predictive performance. Then, we benchmarked our model against
 different techniques in literature. Table \ref{exp:setup_sdae}
 shows a summary of all experiments conducted in this work.
@@ -286,7 +286,7 @@ shows a summary of all experiments conducted in this work.
     \end{threeparttable}
 \end{table}
 
-\par Lastly, Table \ref{exp:implementation_sdae} describes the implementation
+\par Lastly, Table \ref{exp:implementation_sdae} describes the experimental
 environment for running the tests. The neural network was trained on an
 NVIDIA Titan X (Pascal) GPU while the classifier was fitted using an Intel
 Xeon 2.2GHz CPU. The majority of the code was written in Python 3.6.X using
@@ -328,6 +328,7 @@ In this section, we'll present the results listed in Table
 settings\textemdash namely, noise rate ($r$) and number of encoding units
 ($e$)\textemdash affects the model as a whole. Then, we'll inspect the
 quality of our model, and compare it with various works in literature.
+For implementation details, please see \ref{AppendixImplementation}.
 
 \subsection{Characterizing the autoencoder model}
 
@@ -340,19 +341,20 @@ validation data. We repeat this experiment for all datasets.
 \subsubsection{Experiments on the Yeast Dataset}
 
 Figure \ref{results:sdae_char_yeast} shows the characterization results for
-Yeast. Recall that test set performance should always be lower than training
-set performance, as the former simulates unseen samples. Here we can observe
-the following:
+Yeast. Recall that validation set performance should always be lower than
+training set performance, as the former simulates unseen samples. Here we can
+observe the following:
 
 \begin{itemize}
   \item Undercomplete autoencoders perform well without much overfitting.
-  Overfitting can be observed with higher values of $e$, exemplified by the
-  large gap between training and validation set performance; the model can
-  predict the training data well, but fails to accommodate unseen instances
-  of the validation data.
+      Overfitting can be observed with higher values of $e$, exemplified by the
+      large gap between training and validation set performance; the model can
+      predict the training data well, but fails to accommodate unseen instances
+      of the validation data.
   \item Adding noise is beneficial, but too much noise can damage the model.
-  Noise provides a good generalization ability to the model, and this
-  confirms the ideas presented in denoising autoencoder literature (\cite{vincent2008denoising, vincent2010stacked}).
+      Noise provides a good generalization ability to the model, and this
+      confirms the ideas presented in denoising autoencoder literature
+      (\cite{vincent2008denoising, vincent2010stacked}).
 \end{itemize}
  
 \begin{figure}[!t]
@@ -379,12 +381,12 @@ the following from the plots:
 
 \begin{itemize}
   \item SdAE performance on Genbase is good overall. The small gap between
-  training and validation performance shows that the model can perform well even
-  with unseen instances of the data.
+      training and validation performance shows that the model can perform well
+      even with unseen instances of the data.
   \item Adding noise is also beneficial, but, similar to Yeast, may lead to
-  overfitting if too much. Notice that validation performance is flat, this
-  is due to the network having a smaller number of encoding units and shorter
-  training time in this set-up ($e=50$ and $\text{epochs}=100$).
+      overfitting if too much. Notice that validation performance is flat, this
+      is due to the network having a smaller number of encoding units and
+      shorter training time in this set-up ($e=50$ and $\text{epochs}=100$).
 \end{itemize}
 
 \subsection{Key results for the stacked denoising autoencoder}
@@ -398,10 +400,10 @@ set.
 
 \subsubsection{Assessing model quality}
 
-\par The goal of this experiment is to check if the proposed prediction
-pipeline based on SdAE can indeed predict protein functions effectively. We
-can achieve this by plotting the Receiver Operating Characteristic (ROC) and
-Precision-Recall (PR) curves for both datasets and interpreting their shapes. 
+\par The goal of this experiment is to check if the SdAE-based pipeline can
+indeed predict protein functions effectively. We can achieve this by plotting
+the Receiver Operating Characteristic (ROC) and Precision-Recall (PR) curves
+for both datasets and interpreting their shapes. 
 
 \begin{figure}[!h]
   \centering
@@ -446,16 +448,15 @@ stars, the more confidence in the differences of the results.
 However, it is interesting that PCA (M1) and AE (M2) -based models have a
 better AUROC performance. This can be attributed to some models having high
 numbers of false negatives in their predictions, thus resulting to higher
-accuracy given sparse labelsets. In fact, it may be easier to get high
-accuracy by just predicting all samples as a zero-vector because of label
-sparsity. However, if we look into the F-score metric, our model's
-performance becomes more apparent. Our high F-score means that our prediction
-pipeline can better ``balance'' between precision and recall (false positives
-and false negatives). Lastly, an overall comparison using a post-hoc
-Bonferroni-Holm test shows that our SdAE-based model outperforms other
-models, especially the baseline. Outperforming the baseline is important
-because it validates our claim that using feature extraction is beneficial to
-multilabel classification.
+accuracy given sparse labelsets. In fact, it may be easier to get high accuracy
+by just predicting all samples as a zero-vector because of label sparsity.
+However, if we look into the F-score metric, our model's predictive ability
+becomes more apparent. Its high F-score suggests that our prediction pipeline
+can better balance between precision and recall (false positives and false
+negatives). Lastly, an overall comparison using a post-hoc Bonferroni-Holm test
+shows that our SdAE-based model outperforms other models, especially the
+baseline. Outperforming the baseline is critical because it validates our claim
+that using feature extraction is beneficial to multilabel classification.
 
 \input{./inputs/results_yeast_sdae.tex}
 \input{./inputs/results_genbase_sdae.tex}

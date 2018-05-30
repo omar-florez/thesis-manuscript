@@ -21,8 +21,7 @@
 %=============================================================================
 
 \chapter[Selective Feature Extraction via a Mutually-Competitive Autoencoder]{
-    \huge
-    Selective Feature Extraction via a Mutually-Competitive Autoencoder
+    \huge Selective Feature Extraction via a Mutually-Competitive Autoencoder
     for Protein Function Prediction
 } 
 \label{SelectiveChapter}
@@ -39,16 +38,13 @@ We begin by describing the autoencoder architecture (Sec.
 we draw our conclusions and discuss potential avenues for future work (Sec.
 \ref{MCConclusions}).
 
-% In the stacked-denoising autoencoder, describe this process as a bottom-up
-% approach. We start from the network itself, then go up to the prediction
-% pipeline etc.
 
 \section{Mutually-Competitive Autoencoder}
 \label{MCArchitecture}
 
-Two operations form the core of the mutually-competitive autoencoder seen in
-Figure \ref{schema:mc_autoencoder}: (1) a winner-take-all operation, and a (2)
-sparse operation. The former constrains the number of active neurons whereas the
+Two operations form the core of the mutually-competitive autoencoder as seen in
+Figure \ref{schema:mc_autoencoder}: a (1) winner-take-all and (2) sparse
+operation. The former constrains the number of active neurons whereas the
 latter influences the flow of information throughout the network.
 
 \subsection{Winner-take-all operation}
@@ -71,11 +67,11 @@ autoencoder, WTA is used to focus on neurons with high activations throughout
 training. The algorithm for this operation can be seen in Algorithm
 \ref{algo:wta}.
 
-\par After the affine transformation (i.e., $h = \text{ReLU}(\theta^{T}x)$)
-for each layer, we take the top-$k\%$ neurons with the highest activation
-$h$. We then store the $k\%$ neurons as winners ($w$), and the remaining
-$1-k\%$ as losers ($l$). Keeping a dictionary of winners and losers is
-important because the next operation will use this information to adjust the
+\par For each layer, we first perform an affine transformation  (i.e., $h =
+\text{ReLU}(\theta^{T}x)$) and take the top-$k\%$ neurons with the highest
+activation $h$.  We then store the $k\%$ neurons as winners ($w$), and the
+remaining $1-k\%$ as losers ($l$). Keeping a dictionary of winners and losers
+is important because the next operation will use this information to adjust the
 activations before reconstructing the input data.
 
 \begin{figure}[!t]
@@ -104,7 +100,7 @@ reconstruction\textemdash are retained. There were some attempts in
 maximizing the activation of relevant neurons in the image and text problem
 domains: this includes pruning network weights, dropout, and selectively
 deleting neurons (\cite{louizos2017learning, chen2017kate, theis2018faster}).
-The main difference of this method (in connection with the winner-take-all
+The main difference in this method (in connection with the winner-take-all
 operation), is that competition is done via the architecture itself, not as
 an objective function or regularizer.
 
@@ -163,7 +159,7 @@ phases.
 \begin{itemize}
   \item \textit{Training phase:} our goal during training is to learn the
   parameters $\theta$ for the feature extractor, and $W$ for the classifier.
-  We simply element the traditional training scheme for autoencoders (Alg.
+  We simply implement the traditional training scheme for autoencoders (Alg.
   \ref{algo:autoenc}), and minimize the mean-square error, $L$ (Eq.
   \ref{eqn:loss_fe}). Then, we minimize the L2-SVM loss (Eq.
   \ref{eqn:loss_clf}) for our classifier:
@@ -232,12 +228,12 @@ performance.
 \section{Experimental Set-up}
 \label{MCExperiments}
 
-In this work, we performed two major experimental themes. First, we
-characterized the proposed autoencoder by examining how each hyperparameter,
-$\langle e, k\%, \alpha \rangle$, affects the classifier's ability to
-discriminate samples. Then, we conducted experiments to test our hypotheses
-on feature relevance and prediction performance. A summary of all experiments
-can be seen in Tables \ref{exp:hyperparameter} and \ref{exp:key_results}.
+There are two experimental themes in this work. First, we characterized the
+proposed autoencoder by examining how each hyperparameter, $\langle e, k\%,
+\alpha \rangle$, affects the classifier's ability to discriminate samples.
+Then, we conducted experiments to test our hypotheses on feature relevance and
+prediction performance. A summary of all experiments can be seen in Tables
+\ref{exp:hyperparameter} and \ref{exp:key_results}.
 
 \begin{table}[h]
   \centering
@@ -320,14 +316,14 @@ the Appendix}.
 \section{Results and Discussion}
 \label{MCResults}
 
-The experimental results for Tables \ref{exp:hyperparameter} and
-\ref{exp:key_results} will be presented and discussed in this section. First,
-we'll investigate how different hyperparameter settings, namely, $e$, $k\%$,
-and $\alpha$, affect the model's predictive performance for the two protein
+\par This section presents the experimental results listed in Tables
+\ref{exp:hyperparameter} and \ref{exp:key_results}. Again, we'll first
+investigate how different hyperparameter settings, namely, $e$, $k\%$, and
+$\alpha$, affect the model's predictive performance for the two protein
 benchmarks. Then, we'll test our claims using various experiments listed in
-Table \ref{exp:key_results}. Remember that our main hypothesis is that the
+Table \ref{exp:key_results}. Remember that our main hypothesis states that the
 features extracted by the mutually-competitive autoencoder are
-\textit{relevant} and thus provide better prediction when fed to a multilabel
+\textit{relevant}, and should result to better predictions for the multilabel
 classifier.
 
 \newpage
@@ -382,7 +378,7 @@ the following from the plots:
   \item Similar to the Yeast dataset, the amount of winners should be
   moderated. Although lower values are preferred, setting them too low can
   potentially damage the model.
-  \item The competition parameter $\alpha$ can be set at a low value (around
+  \item The competition parameter $\alpha$ can be set at a lower value (around
   $\alpha \in \left[1,10\right]$). Increasing this value further only gives
   marginal benefits.
 \end{itemize}
@@ -500,7 +496,7 @@ extracted features\textemdash especially those from the proposed
 autoencoder\textemdash can lead to better predictive performance. Lastly, we
 conducted a post-hoc Bonferroni-Holm (\cite{holm1979simple}) test to compare
 each model against each another using the results from both datasets. Table
-\ref{results:mc_stats} shows the results. The $p$-values indicate that the
+\ref{results:mc_stats} shows this comparison. The $p$-values indicate that the
 proposed model, when accounting for all metrics in both datasets, performs
 significantly better than other techniques in literature.
 
@@ -508,12 +504,13 @@ significantly better than other techniques in literature.
 
 \subsubsection{Ablation tests}
 
-\par In this experiment, we test if the modifications we've made in the
-traditional autoencoder are beneficial to the model's predictive performance.
-We start with a source configuration (i.e., traditional autoencoder), then
-incrementally add components until we reach the target configuration (i.e.,
-proposed autoencoder). For each step, we measure the Area under the ROC curve
-as a proxy for accuracy. Figure \ref{results:mc_ablation} shows the results.
+\par In this experiment, we test if our modifications to the traditional
+autoencoder are beneficial to the model's predictive performance.  We start
+from a source configuration, then incrementally add components until we reach
+the target configuration. We begin with a traditional autoencoder as our
+source, then add the winner-take-all (WTA) and sparse (SL) operations until we
+achieve the target architecture. For each step, we evaluate using the Area
+under the ROC curve. Figure \ref{results:mc_ablation} shows the results.
 
 \begin{figure}[t]
   \centering
@@ -526,23 +523,28 @@ as a proxy for accuracy. Figure \ref{results:mc_ablation} shows the results.
   \label{results:mc_ablation}
 \end{figure}
 
-\par It is evident that as we add components to the traditional
-autoencoder\textemdash first, the winner-take-all (WTA) operation, then the
-sparse operation (SL)\textemdash the performance of the predictor improves.
-This result gives empirical weight to our proposed method and shows the efficacy
-of our method.
+\par It is evident that as we add components to the traditional autoencoder,
+the performance of the predictor improves. There is a sharp increase from AE
+upon addition of WTA, suggesting that the bottleneck improves model
+performance. Winner-take-all keeps the highly-activated neurons, and using them
+for feature extraction serves a beneficial purpose. More importantly, there is
+also a performance increase when the sparse operation was added to the WTA
+set-up. Manipulating the information flow has helped improve model accuracy,
+and gave empirical weight to the efficacy of our method. Overall, the above
+results prove that mutual competition is indeed essential to achieve high
+predictive performance.
 
 \section{Conclusion}
 \label{MCConclusions}
 
-\par We designed a mutually-competitive autoencoder and investigated its
-efficacy in extracting task-relevant and meaningful representations of data.
-The proposed autoencoder shares some similarities with the traditional
-autoencoder, but has an additional layer consisting of winner-take-all and
-sparse operations. Together, it encourages those neurons best representing
-the input to be activated throughout training. We hypothesize that the
-feature extractor should be able to derive task-relevant features, and in
-consequence, boost a multilabel classifier's predictive performance.
+\par To extract task-relevant and meaningful representations of data for
+predicting protein functions, we designed a mutually-competitive autoencoder
+architecture.  Our proposed method shares some similarities with the
+traditional autoencoder, but has an additional layer consisting of
+winner-take-all and sparse operations. Together, they encourage neurons that
+best represent the input to be activated throughout training. We hypothesize
+that the feature extractor should be able to derive task-relevant features, and
+in consequence, boost a multilabel classifier's predictive performance.
 
 \par The proposed autoencoder was tested on the Yeast and Genbase protein
 benchmarks. First, we investigated how different hyperparameter settings
