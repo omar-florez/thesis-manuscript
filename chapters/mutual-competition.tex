@@ -97,7 +97,7 @@ features representing the input data.
 neurons. Throughout training, neurons with consistently high
 activations\textemdash i.e. highly-relevant with respect to the output
 reconstruction\textemdash are retained. There were some attempts in
-maximizing the activation of relevant neurons in the image and text problem
+maximizing the activation of relevant neurons in other problem
 domains: this includes pruning network weights, dropout, and selectively
 deleting neurons (\cite{louizos2017learning, chen2017kate, theis2018faster}).
 The main difference in this method (in connection with the winner-take-all
@@ -140,6 +140,33 @@ classification. From this design, three hyperparameters can be derived:
 
 \vspace*{-10pt}
 \input{./inputs/algo_mctraining.tex}
+
+\subsection{Relationship to other works}
+\par The idea of mutual competition has been explored in other works, although
+not necessarily in protein function prediction. Our work on the
+mutually-competitive autoencoder serves as another brick to this long line of
+research. In this section, we will differentiate it to similar implementations.
+\begin{itemize}
+    \item \cite{makhzani2014ksparse}'s work on k-sparse and winner-take-all
+        (WTA) autoencoders also has the ability to turn-off neurons during
+        training, but does not employ sparse operation. We can consider WTA as
+        a special case of our model when $\alpha=0$.
+    \item \cite{zhai2016semisupervised,louizos2017learning} and
+        \cite{chen2017kate} explores an approach akin to
+        neuron competition. However, they both require an additional
+        preprocessing step during training. We don't have this extra step and
+        use the $ReLU$ activation function for easier training. In addition, we
+        prune from the architecture itself, not from the objective function.
+    \item \cite{goodfellow2014generative}'s work on generative adversarial
+        networks (GAN) may ring a bell whenever competition is mentioned, but
+        our main difference is that competition is localized in the neuronal
+        level. GANs ``compete'' on a network level.
+\end{itemize}
+
+\par In addition, our work is further distinguished by its domain-specific
+application in protein function prediction, moreso in multilabel
+classification. In the next section, we will introduce the full prediction
+pipeline.
 
 \section{Protein Function Prediction Pipeline}
 \label{PFPPipeline}
@@ -192,7 +219,6 @@ phases.
   \label{schema:traintest_mc}
 \end{figure}
 
-\newpage
 \subsection{Evaluation metrics}
 
 After testing, we now have a set of predictions $\mathbf{\widehat{Y}}_{ts}$
@@ -235,7 +261,7 @@ Then, we conducted experiments to test our hypotheses on feature relevance and
 prediction performance. A summary of all experiments can be seen in Tables
 \ref{exp:hyperparameter} and \ref{exp:key_results}.
 
-\begin{table}[h]
+\begin{table}[!h]
   \centering
   \caption{Summary of experiments for autoencoder characterization}
   \label{exp:hyperparameter}
@@ -248,7 +274,7 @@ prediction performance. A summary of all experiments can be seen in Tables
       \end{tabular}
 \end{table}
 
-\begin{table}[t]
+\begin{table}[!h]
   \centering
   \caption{Summary of experiments for analysis and benchmarking}
   \label{exp:key_results}
