@@ -1,0 +1,50 @@
+%=============================================================================
+% Abstract
+% Copyright (c) 2018. Lester James V. Miranda
+%
+% This file is part of thesis-manuscript.
+%
+% thesis-mansucript is free software: you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation, either version 3 of the License, or
+% (at your option) any later version.
+%
+% thesis-manuscript is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU General Public License for more details.
+%
+% You should have received a copy of the GNU General Public License
+% along with thesis-manuscript.  If not, see <http://www.gnu.org/licenses/>.
+%
+% Created by: Lester James V. Miranda <ljvmiranda@gmail.com>
+%=============================================================================
+
+\par Predicting protein functions is a fundamental task with applications in
+medicine and healthcare. However, the cost and slow-pace of biochemical
+techniques hinder this process, causing a major backlog to the number of
+unannotated proteins we have today. Machine learning techniques are suitable to
+this data-intensive task, but they require efficient representations of data.
+Thus, it is important to ensure that our features are meaningful and relevant
+to the classifier. 
+
+\par In this work, we introduce two autoencoder-based techniques that extracts
+task-relevant representations for better protein classification. We first
+explored a stacked denoising autoencoder, commonly-used in images, and examined
+its efficacy in the protein domain. Then, we designed an autoencoder
+architecture that extracts task-relevant features by letting the neurons
+compete mutually with one another. The features derived by these autoencoders
+are fed to a binary-relevance support-vector machine for classification.  We
+tested both models on two protein benchmarks, investigating the effects of each
+hyperparameter and measuring model quality, then we compared its performance
+against other techniques in literature.
+
+\par Results show that our proposed models perform better than other methods,
+suggesting that extracting \emph{relevant} features, not mere feature
+extraction, is crucial. Moreover, both models outperformed the baseline, i.e. a
+model without feature extraction, indicating that it is important to derive
+new features than using a protein's raw attributes.  Lastly, the
+mutually-competitive autoencoder outperforms SdAE\textemdash exhibiting not
+only a finer control during extraction, but improved classifier performance.
+Overall, our work demonstrated the benefit of using these autoencoder-based
+methods to extract task-relevant features for better protein classification.
