@@ -1,0 +1,74 @@
+%=============================================================================
+% Implementation Details Appendix
+% Copyright (c) 2018. Lester James V. Miranda
+%
+% This file is part of thesis-manuscript.
+%
+% thesis-manuscript is free software: you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation, either version 3 of the License, or
+% (at your option) any later version.
+%
+% thesis-manuscript is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU General Public License for more details.
+%
+% You should have received a copy of the GNU General Public License
+% along with thesis-manuscript.  If not, see <http://www.gnu.org/licenses/>.
+%
+% Created by: Lester James V. Miranda <ljvmiranda@gmail.com>
+%=============================================================================
+
+\chapter{Implementation Details}
+\label{AppendixImplementation}
+
+\par In this chapter, we'll list down necessary details regarding the
+implementation of our experiments. Note that the ``$\star$'' symbol represents
+a dependent variable. Lastly, we implemented grid search and a fine random
+search to obtain optimal values for the BR-SVM classifier.
+
+\section*{Hyperparameters used on SdAE experiments}
+\par The tables below correspond to the experiments listed in Section
+\ref{SDSetup}. When testing the effect of various hyperparameters,
+we kept the network and training time at a minimum.
+
+\input{./inputs/hyperparams/hyperparam_sdae.tex}
+
+\par Here are the implementation details for the benchmarking part of the
+experiments. To fully optimize the values, we conducted another round of grid
+and random search for the BR-SVM hyperparameters, and a fine random search
+for the noise rate based from the findings during characterization.
+
+\input{./inputs/hyperparams/benchmark_addn_sdae.tex}
+\input{./inputs/hyperparams/benchmark_sdae.tex}
+
+\newpage
+\section*{Hyperparameters used on MC experiments}
+\par The tables below correspond to the experiments listed in Section
+\ref{MCExperiments}. When testing the effect of various hyperparameters, we
+kept the network and training time at a minimum. The default values during
+characterization were obtained via a rough grid search.
+
+\input{./inputs/hyperparams/hyperparam_mc.tex}
+
+\par A decision-tree was constructed to measure feature relevance.  The table
+below describes the hyperparameters we used to build the tree.  Recall that the
+number of encoding units is variable ($\star$), and we measured the
+distribution for each value. For raw attributes, the features were directly
+used to grow the tree.
+
+\input{./inputs/hyperparams/benchmark_relevance_mc.tex}
+
+\par Below are the hyperparameters used for the benchmark analyses and
+statistical comparison. 
+
+\input{./inputs/hyperparams/benchmark_mc.tex}
+\input{./inputs/hyperparams/benchmark_addn_mc.tex}
+
+\par Lastly, here are the hyperparameters used during the ablation tests. For
+our architecture, setting $\{k=1, \alpha=0\}$ approximates a traditional
+autoencoder while setting $\{k=\star, \alpha=0\}$ approximates a
+winner-take-all autoencoder.
+
+\input{./inputs/hyperparams/benchmark_ablation_mc.tex}
