@@ -1,0 +1,19 @@
+\begin{table}[!h]
+    \centering
+    \caption{Network architectures for SdAE model benchmarks}
+    \begin{tabular}{@{}r*{4}{l}@{}}
+    \toprule
+    Dataset & Layer Name     & Shape        & Type          & Activation          \\ \midrule
+    yeast   & inputLayer     & (None, 103)  & Input         & -                   \\
+            & noiseLayer     & (None, 103)  & Noise         & -                   \\
+            & encLayer1      & (None, 100)  & Dense         & Sigmoid             \\
+            & encLayer2      & (None, 80)   & Dense         & Sigmoid             \\
+            & decLayer1      & (None, 100)  & Dense-tied    & Linear              \\
+            & decLayer2      & (None, 103)  & Dense-tied    & Linear              \\ \midrule
+    genbase & inputLayer     & (None, 1186) & Input         & -                   \\
+            & noiseLayer     & (None, 1186) & Noise         & -                   \\
+            & encLayer       & (None, 50)   & Dense         & Linear              \\
+            & decLayer       & (None, 1186) & Dense-tied    & Linear               \\ \bottomrule
+    \end{tabular}
+\end{table}
+

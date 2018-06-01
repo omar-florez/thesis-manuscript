@@ -1,0 +1,16 @@
+\begin{table}[!h]
+%
+\centering
+\caption{Hyperparameters for SdAE model characterization}
+%
+\begin{tabular}{@{}rr*{9}{l}@{}}
+\toprule
+      &  && \multicolumn{5}{c}{Feature Extractor} && \multicolumn{2}{c}{Classifier} \\ \cmidrule{4-8} \cmidrule{10-11}
+Experiment     & Dataset && $e$     & $r$ & optimizer & epochs & reg.       && $C$       & $\gamma$  \\\midrule
+Encoding units & Yeast   && $\star$ & 0.6 & Adam      & 200    & \num{1e-2} && \num{1.0} & \num{0.01} \\
+               & Genbase && $\star$ & 0.6 & Adam      & 100    & \num{1e-2} && \num{1.0} & \num{0.02} \\
+Noise rate     & Yeast   && 75  & $\star$ & Adam      & 200    & \num{1e-2} && \num{1.0} & \num{0.01} \\
+               & Genbase && 50  & $\star$ & Adam      & 100    & \num{1e-2} && \num{1.0} & \num{0.02} \\\bottomrule
+\end{tabular}
+\end{table}
+

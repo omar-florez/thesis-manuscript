@@ -1,0 +1,13 @@
+\begin{table}[!h]
+%
+\centering
+\caption{Additional hyperparameters for SdAE model benchmarks}
+%
+\begin{tabular}{@{}r*{9}{l}@{}}
+\toprule
+        && \multicolumn{5}{c}{Feature Extractor} && \multicolumn{2}{c}{Classifier} \\ \cmidrule{3-7} \cmidrule{9-10}
+Dataset && $r$        & optimizer & epochs & batch & reg.       && $C$         & $\gamma$       \\\midrule
+Yeast   && $0.7451$   & Adam      & 1000   & 200   & \num{1e-2} && \num{1.00}  & \num{1.292e-2} \\
+Genbase && $0.5988$   & Adam      & 750    & 100   & \num{1e-2} && \num{1.66e2}& \num{2.154e-4} \\\bottomrule
+\end{tabular}
+\end{table}

@@ -1,0 +1,13 @@
+\begin{table}[!h]
+%
+\centering
+\caption{Additional hyperparameters for MC model benchmarks}
+%
+\begin{tabular}{@{}r*{8}{l}@{}}
+\toprule
+        && \multicolumn{4}{c}{Feature Extractor} && \multicolumn{2}{c}{Classifier} \\ \cmidrule{3-6} \cmidrule{8-9}
+Dataset &&  optimizer & epochs & batch & reg.       && $C$         & $\gamma$       \\\midrule
+Yeast   &&  Adam      & 1000   & 200   & \num{1e-2} && \num{1.00}  & \num{1.63e-3} \\
+Genbase &&  Adam      & 1000   & 100   & \num{1e-2} && \num{1.00}  & \num{1.24e-3} \\\bottomrule
+\end{tabular}
+\end{table}

@@ -1,0 +1,28 @@
+\begin{table}[!h]
+%
+\centering
+\begin{threeparttable}
+\caption{Hyperparameters for MC model characterization}
+%
+\begin{tabular}{@{}rr*{8}{l}@{}}
+\toprule
+      &  && \multicolumn{4}{c}{Feature Extractor} &&
+\multicolumn{2}{c}{Classifier} \\ \cmidrule{4-7} \cmidrule{9-10}
+Experiment        & Dataset && $e$     & $k\%$ & $\alpha$ & epochs && $C$       & $\gamma$   \\\midrule
+Encoding units    & Yeast   && $\star$ & 0.5   & 10.0     & 200    && \num{1.0} & $0.0017$   \\
+                  & Genbase && $\star$ & 0.35  & 23.2     & 150    && \num{1.0} & $0.0023$   \\
+Top-$k\%$ neurons & Yeast   && 75  & $\star$   & 10.0     & 200    && \num{1.0} & $0.0017$   \\
+                  & Genbase && 150 & $\star$   & 23.2     & 150    && \num{1.0} & $0.0023$   \\
+Competition amt.  & Yeast   && 75  &  0.5      & $\star$  & 200    && \num{1.0} & $0.0017$   \\
+                  & Genbase && 150 &  0.35     & $\star$  & 150    && \num{1.0} & $0.0023$
+\\\bottomrule
+\end{tabular}
+\begin{tablenotes}
+\footnotesize
+\item[1] We used the Adam optimizer for all models
+\item[2] Regularization: \num{1e-2}, Learning rate: \num{0.01} 
+\end{tablenotes}
+\end{threeparttable}
+\end{table}
+
+
