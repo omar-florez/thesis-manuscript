@@ -331,6 +331,7 @@ quality of our model, and compare it with various works in literature.
 For implementation details, please see \ref{AppendixImplementation}.
 
 \subsection{Characterizing the autoencoder model}
+\label{SDExperimentsHyperparam}
 
 Our goal in this experiment is to find a pattern governing model behavior
 with respect to different hyperparameter values. The idea is to take a
@@ -339,6 +340,7 @@ under the ROC curve (AUROC). We then plot the results for both train and
 validation data. We repeat this experiment for all datasets.
 
 \subsubsection{Experiments on the Yeast Dataset}
+\label{SDExperimentsHyperparamYeast}
 
 Figure \ref{results:sdae_char_yeast} shows the characterization results for
 Yeast. Recall that validation set performance should always be lower than
@@ -374,6 +376,7 @@ observe the following:
 \end{figure}
 
 \subsubsection{Experiments on the Genbase Dataset}
+\label{SDExperimentsHyperparamGenbase}
 
 Figure \ref{results:sdae_char_genbase} shows the results for Genbase. A similar
 procedure was performed for both training and validation data. We can infer

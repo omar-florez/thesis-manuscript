@@ -1,0 +1,20 @@
+\begin{table}[!h]
+    \centering
+    \caption{Network architectures for MC model benchmarks}
+    \begin{tabular}{@{}r*{4}{l}@{}}
+    \toprule
+    Dataset & Layer Name     & Shape        & Type           & Activation          \\ \midrule
+    yeast   & inputLayer     & (None, 103)  & Input          & -                   \\
+            & encLayer       & (None, 500)  & Dense          & ReLU                \\
+            & WTALayer       & (None, 500)  & Dense, $k=0.6$ & -                   \\
+            & sparseLayer    & (None, 500)  & Dense, $\alpha=10.0$ & -             \\
+            & decLayer1      & (None, 500)  & Dense-tied     & Linear              \\
+            & decLayer2      & (None, 103)  & Dense-tied     & Linear              \\ \midrule
+    genbase & inputLayer     & (None, 1186) & Input          & -                   \\
+            & encLayer       & (None, 30)   & Dense          & ReLU                \\
+            & WTALayer       & (None, 30)   & Dense, $k=0.6$ & -                   \\
+            & sparseLayer    & (None, 30)   & Dense, $\alpha=5.32$ & -             \\
+            & decLayer1       & (None, 30)   & Dense-tied     & Linear              \\
+            & decLayer2       & (None, 1186) & Dense-tied     & Linear               \\ \bottomrule
+    \end{tabular}
+\end{table}

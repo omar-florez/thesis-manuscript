@@ -1,0 +1,14 @@
+\begin{table}[!h]
+%
+\centering
+\caption{Hyperparameters for benchmarking feature relevance}
+%
+\begin{tabular}{@{}r*{9}{l}@{}}
+\toprule
+        && \multicolumn{3}{c}{Feature Extractor} && \multicolumn{4}{c}{Decision Tree} \\ \cmidrule{3-5} \cmidrule{7-10}
+Dataset && $k$   & $\alpha$ & epochs && depth & l. rate & subsample & scale   \\\midrule
+Yeast   && $0.6$ & $10.0$   & $1000$ && $7$   & $0.50$  & $0.90$    & $1.00$  \\
+Genbase && $0.4$ & $10.0$   & $750$  && $9$   & $0.42$  & $0.90$    & $1.00$  \\\bottomrule
+\end{tabular}
+\end{table}
+
