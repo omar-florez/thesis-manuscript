@@ -55,11 +55,13 @@
 \usepackage{algpseudocode}
 \usepackage{threeparttable}
 \usepackage{footmisc}
+\usepackage{listings}
 \usepackage{siunitx}
 \usepackage{ntheorem}
 \usepackage{mdframed}
 \usepackage{array}
 \usepackage{subcaption}
+\usepackage{appendix}
 
 \addbibresource{bibliography.bib}
 
@@ -93,6 +95,9 @@
 %------------------------------------------------------------------------------
 %	OTHER SETTINGS
 %------------------------------------------------------------------------------
+\input{inputs/listing_style_python}
+
+
 \setcounter{tocdepth}{1}
 \setitemize{itemsep=-0.2em}        % Modify spacing between items
 %\renewcommand{\arraystretch}{1.2}  % Stretch tables
@@ -314,12 +319,9 @@ $e$                         & encoding dimension            \\
 
 \appendix % Cue to tell LaTeX that the following "chapters" are Appendices
 
-% Include the appendices of the thesis as separate files from the Appendices folder
-% Uncomment the lines as you write the Appendices
-
 \include{appendices/ImplementationDetails}
 \include{appendices/DatasetDescription}
-%\include{Appendices/AppendixC}
+\include{appendices/PFPredictPackage}
 
 %------------------------------------------------------------------------------
 %	BIBLIOGRAPHY
