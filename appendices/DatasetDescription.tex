@@ -23,13 +23,13 @@
 \chapter{Dataset Description}
 \label{AppendixDataset}
 
-\par The two protein benchmarks, Yeast and Genbase, we used in this research
-were from the works of \cite{elisseeff2001kernel} and
-\cite{diplaris2005protein}.  Yeast contains micro-array expression data and
-phylogenetic profiles with functions expressed as MIPS\footnote{ Munich
-Information Center for Protein Sequences (\cite{mewes2006mips}) } annotations,
-whereas Genbase consists of domain characterizations of various proteins and
-their PROSITE IDs. Table \ref{setup:datasets} details these benchmarks.
+\par The Yeast and Genbase datasets were from the works of
+\cite{elisseeff2001kernel} and \cite{diplaris2005protein}.  Yeast contains
+micro-array expression data and phylogenetic profiles with functions expressed
+as MIPS\footnote{ Munich Information Center for Protein Sequences
+(\cite{mewes2006mips}) } annotations, whereas Genbase consists of domain
+characterizations of various proteins and their PROSITE IDs. Table
+\ref{setup:datasets} details these two.
 
 \begin{table}[!h]
     \centering
@@ -44,15 +44,15 @@ their PROSITE IDs. Table \ref{setup:datasets} details these benchmarks.
 \end{table}
 
 \par We can use various metrics to describe a multilabel dataset
-(\cite{charte2015imbalance}). As a preliminary, an active label is a binary
-$1$, while a non-active label is binary $0$. A sample $n$ with a labelset
+(\cite{charte2015imbalance}). As a preliminary, we define an active label as a binary
+$1$, while a non-active label as binary $0$. A sample $n$ with labelset
 $\mathbf{y}_n = \left[1,0,1,0\right] (q=4, Y_n = \{\lambda_1, \lambda_3\})$ has
-two active labels ($|Y_n|$). Thus, we have the following:
+two active labels ($|Y_n|$). From this we can measure the following:
 \begin{itemize}
     \item \textit{Cardinality}: the average number of active labels found per
         sample.
-    \item \textit{Density}: the number of active labels with respect to all
-        labels in the label-matrix.
+    \item \textit{Density}: amount of active labels with respect to all
+        labels in the matrix.
     \item \textit{*IR}: statistical measurements of imbalance: max, mean, and
         variance.
 \end{itemize}
@@ -65,15 +65,19 @@ two active labels ($|Y_n|$). Thus, we have the following:
     \dfrac{\text{Card}(\mathcal{D})}{q} 
 \end{align}
 
-\par Data imbalance is one of the most common problems in machine learning,
-especially when deploying models in the wild (\cite{he2009learning}). Whenever
-one label dominates the other, the classifier becomes severely affected causing
-it to only predict the majority label. This is felt in multilabel datasets,
-although it not as pronounced in Yeast and Genbase (\cite{
-charte2015imbalance}).  In our work, we used a label weighing scheme in the
-classifier to offset this problem (\cite{pedregosa2011scikit,
-chang2011libsvm}). To measure imbalance for a given label $\lambda$, we have
-(\cite{charte2015imbalance}):
+\par Data imbalance is one of the most common problems in machine
+learning\textemdash especially when deploying models in the wild
+(\cite{he2009learning}). Whenever one label dominates the other, the classifier
+becomes severely affected: causing it to predict only the majority label. This
+effect is felt in multilabel datasets, although not as pronounced in Yeast and
+Genbase (\cite{ charte2015imbalance}).  In our work, we used a label weighing
+scheme in the classifier to offset this problem (\cite{pedregosa2011scikit,
+chang2011libsvm}). 
+
+\newpage
+\par To assess the severity of imbalance in a given dataset, we can measure 
+the degree of imbalance for each label $\lambda$ and calculate the average for
+all labels. \cite{charte2015imbalance} provides a good metric:
 \begin{align}
     \text{IRLbl}(\lambda) =
     \dfrac{
@@ -88,16 +92,15 @@ chang2011libsvm}). To measure imbalance for a given label $\lambda$, we have
     \end{cases} 
 \end{align}
 
-\par The equation looks like a handful, but the intuition is to find the ratio
+\par The equation looks a handful, but the intuition is to find the ratio
 between the majority and minority labels. The value is $1.00$ for
 $\lambda_{\text{major}}$ and higher for the rest. If we have $20$ labels
-($q=20$), then we have twenty measurements for IRLbl. We can then obtain their
-mean, max, and variance to fill the MaxIR, MeanIR, and CVIR respectively.
-
-\par Lastly, we can draw a co-occurence plot to visualize how difficult these
-multilabel problems are. In Figure \ref{appendix:cooccurence}, each arc
-represents a label while each chord represents the frequency that two labels
-occured simultaneously in a given sample.
+($q=20$), then we have twenty measurements for IRLbl. We can then calculate
+their mean, max, and variance to obtain the MaxIR, MeanIR, and CVIR
+respectively. Lastly, we can draw a co-occurence plot to visualize how
+difficult these multilabel problems are. In Figure \ref{appendix:cooccurence},
+each arc represents a label while each chord represents the frequency that two
+labels occured simultaneously in a given sample.
 
 \begin{figure}[!h]
   \centering
@@ -115,9 +118,8 @@ occured simultaneously in a given sample.
   \label{appendix:cooccurence}
 \end{figure}
 
-\par The work on multilabel data in general, not just in protein function
-prediction, is a good area for further research (as addressed in Chapter
-\ref{ConclusionsChapter}). It deals with problems not only in classification
-but also  data imbalance and the like. For more information, we direct the
-reader to the works of \cite{charte2015imbalance, charte2015mlsmote} and \cite{
-charte2017dealing}
+\par The work on multilabel data in general is a good area for further research
+(as addressed in Chapter \ref{ConclusionsChapter}). It deals with problems not
+only in classification but also in data imbalance and the like. For more
+information, we direct the reader to the works of \cite{charte2015imbalance,
+charte2015mlsmote} and \cite{ charte2017dealing}
