@@ -23,7 +23,7 @@
 \chapter{The `PFPredict' Package}
 \label{AppendixPFPredict}
 
-\par The main workhorse of this research is the PFPredict (\textbf{P}rotein
+\par The main workhorse for this research is the PFPredict (\textbf{P}rotein
 \textbf{F}unction \textbf{Predict}ion) software package. It is built on top of
 Tensorflow and was written using Python 3.6 (also compatible for 2.7). It
 contains the core implementation of the mutually-competitive autoencoder
@@ -35,9 +35,9 @@ architecture\footnote{
 
 \section{Dependencies}
 
-\par The table below describes the dependencies for this package. Again,
-PFPredict was written in Python 3.6 (with 2.7 compatibility) and was tested
-solely on Linux (Ubuntu 16.04) machines.
+\par The table below lists down package dependencies. PFPredict was written in
+Python 3.6 (with 2.7 compatibility) and was tested on both Linux (Ubuntu
+14.04, 16.04) and Windows machines.
 
 \begin{table}[!h]
 \centering
@@ -62,22 +62,23 @@ matplotlib        & 1.3.1   & plotting library                               \\ 
 \section{Code Organization and Implementation}
 
 \par There are three main modules in PFPredict: \texttt{utils},
-\texttt{extractors}, and \texttt{pipelines}; there is also an auxiliary
-\texttt{tests} module for unit tests. The \texttt{utils} module consists of
-basic data input/output functionality, preprocessing, and console logging.
-Next, the \texttt{extractors} module includes the \texttt{MCAutoencoder} class
-for the mutually-competitive autoencoder. Lastly, the \texttt{pipelines} module
-includes the \texttt{Pipelines} class where you can define your extractor and
-classifier then run it on the data.
+\texttt{extractors}, and \texttt{pipelines}. We also wrote an auxiliary
+\texttt{tests} module for unit testing. The \texttt{utils} module consists of
+basic data input/output functionality, preprocessing, and console logging.  The
+\texttt{extractors} module includes the \texttt{MCAutoencoder} class for the
+mutually-competitive autoencoder. Lastly, the \texttt{pipelines} module
+includes the \texttt{Pipelines} class for defining and running a predictor
+pipeline on a given dataset.
 
 \subsection{The \texttt{MCAutoencoder} Class}
 
 \par \texttt{MCAutoencoder} houses the implementation of the
 mutually-competitive autoencoder. It inherits from Keras's \texttt{Layer} class
 while the internals\textemdash winner-take-all and sparse operations\textemdash
-are written in Tensorflow. It also follows \texttt{scikit-learn}'s standard
-API: \texttt{fit()}, \texttt{transform(X)}, and \texttt{fit\_transform(X)}. A
-UML for this design is seen in Figure \ref{uml:mcae}. 
+are written in Tensorflow. It also follows \texttt{scikit-learn}'s standard API
+consisting of \texttt{fit()}, \texttt{transform(X)}, and
+\texttt{fit\_transform(X)} methods.  Figure \ref{uml:mcae} illustrates a UML
+diagram for this design. 
 
 \par Given a two-dimensional matrix \texttt{X} with each row as a protein
 sample and each column a measurement, we can then use the following methods:
@@ -105,7 +106,7 @@ sample and each column a measurement, we can then use the following methods:
 setting the hyperparameters, call the \texttt{fit(X)} method to the training
 set, then call the \texttt{transform(X)} method to both training and test (or
 validation) sets. The \texttt{transform(X)} method returns the extracted
-features that we can now use for classification. The code sample below
+features that we will use for classification. The code sample below
 illustrates this process.
 
 \lstset{backgroundcolor=\color{gray!30}, basicstyle=\ttfamily,
@@ -159,7 +160,7 @@ scores = pipeline.run(trials=10)
 \section{Miscellaneous Information}
 
 \par This package is hosted in
-\url{https://github.com/ljvmiranda921/pfpredict}, but, at this time of writing,
+\url{https://github.com/ljvmiranda921/pfpredict}, but at this time of writing,
 currently set to private. Continuous integration (CI) and deployment is set up
 using TravisCI (\url{https://travis-ci.org/}), and the unit tests were written
 using the \texttt{unittest} module.
