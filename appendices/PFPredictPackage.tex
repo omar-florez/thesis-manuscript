@@ -29,7 +29,7 @@ Tensorflow and was written using Python 3.6 (also compatible for 2.7). It
 contains the core implementation of the mutually-competitive autoencoder
 architecture\footnote{
     PFPredict only contains the MC autoencoder. The stacked denoising
-    autoencoder is a standard technique that can be implemented solely in
+    autoencoder is a standard technique that can be implemented in
     Keras.
 } and its corresponding prediction pipeline.
 
@@ -136,7 +136,7 @@ classifier as its input, and runs the whole prediction pipeline for a given
 number of trials. It then returns a dictionary of scores for model evaluation.
 The classifier object is obtained from the \texttt{scikit-multilearn}
 library.\footnote{The author is also a collaborator in this project. Please see
-\url{https://github.com/scikit-multilearn} for more information}
+\url{https://github.com/scikit-multilearn} for more information.}
 
 \begin{lstlisting}[style=mypython, caption=Minimal example for the prediction
 pipeline]

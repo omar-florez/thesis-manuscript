@@ -27,15 +27,14 @@
 }
 \label{SDAEChapter}
 
-\par This chapter describes preliminary work where we extracted robust
-features using a stacked denoising autoencoder (SdAE). Our main contribution
-is that we have demonstrated the effectiveness of extracting features via
-SdAE, commonly-used in images, in multilabel protein datasets. We start by
-describing the SdAE architecture (Sec. \ref{SDArchitecture}), then illustrate
-how it fits in the protein function prediction pipeline (Sec.
-\ref{SDPipeline}). Then, we describe our experimental set-up (Sec.
-\ref{SDSetup}), present our findings (Sec. \ref{SDResults}), and draw conclusions
-(Sec. \ref{SDConclusions}).
+\par In this chapter, we will discuss our preliminary work where we extracted
+robust features using a stacked denoising autoencoder (SdAE). This work's main
+contribution is the successful domain-transfer of SdAE, commonly-used in
+images, in multilabel protein data. We start by describing the SdAE
+architecture (Sec. \ref{SDArchitecture}), then illustrate how it fits in the
+protein function prediction pipeline (Sec.  \ref{SDPipeline}). Then, we
+describe our experimental set-up (Sec.  \ref{SDSetup}), present our findings
+(Sec. \ref{SDResults}), and draw conclusions (Sec. \ref{SDConclusions}).
 
 \section{Stacked Denoising Autoencoder}
 \label{SDArchitecture}
@@ -66,7 +65,7 @@ $\mathbf{X}$. By learning from a set of corrupted inputs, we can capture the
 enabling our model to generalize unseen instances in the problem domain.
 In theory, this should improve classification performance.
 
-\subsection{More on generalization and manifold learning}
+\subsection{Generalization and manifold learning}
 
 \begin{wrapfigure}{r}{0.5\textwidth}
   \centering
@@ -77,12 +76,12 @@ In theory, this should improve classification performance.
 \end{wrapfigure}
 
 \par We'll spend some time examining how a stacked denoising autoencoder's
-corrupting function enables the model to generalize during training. Recall
-that generalization prevents model overfitting, i.e. fitting too close to the
-training set that results to poor performance on the test set. The test set
-represents unseen or future instances and we want to perform well on that.
-Thus, our goal is to obtain the main factors of variation from the samples.
-Perceiving SdAEs this way permits us to transfer this method to a different
+corrupting function enables the model to generalize during training.
+Generalization prevents model overfitting, i.e. fitting too close to the
+training set resulting to poor performance on the test set. The test set
+represents unseen or future instances where we want to perform well.  Thus, our
+goal is to obtain the main factors of variation from the samples.  Perceiving
+SdAEs this way permits us to transfer this method to a different
 domain\textemdash in our case, multilabel protein data\textemdash with more
 confidence.
 
@@ -124,10 +123,10 @@ actual digit) while discarding unnecessary ones (random noise).
 \subsection{Practical considerations for SdAE training}
 
 \par Table \ref{exp:noise_types} describes three different corrupting functions
-for SdAE. We applied the salt-and-pepper (SP) noise for the dataset has been
-preprocessed by normalizing the inputs in the $\left[0,1\right]$ range. It is
-also a natural choice due to the hidden representations being squashed by a
-sigmoid function.
+for SdAE. In our model, we used the salt and pepper noise (SP); this choice is
+motivated by our preprocessing step where we normalized the inputs into the
+range $\left[0,1\right]$. It is also a natural choice due to the squashing
+effect caused by the sigmoid activation function during training. 
 
 \begin{table}[!h]
   \centering
@@ -151,11 +150,10 @@ the elements in $\mathbf{x}$ will be affected by the noise. For
 salt-and-pepper, this determines the percentage of features, that will be set
 to $0$ or $1$ based on a coin flip i.e., $P(0) = P(1) = 0.5$.
 
-
-\par Lastly, Algorithm \ref{algo:sdae} describes the training procedure for SdAE.
-It is similar to a deep autoencoder (Alg. \ref{algo:autoenc}), where the only difference
-is that we corrupt the inputs first. In the next section, we will present how
-we incorporated SdAE in the protein function prediction pipeline.
+\par Lastly, Algorithm \ref{algo:sdae} describes the training procedure for
+SdAE.  It is similar to a deep autoencoder (Alg. \ref{algo:autoenc}), but the
+difference is that we corrupt the inputs first. In the next section, we will
+present how we incorporated SdAE in the protein function prediction pipeline.
 
 \input{./inputs/algo_sdae.tex}
 
@@ -195,7 +193,7 @@ learning practice, we have two phases\footnote{
   respectively. We first train the SdAE using Alg. \ref{algo:sdae}, and use
   the learned $\theta^{\ast}$ to encode the training dataset for fitting
   BR-SVM. We use the mean-square error (MSE) as the loss-function for $\phi$ and
-  L2-SVM for $\mathcal{H}$
+  L2-SVM for $\mathcal{H}$:
   \begin{align}
     % Feature Extractor Loss
     \label{eqn:loss_fe_sdae}
@@ -326,9 +324,9 @@ the \href{https://www.tensorflow.org/}{Tensorflow} and
 In this section, we'll present the results listed in Table
 \ref{exp:setup_sdae}. First, we'll look into how different hyperparameter
 settings\textemdash namely, noise rate ($r$) and number of encoding units
-($e$)\textemdash affects the model as a whole. Then, we'll inspect the
-quality of our model, and compare it with various works in literature.
-For implementation details, please see \ref{AppendixImplementation}.
+($e$)\textemdash affect the model as a whole. Then, we'll inspect the quality
+of our model, and compare it with various works in literature.  For
+implementation details, please see Appendix \ref{AppendixImplementation}.
 
 \subsection{Characterizing the autoencoder model}
 \label{SDExperimentsHyperparam}
@@ -424,7 +422,7 @@ for both datasets and interpreting their shapes.
 \par A good indicator of quality for an ROC curve is to check how far the
 orange line, representing the FPR and TPR at different cutoff points, is from
 the baseline (representing a random classifier). It is apparent that for both
-datasets, the curve is way above the baseline\textemdash and moreso with
+datasets, the curve is way above the baseline\textemdash moreso with
 Genbase. In addition, measuring the AUROC gives a good predictive accuracy.
 On the other hand, Precision-Recall curves show the tradeoff between
 precision and recall for both datasets. It is apparent that Genbase has a
@@ -433,7 +431,7 @@ experiment, we'll put our prediction pipeline into context by comparing it
 with other works in literature.
 
 
-\subsection{Benchmark analysis}
+\subsubsection{Benchmark analysis}
 
 \par In this experiment, we will compare against various protein function
 prediction models in literature. The AUROC, F-score, and Hamming Loss will
@@ -445,12 +443,12 @@ Tables \ref{results:sdae_benchmark_yeast} and
 measurements. The null hypothesis $H_{0}$ dictates that there is no
 significant difference between the groups. The ``Sig.'' column indicates the
 extent in $\alpha$ in which we can reject $H_{0}$. The intuition is: the more
-stars, the more confidence in the differences of the results.
+stars, the more significant the differences are in the results.
 
 \par For most metrics, the SdAE-based prediction pipeline performs well.
 However, it is interesting that PCA (M1) and AE (M2) -based models have a
 better AUROC performance. This can be attributed to some models having high
-numbers of false negatives in their predictions, thus resulting to higher
+numbers of false negatives in their predictions, resulting to higher
 accuracy given sparse labelsets. In fact, it may be easier to get high accuracy
 by just predicting all samples as a zero-vector because of label sparsity.
 However, if we look into the F-score metric, our model's predictive ability

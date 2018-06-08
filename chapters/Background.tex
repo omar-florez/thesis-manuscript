@@ -47,22 +47,21 @@ categories.
 
 \subsection{Protein features from high-throughput methods}
 
-\par High-throughput sequencing techniques ushered in the emergence of
-genomic big data (\cite{reuter2015high}). Scientists conducted various
-experiments (e.g. DNA microarray, phylogenetic trees, etc.) to profile
-protein sequences, resulting to huge amounts of structured data available for
-use. These datasets facilitated protein function prediction, either it through
-biochemical or computational means (\cite{eisenberg2000protein,
-marcotte1999combined}). We will use two protein benchmarks,
-Yeast and Genbase, derived from these experiments.
+\par High-throughput sequencing techniques ushered in the emergence of genomic
+big data (\cite{reuter2015high}). Various experiments (e.g. DNA microarray,
+phylogenetic trees, etc.) enabled profiling of protein sequences, resulting to
+huge amounts of structured data available for use. These datasets facilitated
+protein function prediction, either through biochemical or computational means
+(\cite{eisenberg2000protein, marcotte1999combined}). We will use two protein
+benchmarks, Yeast and Genbase, derived from these experiments.
 
 \par We define a \textit{protein feature set} as a matrix $\mathbf{X}$ where
 each row is represented as a protein sample $i=1\dots N$ and each column as a
-specific measurement $j=1/dots d$. Both Yeast and Genbase datasets were
-formed from microarray gene expression data, with the former containing
-phylogenetic profiles as additional information. Succintly, the raw feature
-set is defined as $\mathbf{X} \in \mathbb{R}^{N \times d}$ where $N$ and $d$
-is the number of protein samples and attributes respectively.
+specific measurement $j=1 \dots d$. Our two protein benchmarks were formed from
+microarray gene expression data, with Yeast containing phylogenetic profiles
+for additional information. In vector-form, the raw feature set is defined as a
+matrix $\mathbf{X} \in \mathbb{R}^{N \times d}$ where $N$ and $d$ is the number
+of protein samples and attributes respectively.
 
 \par It is vital to spend some time emphasizing that noise is intrinsic to
 high-throughput data (\cite{hong2013estimating}). A DNA microarray, for
@@ -70,16 +69,14 @@ example, is formed by probing unique regions of a gene in order to detect
 expressions present in the tissue. Probing is sometimes conducted
 heterogeneously, for ``different parts of the body, different [organisms], or
 different phases of the cellular cycle'' (\cite{nguyen2009noise}). Each step
-has the potential to introduce noise that may be detrimental to our task. To
-a greater extent, extracting features from noisy data can compound its effect
-and damage our classification model. Later on, we will discuss the denoising
-autoencoder as a way to reduce the effect of noise from our raw features; but
-first, let's look into what these features correspond to\textemdash a
-protein's function.
+has the potential to introduce noise that may be detrimental to our task. To a
+greater extent, extracting features from noisy data can compound its effect and
+damage our classification model. Later on, we will discuss the denoising
+autoencoder as a way to reduce this effect.
 
 \subsection{Protein functions}
 
-\par Proteins perform a variety of functions to maintain our survival. They
+\par Proteins perform a variety of functions to maintain life's survival. They
 can be seen in almost every facet of any biological process: cell
 reproduction, signalling, metabolism, and etc. A single protein can perform
 multiple functions at once, indicating a one-to-many relationship. Let's take
@@ -104,7 +101,7 @@ each column $j=1 \dots q$ is a protein function (designated as $\lambda$).
 The size of $q$ depends on the number of possible labels in the dataset. In
 addition, a protein labelset (a row vector) $\mathbf{y}_n$ is encoded as a
 one-hot vector of size $q$. Say we're given a dataset with five functional
-categories, $q=5$, and a protein sample $n$ that performs the functions
+categories, $q=5$, and a protein sample $n$ with functions
 $\lambda_1, \lambda_4,$ and $\lambda_5$; we then express its labelset as:
 
 \[
@@ -113,7 +110,7 @@ $\lambda_1, \lambda_4,$ and $\lambda_5$; we then express its labelset as:
     \end{matrix} \right]
 \]
 
-\noindent where each index indicates a protein's functional category. More formally, we
+\noindent Here, each index indicates a protein's functional category. More formally, we
 represent all protein labels as $\mathbf{Y} \in \{0,1\}^{N \times q}$, where each
 row-vector $\mathbf{y}_n \in \{0,1\}^q$ is a labelset containing $q$ labels
 $\lambda$.
@@ -175,13 +172,12 @@ are associated to a given image.
 
 \newpage
 \par Protein function prediction behaves similarly to scene classification:
-given a protein sample (i.e., the image/scene), we are required to find the
-functional categories associated with it (i.e., the objects in the scene).
-This task is known as \textit{multilabel classification} (MLC). Notice that
-in MLC, we only have two classes for each label $\lambda$: $0$ (does not
-belong to $\lambda$) and $1$ (belongs to $\lambda$). Thus, MLC is akin to
-doing binary classification for each label. Formally, we define the multilabel
-classification task as:
+given a protein sample (i.e., the image/scene), find the functional categories
+associated with it (i.e., the objects in the scene).  This task is known as
+\textit{multilabel classification} (MLC). Notice that in MLC, there are only
+two classes for each label $\lambda$: $0$ (does not belong to $\lambda$) and
+$1$ (belongs to $\lambda$). Thus, MLC is akin to doing binary classification
+for each label. Formally, we define the multilabel classification task as:
 
 \begin{definition}{}
 Given a dataset $\mathcal{D}$, find a function $\mathcal{H}$ that maps the
@@ -226,25 +222,25 @@ simplicity and time-complexity\footnote[2]{
 
 \par BR falls under one of the two main approaches in classifying multilabel data:
 problem transformation and algorithm adaptation. The former, where BR
-belongs, transforms the multilabel problem into separate single-label binary
+belongs, transforms a multilabel problem into separate single-label binary
 classification tasks while the latter adapts a classifier to directly handle
 multilabel data (\cite{tsoumakas2007multilabel}).
 
-\par We focus on BR for it is easier to treat the classifier as a separate
-module from the feature extractor, and it is a simple yet effective method
+\par We focus on BR because it is easier to treat the classifier as a separate
+module from the feature extractor; it is also a simple yet effective method
 for multilabel classification (\cite{luaces2012binary}). With BR, a
 classifier can be decoupled from a feature extractor, enabling the former to
 be tested on variants of the latter. Another reason is that the literature on
 problem transformation techniques is extensive enough to enable benchmarking
-of different multilabel classifiers in the future (\cite{zhang2014review,
+on different multilabel classifiers in the future (\cite{zhang2014review,
 madjarov2012extensive}).
 
-\par This research will concentrate on finding good representations for the
-BR classifier to solve the problem of protein function prediction. The
-process of obtaining new features from raw data is called \textit{feature
-extraction}, and is one of the core ideas in this work. Even if a BR
-classifier can stand on its own, we hypothesize that higher performance can
-be achieved with the extracted features than the raw data itself.
+\par This research will concentrate on finding good representations for the BR
+classifier to solve the problem of protein function prediction. The process of
+obtaining new features from raw data is called \textit{feature extraction}, and
+is one of the core ideas in this work. Even if a BR classifier can stand on its
+own, we hypothesize that higher performance can be achieved when using the
+extracted features rather than the raw attributes themselves.
 
 \section{Extracting Features for Better Data Representation}
 \label{FeatureExtraction}
@@ -266,47 +262,46 @@ represents the extracted features useful\footnote{
   be the prime motivation of this work. We will attempt to define ``usefulness''
   or \textit{relevance} in Sec. \ref{Motivation}
 } to a classifier $\mathcal{H}$. We
-hypothesize that using $\mathbf{X}^{\prime}$ should provide better
-classification (measured in accuracy, F-score, etc.) than just using the raw
-attributes $\mathbf{X}$. The proceeding section will give a simple
-demonstration using the XOR gate to illustrate this idea.
+hypothesize that using $\mathbf{X}^{\prime}$ should classify better (measured
+in accuracy, F-score, etc.) than just using the raw attributes $\mathbf{X}$.
+The proceeding section illustrates this idea using the XOR gate.
 
 \subsection{A simple demonstration using the XOR gate}
 
-\par Creating new features can be best illustrated with the XOR gate. The
-goal is to separate binary 0's and 1's of the gate output. We take two
-inputs $\mathbf{x} = \langle x_{1}$, $x_{2} \rangle, x_1, x_2 \in \{0,1\}$ as
-features and its output $y_{i} \in \{0,1\}$ as the label. With $N=4$ samples
-representing all possible bit-combinations, a dataset
+\par The need for feature extraction is best demonstrated by the XOR problem.
+Given two binary inputs, the goal is to separate binary 0's and 1's of the gate
+output. We take two inputs $\mathbf{x} = \langle x_{1}$, $x_{2} \rangle, x_1,
+x_2 \in \{0,1\}$ as features and the output $y_{i} \in \{0,1\}$ as the label.
+With four samples representing all possible bitwise-combinations, a dataset
 $\mathcal{D}=\{(\mathbf{x}_{i}, y_{i})\}_{i=1}^{4}$ can be constructed as:
 
 \[
     \mathcal{D} = \{(0,0,0), (0,1,1), (1,0,1), (1,1,0)\}
 \]
 
-Assuming we only have access to a linear classifier, the feature-space shown
-in Figure \ref{demo:xor} (\textit{left}) proves that classifying the samples
-is difficult due to its linear inseparability\textemdash that is, drawing a
-single line to perfectly separate the X's and O's is impossible.
-However, if a new feature-space $\mathbf{x}^{\prime}$ is engineered in such a
-way that $\mathbf{x}^{\prime} = \langle {x}^{\prime}_{1}, {x}^{\prime}_2 \rangle$ where 
-$x^{\prime}_{1} = \text{AND}(\bar{x}_{1}, x_{2})$ and $x^{\prime}_{2}
-= \text{AND}(x_{1}, \bar{x}_{2})$, then it is possible to transform $\mathcal{D}$
-into dataset $\mathcal{D}^{\prime}=\{(\mathbf{x}^{\prime}_{i}, y_{i})\}_{i=1}^{4}$
-where:
+Assuming we only have access to a linear classifier, the feature-space shown in
+Figure \ref{demo:xor} (\textit{left}) proves that classification is difficult
+due to linear inseparability\textemdash that is, drawing a single line to
+perfectly separate the X's and O's is impossible.  However, if a new
+feature-space $\mathbf{x}^{\prime}$ is engineered in such a way that
+$\mathbf{x}^{\prime} = \langle {x}^{\prime}_{1}, {x}^{\prime}_2 \rangle$ where
+$x^{\prime}_{1} = \text{AND}(\bar{x}_{1}, x_{2})$ and $x^{\prime}_{2} =
+\text{AND}(x_{1}, \bar{x}_{2})$, then it is possible to transform $\mathcal{D}$
+into dataset $\mathcal{D}^{\prime}=\{(\mathbf{x}^{\prime}_{i},
+y_{i})\}_{i=1}^{4}$ such that:
 
 \[
     \mathcal{D}^{\prime} = \{(0,0,0), (1,0,1), (0,1,1), (0,0,0)\}
 \]
 
-\par It can then be seen from Figure \ref{demo:xor} (\textit{right}) that
+\par From Figure \ref{demo:xor} (\textit{right}), we can see that
 $\mathcal{D}^{\prime}$ is now a linearly separable problem. In this
 demonstration, it is evident that hand-engineering features, or
 \textit{extracting new features} has been helpful. However, with large
-datasets, it will be tedious to manually find useful representations from
-data. It is much preferable to automate the whole process. In the next
-section, we will turn our attention to an effective way of learning $\phi$ in
-a parameterized fashion\textemdash the autoencoder neural network.
+datasets, it will be tedious to manually find useful representations from data.
+It is much preferable to automate the whole process. In the next section, we
+will turn our attention to an effective way of learning $\phi$ in a
+parameterized fashion\textemdash the autoencoder neural network.
 
 \begin{figure}[!t]
   \centering
@@ -328,33 +323,31 @@ a parameterized fashion\textemdash the autoencoder neural network.
   \label{schema:autoencoder}
 \end{wrapfigure}
 
-\par This research is based on the autoencoder neural network as a framework
-for solving the protein function prediction problem. It was first introduced
-in 1987 (\cite{lecun1987phd}) and was subsequently studied in the following
-years (\cite{bourlard1988auto, hinton1994autoencoders}). The idea is simple
-yet powerful, that is, to have a network reconstruct a given input with the
+\par The autoencoder neural network serves as the main framework in our
+proposed models.  It was first introduced by \cite{lecun1987phd} and
+was subsequently studied by other researchers in the following years
+(\cite{bourlard1988auto, hinton1994autoencoders}). The idea is simple yet
+powerful: train a network to reconstruct a given input with the
 presence of information bottlenecks.
 
-\par There are two key aspects in training autoencoders: (1) information
-reconstruction and (2) information bottleneck. The concept is that if an
-autoencoder can reconstruct information ``perfectly'', even with constraints
-involved, then it has learned the latent structure of the raw data. The
-simplest way to constrain an autoencoder is by limiting the number of hidden
-nodes $e$ less than the original dimension $d$ of the data. Say for example,
-a dataset with $d=100$ dimensions. If we set $e=20$, and the autoencoder was
-still able to reconstruct the original data ``perfectly'', then it has
-learned a hidden structure from the data that was expressed in a lesser
-capacity.
+\par Constraining information and reconstructing it are the two key aspects in
+training autoencoders. If an autoencoder can reconstruct information
+accurately, even with constraints involved, then it has learned the latent
+structure of the raw data. The simplest way to constrain an autoencoder is to
+introduce architecture bottlenecks: we can limit the number of hidden nodes
+less than the feature's original dimension ($e<d$). For a dataset with
+$d=100$ dimensions, if we set $e=20$, and the autoencoder was still able to
+reconstruct the original data, then it has learned a hidden structure expressed
+in a lesser capacity.
 
-\par In practice, the autoencoder architecture consists of an encoder-decoder
-scheme where the encoder function $f_{\theta}$ transforms the original input
-$\mathbf{X}$ into a certain representation $\mathbf{h}$ (from $100$ features
-to $20$), and the decoder function $g_{\theta^{\prime}}$ converts
-$\mathbf{h}$ into an approximation of the raw features
-$\mathbf{\widehat{X}}$ (where $\mathbf{\widehat{X}} =
-g_{\theta^{\prime}}(\mathbf{h}) \approx \mathbf{X}$). Setting the loss
-function as a comparison of the original input and its approximation
-contrives the network to reconstruct $\mathbf{X}$:
+\par In practice, an autoencoder's architecture consists of an encoder-decoder
+scheme. The encoder function $f_{\theta}$ transforms the original input
+$\mathbf{X}$ into a certain representation $\mathbf{h}$ (from $100$ features to
+$20$), and the decoder function $g_{\theta^{\prime}}$ converts $\mathbf{h}$
+into an approximation of the raw features $\mathbf{\widehat{X}}$ (where
+$\mathbf{\widehat{X}} = g_{\theta^{\prime}}(\mathbf{h}) \approx \mathbf{X}$).
+By formulating the loss function as a comparison of the original input and its
+approximation, we  contrive the network to reconstruct $\mathbf{X}$:
 
 \[
     J(\theta) = L(\mathbf{X}, \mathbf{\widehat{X}}) \quad \text{where} \quad
@@ -387,16 +380,15 @@ problem while adhering to the framework above.
 \label{LiteratureReview}
 
 \par There are three major movements we should consider when tracing the
-developments of protein function prediction (PFP) in machine learning: first
-is by (1) direct classification, then by (2) dimensionality reduction, and
-lastly by (3) deep feature extraction. Machine learning techniques first
-involved feeding raw data into a classifier, then found the need to reduce
-the number of features in the dataset, and later on realized the importance
-of learning suitable data representations for the classifier. This research
-falls into the third category: utilizing deep neural networks to learn
-representations for a multilabel classifier. But before that, let's start
-from the beginning, where raw protein data is being fed directly to a
-multilabel classifier.
+developments of protein function prediction (PFP) in machine learning: first is
+(1) direct classification, then by (2) dimensionality reduction, and lastly via
+(3) deep feature extraction. Before, machine learning techniques involved
+feeding raw data into a classifier, then found the need to reduce the number of
+features in the dataset. Later on, ML showed promise by learning suitable data
+representations for the classifier. This research falls into the third
+category: utilizing deep neural networks to learn representations for
+classification. But before that, let's start from the beginning, where raw
+protein data is being fed directly to a multilabel classifier.
 
 \paragraph{Direct multilabel classification}
 The earliest attempt to solve the protein function prediction problem was
@@ -416,7 +408,7 @@ Binary Relevance (BR) algorithm
 (\cite{godbole2004discriminative,tsoumakas2007multilabel}). These were then
 extended into Label Powerset (LP) and Classifier Chains (CC)
 (\cite{read2009classifier}), but BR's conceptual ease and ``relative speed''
-enabled it to stay. Furthermore, various literature reviews attested BR's
+made it stay. Furthermore, various literature reviews attested BR's
 performance, especially when paired with an SVM classifier
 (\cite{luaces2012binary, zhang2014review,tsoumakas2017data}). For our
 research, we will use the Binary Relevance with SVM (BR-SVM) as the baseline
@@ -433,7 +425,7 @@ reduce the time it takes to train one. It is important to note that these
 techniques gave a semblance of feature extraction: reducing dimensions in
 data may be akin to finding a different representation of a feature space.
 However, dimensionality-reduction is still limited primarily due to it being
-linear with less capacity (\cite{cunningham2015linear}). Later on, we will
+linear (\cite{cunningham2015linear}). Later on, we will
 compare against the work of \cite{wang2013protein} that uses Principal
 Component Analysis (PCA) as a dimensionality-reduction technique to a
 k-nearest neighbors classifier (k-NN). They were able to reduce a protein
@@ -492,8 +484,8 @@ reseasrch motivation:
 \end{quote}
 
 \paragraph{Definitions of relevance}
-Relevance depends on the question: ``relevant to what?''. Features must be
-relevant with respect to (\cite{blum1997selection}):
+Relevance depends on the question: ``relevant to what?''. According to
+\cite{blum1997selection}, features must be relevant with respect to:
 \begin{itemize}
   \item the target concept (i.e. protein functions), and
   \item the task at hand (i.e., multilabel classification)
@@ -515,12 +507,12 @@ the definition of relevance as ``incrementally useful'':
 \end{definition}
 
 \par\noindent For multilabel classification, we will be using a different set
-of metrics instead of accuracy. Originally, \cite{blum1997selection} uses
-$\{x_{i}\} \cup \mathbf{X}$, but they went at length to extend this
-definition to linear combinations of features, rather than just relevant
-individual features. This validates the assumption that relevant features
-should produce better predictions. In the next section, we will formulate the
-problem and state our research hypothesis.
+of metrics instead of accuracy. Originally, \cite{blum1997selection} refers to
+a subset of the raw features $\{x_{i}\} \cup \mathbf{X}$, but they went at
+length extending this definition to linear combinations of features, rather
+than just relevant individual features. This validates the assumption that
+relevant features should produce better predictions. In the next section, we
+will formulate the problem and state our research hypothesis.
 
 \subsection{Problem formulation and hypothesis}
 
@@ -537,8 +529,8 @@ the problem is defined as:
   to $\mathcal{H}$ and $\mathbf{X}$ by virtue of Def. \ref{DefRelevance}.
 \end{definition}
 
-\par\noindent We will explore two models that aims to accomplish this task.
-Because these models extract task-relevant features, we expect that
+\par\noindent We will present two autoencoder-based models to accomplish this
+task.  Because these models extract task-relevant features, we expect that
 classifier performance will improve. More formally, we state our research
 hypothesis as:
 
