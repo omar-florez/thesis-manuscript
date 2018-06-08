@@ -74,7 +74,7 @@ greater extent, extracting features from noisy data can compound its effect and
 damage our classification model. Later on, we will discuss the denoising
 autoencoder as a way to reduce this effect.
 
-\subsection{Protein functions}
+\subsection{Protein functional categories}
 
 \par Proteins perform a variety of functions to maintain life's survival. They
 can be seen in almost every facet of any biological process: cell
@@ -266,7 +266,7 @@ hypothesize that using $\mathbf{X}^{\prime}$ should classify better (measured
 in accuracy, F-score, etc.) than just using the raw attributes $\mathbf{X}$.
 The proceeding section illustrates this idea using the XOR gate.
 
-\subsection{A simple demonstration using the XOR gate}
+\subsection{Motivating example using the XOR problem}
 
 \par The need for feature extraction is best demonstrated by the XOR problem.
 Given two binary inputs, the goal is to separate binary 0's and 1's of the gate
@@ -312,7 +312,7 @@ parameterized fashion\textemdash the autoencoder neural network.
   \label{demo:xor}
 \end{figure}
 
-\subsection{The autoencoder neural network}
+\subsection{Autoencoder neural network}
 
 \begin{wrapfigure}{r}{0.5\textwidth}
   \centering
