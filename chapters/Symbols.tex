@@ -1,0 +1,55 @@
+%=============================================================================
+% List of Symbols
+% Copyright (c) 2018. Lester James V. Miranda
+%
+% This file is part of thesis-manuscript.
+%
+% thesis-mansucript is free software: you can redistribute it and/or modify
+% it under the terms of the GNU General Public License as published by
+% the Free Software Foundation, either version 3 of the License, or
+% (at your option) any later version.
+%
+% thesis-manuscript is distributed in the hope that it will be useful,
+% but WITHOUT ANY WARRANTY; without even the implied warranty of
+% MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+% GNU General Public License for more details.
+%
+% You should have received a copy of the GNU General Public License
+% along with thesis-manuscript.  If not, see <http://www.gnu.org/licenses/>.
+%
+% Created by: Lester James V. Miranda <ljvmiranda@gmail.com>
+%=============================================================================
+
+\begin{symbols}{ll} % Include a list of Symbols (a three column table)
+
+% dimensions
+$N$                         & number of samples         \\
+$q$                         & number of labels          \\
+$d$                         & number of features        \\
+
+\addlinespace % data
+$x$                         & raw feature              \\
+$x^{\prime}$                & extracted feature        \\
+$\widetilde{x}$             & corrupted feature        \\
+$\widehat{x}$               & reconstructed feature    \\
+$y$                         & ground-truth label       \\
+$\widehat{y}$               & prediction               \\
+
+
+\addlinespace % functions
+$f$                         & encoder function          \\
+$g$                         & decoder function          \\
+$L$                         & loss function             \\
+$q^{\prime}$                & corrupting function       \\
+$h$                         & classifier                \\
+
+\addlinespace % learnable parameters 
+$\theta$                    & network weight parameters \\
+$W$                         & classifier parameters     \\
+
+\addlinespace % hyperparameter
+$k$                         & percentage of winners to keep \\
+$\alpha$                    & competition parameter         \\
+$e$                         & encoding dimension            \\
+
+\end{symbols}
