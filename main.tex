@@ -39,6 +39,7 @@
             english,
             twoside,
             liststotoc,
+            toctotoc,
             singlespacing,
             headsepline,
             consistentlayout]{style}
@@ -99,7 +100,7 @@
 \input{inputs/listing_style_python}
 
 
-\setcounter{tocdepth}{2}
+\setcounter{tocdepth}{1}
 \setitemize{itemsep=-0.2em}        % Modify spacing between items
 %\renewcommand{\arraystretch}{1.2}  % Stretch tables
 
@@ -252,6 +253,17 @@ All Rights Reserved
 \end{acknowledgements}
 
 %------------------------------------------------------------------------------
+%       PREFACE PAGE
+%------------------------------------------------------------------------------
+
+\begin{preface}
+\addchaptertocentry{Preface} % Add the abstract to the table of contents
+
+\input{./chapters/Preface.tex}
+
+\end{preface}
+
+%------------------------------------------------------------------------------
 %	LIST OF CONTENTS/FIGURES/TABLES PAGES
 %------------------------------------------------------------------------------
 
@@ -266,6 +278,7 @@ All Rights Reserved
 %------------------------------------------------------------------------------
 
 \input{./chapters/Symbols.tex}
+
 
 %------------------------------------------------------------------------------
 %	THESIS CONTENT - CHAPTERS
