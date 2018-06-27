@@ -115,9 +115,8 @@ represent all protein labels as $\mathbf{Y} \in \{0,1\}^{N \times q}$, where eac
 row-vector $\mathbf{y}_n \in \{0,1\}^q$ is a labelset containing $q$ labels
 $\lambda$.
 
-
-\newpage
-Together, we have the following definition:
+%\newpage
+\par Together, we have the following definition:
 
 \begin{definition}{}
 A protein dataset $\mathcal{D}$ consists of $N$ pairs of feature and label
@@ -170,7 +169,7 @@ are associated to a given image.
   \label{demo:multilabel}
 \end{figure}
 
-\newpage
+%\newpage
 \par Protein function prediction behaves similarly to scene classification:
 given a protein sample (i.e., the image/scene), find the functional categories
 associated with it (i.e., the objects in the scene).  This task is known as
@@ -305,13 +304,15 @@ parameterized fashion\textemdash the autoencoder neural network.
 
 \begin{figure}[!t]
   \centering
-  \includegraphics[width=0.75\textwidth]{ch01/demo_xor}
+  \includegraphics[width=0.85\textwidth]{ch01/demo_xor}
   \caption[Illustration of feature extraction using the XOR gate]
     {Illustration of feature extraction using the XOR gate.\\ Binary `1's are
     represented as circles while binary `0's as cross-marks.}
   \label{demo:xor}
 \end{figure}
 
+
+\newpage
 \subsection{Autoencoder neural network}
 
 \begin{wrapfigure}{r}{0.5\textwidth}

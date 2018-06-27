@@ -20,7 +20,7 @@
 % Created by: Lester James V. Miranda <ljvmiranda@gmail.com>
 %=============================================================================
 
-\chapter[Selective Feature Extraction via a Mutually-Competitive Autoencoder]{
+\chapter[Selective Feature Extract. via a Mutually-Competitive Autoenc.]{
     \huge Selective Feature Extraction via a Mutually-Competitive Autoencoder
     for Protein Function Prediction
 } 
@@ -182,6 +182,13 @@ matrix operations are applied to transform the input data and predict protein
 functions. Figure \ref{schema:traintest_mc} shows the training and test
 phases.
 
+\begin{figure}[!t]
+  \centering
+  \includegraphics[width=0.90\textwidth]{ch04/schema_traintest}
+  \caption[Protein function prediction pipeline]{Protein function prediction
+  pipeline for the mutually-competitive autoencoder}
+  \label{schema:traintest_mc}
+\end{figure}
 %\newpage
 \begin{itemize}
   \item \textit{Training phase:} our goal during training is to learn the
@@ -211,13 +218,6 @@ phases.
   \end{align}
 \end{itemize}
 
-\begin{figure}[!h]
-  \centering
-  \includegraphics[width=0.90\textwidth]{ch04/schema_traintest}
-  \caption[Protein function prediction pipeline]{Protein function prediction
-  pipeline for the mutually-competitive autoencoder}
-  \label{schema:traintest_mc}
-\end{figure}
 
 \subsection{Evaluation metrics}
 
@@ -352,7 +352,7 @@ features extracted by the mutually-competitive autoencoder are
 \textit{relevant}, and should result to better predictions for the multilabel
 classifier.
 
-\newpage
+%\newpage
 \subsection{Characterizing the autoencoder model}
 
 In this experiment, we tested how different hyperparmeter settings affect the

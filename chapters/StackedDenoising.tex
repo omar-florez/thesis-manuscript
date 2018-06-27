@@ -220,12 +220,17 @@ learning practice, we have two phases\footnote{
   section.
 \end{itemize}
 
-\newpage
+%\newpage
 \subsection{Evaluation metrics}
 
-To evaluate the performance of our prediction model, we will use the following
-metrics\footnote[2]{\textit{tp}: true positive, \textit{fp}: false positive,
-\textit{tn}: true negative, \textit{fn}: false negative}:
+To evaluate the performance of our prediction model, we will use the
+metrics below. Note that \textit{tp}: true positive, \textit{fp}: false positive,
+\textit{tn}: true negative, and \textit{fn}: false negative.
+
+\par We will also compute for a fifth metric, the Area Under the ROC Curve
+(AUROC), to serve as proxy for accuracy. For benchmarking, we will use the AUROC,
+Hamming-Loss and F-score. Note that these metrics will exactly be the same for
+our work on mutually-competitive autoencoders in Chapter \ref{SelectiveChapter}.
 
 \begin{align}
     \text{Hamming Loss (H)} &= \dfrac{1}{N \cdot L} \sum_{i=1}^{N} \sum_{j=1}^{L}
@@ -243,10 +248,6 @@ metrics\footnote[2]{\textit{tp}: true positive, \textit{fp}: false positive,
         \text{R}}
 \end{align}
 
-\par We will also compute for a fifth metric, the Area Under the ROC Curve
-(AUROC), to serve as proxy for accuracy. For benchmarking, we will use the AUROC,
-Hamming-Loss and F-score. Note that these metrics will exactly be the same for
-our work on mutually-competitive autoencoders in Chapter \ref{SelectiveChapter}.
 
 \section{Experimental Set-up}
 \label{SDSetup}
@@ -433,6 +434,8 @@ with other works in literature.
 
 \subsubsection{Benchmark analysis}
 
+\input{./inputs/results_yeast_sdae.tex}
+\input{./inputs/results_genbase_sdae.tex}
 \par In this experiment, we will compare against various protein function
 prediction models in literature. The AUROC, F-score, and Hamming Loss will
 measure model performance for both datasets. The results can be seen in
@@ -459,11 +462,9 @@ shows that our SdAE-based model outperforms other models, especially the
 baseline. Outperforming the baseline is critical because it validates our claim
 that using feature extraction is beneficial to multilabel classification.
 
-\input{./inputs/results_yeast_sdae.tex}
-\input{./inputs/results_genbase_sdae.tex}
 \input{./inputs/results_sdae_stats.tex}
 
-\newpage
+%\newpage
 \section{Conclusion}
 \label{SDConclusions}
 
